@@ -1,0 +1,379 @@
+---
+title: 'SDK Libraries'
+description: 'Client libraries for integrating VizAPI.ai into your applications'
+---
+
+# SDK Libraries
+
+VizAPI.ai provides official SDK libraries for popular programming languages to make integration easier and more efficient. These libraries handle authentication, request formatting, error handling, and response parsing, allowing you to focus on your application logic.
+
+## Available SDKs
+
+<CardGroup cols={2}>
+  <Card
+    title="JavaScript/TypeScript"
+    icon="js"
+    href="https://github.com/vizapi-ai/vizapi-js"
+  >
+    For Node.js and browser applications
+  </Card>
+  <Card
+    title="Python"
+    icon="python"
+    href="https://github.com/vizapi-ai/vizapi-python"
+  >
+    For Python applications and data science workflows
+  </Card>
+  <Card
+    title="PHP"
+    icon="php"
+    href="https://github.com/vizapi-ai/vizapi-php"
+  >
+    For PHP web applications
+  </Card>
+  <Card
+    title="Ruby"
+    icon="gem"
+    href="https://github.com/vizapi-ai/vizapi-ruby"
+  >
+    For Ruby and Rails applications
+  </Card>
+  <Card
+    title="Java"
+    icon="java"
+    href="https://github.com/vizapi-ai/vizapi-java"
+  >
+    For Java applications and Android
+  </Card>
+  <Card
+    title="Go"
+    icon="golang"
+    href="https://github.com/vizapi-ai/vizapi-go"
+  >
+    For Go applications
+  </Card>
+</CardGroup>
+
+## JavaScript/TypeScript SDK
+
+### Installation
+
+<CodeGroup>
+
+```bash npm
+npm install @vizapi/sdk
+```
+
+```bash yarn
+yarn add @vizapi/sdk
+```
+
+</CodeGroup>
+
+### Basic Usage
+
+```javascript
+import { VizAPI } from '@vizapi/sdk';
+
+// Initialize the client
+const vizapi = new VizAPI('YOUR_API_KEY');
+
+// Extract data from an image
+async function extractFromImage() {
+  try {
+    const result = await vizapi.extract({
+      image_url: 'https://example.com/receipt.jpg',
+      extraction_type: 'receipt'
+    });
+    
+    console.log(result.data);
+  } catch (error) {
+    console.error('Extraction failed:', error);
+  }
+}
+
+extractFromImage();
+```
+
+### TypeScript Support
+
+The JavaScript SDK includes TypeScript definitions for all methods and response types:
+
+```typescript
+import { VizAPI, ExtractionResult, ExtractionOptions } from '@vizapi/sdk';
+
+const vizapi = new VizAPI('YOUR_API_KEY');
+
+const options: ExtractionOptions = {
+  confidence_threshold: 0.7,
+  include_coordinates: true
+};
+
+async function extractReceipt(): Promise<void> {
+  try {
+    const result: ExtractionResult = await vizapi.extract({
+      image_url: 'https://example.com/receipt.jpg',
+      extraction_type: 'receipt',
+      options
+    });
+    
+    // TypeScript knows the structure of result.data
+    console.log(`Merchant: ${result.data.merchant}`);
+    console.log(`Total: ${result.data.total} ${result.data.currency}`);
+    
+    // Access items with proper typing
+    result.data.items.forEach(item => {
+      console.log(`${item.description}: ${item.quantity} x ${item.unit_price} = ${item.amount}`);
+    });
+  } catch (error) {
+    console.error('Extraction failed:', error);
+  }
+}
+```
+
+## Python SDK
+
+### Installation
+
+<CodeGroup>
+
+```bash pip
+pip install vizapi
+```
+
+```bash poetry
+poetry add vizapi
+```
+
+</CodeGroup>
+
+### Basic Usage
+
+```python
+from vizapi import VizAPI
+
+# Initialize the client
+vizapi = VizAPI('YOUR_API_KEY')
+
+# Extract data from an image
+try:
+    result = vizapi.extract(
+        image_url='https://example.com/receipt.jpg',
+        extraction_type='receipt'
+    )
+    print(result.data)
+except Exception as e:
+    print(f"Extraction failed: {e}")
+```
+
+### Async Support
+
+The Python SDK also provides async support using `asyncio`:
+
+```python
+import asyncio
+from vizapi.async_client import AsyncVizAPI
+
+async def extract_data():
+    # Initialize the async client
+    vizapi = AsyncVizAPI('YOUR_API_KEY')
+    
+    # Extract data from an image
+    try:
+        result = await vizapi.extract(
+            image_url='https://example.com/receipt.jpg',
+            extraction_type='receipt'
+        )
+        print(result.data)
+    except Exception as e:
+        print(f"Extraction failed: {e}")
+    finally:
+        await vizapi.close()  # Close the client session
+
+# Run the async function
+asyncio.run(extract_data())
+```
+
+## PHP SDK
+
+### Installation
+
+```bash
+composer require vizapi/vizapi-php
+```
+
+### Basic Usage
+
+```php
+<?php
+
+require 'vendor/autoload.php';
+
+use VizAPI\Client;
+
+// Initialize the client
+$vizapi = new Client('YOUR_API_KEY');
+
+// Extract data from an image
+try {
+    $result = $vizapi->extract([
+        'image_url' => 'https://example.com/receipt.jpg',
+        'extraction_type' => 'receipt'
+    ]);
+    
+    print_r($result->data);
+} catch (Exception $e) {
+    echo 'Extraction failed: ' . $e->getMessage();
+}
+```
+
+## Ruby SDK
+
+### Installation
+
+```bash
+gem install vizapi
+```
+
+Or add to your Gemfile:
+
+```ruby
+gem 'vizapi'
+```
+
+### Basic Usage
+
+```ruby
+require 'vizapi'
+
+# Initialize the client
+vizapi = VizAPI::Client.new(api_key: 'YOUR_API_KEY')
+
+# Extract data from an image
+begin
+  result = vizapi.extract(
+    image_url: 'https://example.com/receipt.jpg',
+    extraction_type: 'receipt'
+  )
+  
+  puts result.data
+rescue VizAPI::Error => e
+  puts "Extraction failed: #{e.message}"
+end
+```
+
+## Java SDK
+
+### Installation
+
+Maven:
+
+```xml
+<dependency>
+  <groupId>ai.vizapi</groupId>
+  <artifactId>vizapi-java</artifactId>
+  <version>1.0.0</version>
+</dependency>
+```
+
+Gradle:
+
+```groovy
+implementation 'ai.vizapi:vizapi-java:1.0.0'
+```
+
+### Basic Usage
+
+```java
+import ai.vizapi.VizAPI;
+import ai.vizapi.model.ExtractionRequest;
+import ai.vizapi.model.ExtractionResult;
+import ai.vizapi.exception.VizAPIException;
+
+public class Example {
+    public static void main(String[] args) {
+        // Initialize the client
+        VizAPI vizapi = new VizAPI("YOUR_API_KEY");
+        
+        // Create extraction request
+        ExtractionRequest request = new ExtractionRequest.Builder()
+            .imageUrl("https://example.com/receipt.jpg")
+            .extractionType("receipt")
+            .build();
+        
+        try {
+            // Extract data from an image
+            ExtractionResult result = vizapi.extract(request);
+            System.out.println(result.getData());
+        } catch (VizAPIException e) {
+            System.err.println("Extraction failed: " + e.getMessage());
+        }
+    }
+}
+```
+
+## Go SDK
+
+### Installation
+
+```bash
+go get github.com/vizapi-ai/vizapi-go
+```
+
+### Basic Usage
+
+```go
+package main
+
+import (
+    "fmt"
+    "log"
+    
+    "github.com/vizapi-ai/vizapi-go"
+)
+
+func main() {
+    // Initialize the client
+    client := vizapi.NewClient("YOUR_API_KEY")
+    
+    // Extract data from an image
+    result, err := client.Extract(&vizapi.ExtractionRequest{
+        ImageURL:       "https://example.com/receipt.jpg",
+        ExtractionType: "receipt",
+    })
+    
+    if err != nil {
+        log.Fatalf("Extraction failed: %v", err)
+    }
+    
+    fmt.Printf("Merchant: %s\n", result.Data.Merchant)
+    fmt.Printf("Total: %f %s\n", result.Data.Total, result.Data.Currency)
+}
+```
+
+## SDK Features
+
+All our SDKs provide the following features:
+
+- **Authentication**: Automatic handling of API key authentication
+- **Request Building**: Helper methods for constructing valid API requests
+- **Response Parsing**: Automatic parsing of JSON responses into language-specific objects
+- **Error Handling**: Comprehensive error handling with descriptive error messages
+- **Retry Logic**: Automatic retries for transient errors with exponential backoff
+- **Logging**: Configurable logging for debugging
+- **Webhook Support**: Helper methods for working with webhooks
+- **Type Safety**: Strong typing for request and response objects (where applicable)
+
+## Community SDKs
+
+In addition to our official SDKs, there are community-maintained libraries for other languages and frameworks:
+
+- [.NET/C#](https://github.com/community/vizapi-dotnet)
+- [Swift](https://github.com/community/vizapi-swift)
+- [Rust](https://github.com/community/vizapi-rust)
+
+Please note that community SDKs are not officially supported by VizAPI.ai.
+
+## REST API
+
+If we don't provide an SDK for your preferred language, you can always use our [REST API](/api-reference/introduction) directly. The API is designed to be easy to use with any HTTP client. 

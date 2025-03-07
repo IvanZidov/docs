@@ -1,0 +1,23 @@
+<svg width="128" height="128" viewBox="-27 -27 182 182" xmlns="http://www.w3.org/2000/svg">
+  <!-- Outer Rotated Square -->
+  <rect
+    x="0"
+    y="0"
+    width="128"
+    height="128"
+    fill="#d0eddb"
+    transform="rotate(45 64 64)"
+    rx="16"
+    ry="16"
+  />
+  <!-- Inner Square -->
+  <rect
+    x="16"
+    y="16"
+    width="96"
+    height="96"
+    fill="#56d3f7"
+    rx="12"
+    ry="12"
+  />
+</svg>

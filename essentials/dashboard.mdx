@@ -1,0 +1,260 @@
+---
+title: 'Dashboard Guide'
+description: 'Learn how to use the VizAPI.ai dashboard effectively'
+---
+
+# VizAPI.ai Dashboard Guide
+
+The VizAPI.ai dashboard is your central hub for managing your account, monitoring API usage, viewing extraction history, and accessing developer resources. This guide will help you navigate the dashboard and make the most of its features.
+
+## Dashboard Overview
+
+<Frame>
+  <img src="/images/dashboard-overview.png" alt="Dashboard Overview" />
+</Frame>
+
+The dashboard provides a comprehensive view of your VizAPI.ai account, including:
+
+- **Usage Statistics**: Monitor your API usage and quota
+- **Recent Extractions**: View your most recent extraction requests
+- **API Keys**: Manage your API keys
+- **Billing Information**: View and update your subscription and payment details
+- **Team Management**: Invite and manage team members
+- **Settings**: Configure your account settings
+
+## Getting Started
+
+After signing up and logging in to VizAPI.ai, you'll be directed to the dashboard home page. Here's how to get started:
+
+<Steps>
+  <Step title="Generate an API Key">
+    Navigate to the "API Keys" section and click "Generate New API Key". Give your key a descriptive name (e.g., "Development", "Production") and select the appropriate environment.
+  </Step>
+  <Step title="Explore Documentation">
+    Access the API documentation directly from the dashboard by clicking on the "Documentation" link in the sidebar.
+  </Step>
+  <Step title="Try the Playground">
+    Use the "Extraction Playground" to test extractions with sample images before integrating the API into your application.
+  </Step>
+</Steps>
+
+## API Keys Management
+
+<Frame>
+  <img src="/images/api-keys-management.png" alt="API Keys Management" />
+</Frame>
+
+The API Keys section allows you to create, view, and manage your API keys.
+
+### Creating a New API Key
+
+1. Navigate to "API Keys" in the sidebar
+2. Click "Generate New API Key"
+3. Enter a name for your key
+4. Select the environment (Production or Sandbox)
+5. Click "Generate"
+6. Copy and securely store your API key (it will only be shown once)
+
+### Managing Existing Keys
+
+For each API key, you can:
+
+- **View Usage**: See how many requests have been made with this key
+- **Set Permissions**: Limit what operations this key can perform
+- **Regenerate**: Create a new key with the same settings (invalidates the old key)
+- **Delete**: Permanently remove the key (this action cannot be undone)
+
+<Warning>
+  Deleting or regenerating an API key will immediately invalidate the old key. Make sure to update your applications with the new key to prevent service disruption.
+</Warning>
+
+## Extraction History
+
+<Frame>
+  <img src="/images/extraction-history.png" alt="Extraction History" />
+</Frame>
+
+The Extraction History section provides a detailed log of all your API requests.
+
+### Viewing Extraction Details
+
+Click on any extraction in the history to view:
+
+- **Request Details**: The parameters sent in the request
+- **Response Data**: The structured data extracted from the image
+- **Original Image**: The image that was processed
+- **Confidence Scores**: The confidence level for each extracted field
+- **Processing Time**: How long the extraction took to complete
+
+### Filtering and Searching
+
+Use the filters to narrow down your extraction history:
+
+- **Date Range**: View extractions from a specific time period
+- **Extraction Type**: Filter by receipt, invoice, ID card, etc.
+- **Status**: Show only successful or failed extractions
+- **Search**: Find extractions by ID, content, or other attributes
+
+## Usage Analytics
+
+<Frame>
+  <img src="/images/usage-analytics.png" alt="Usage Analytics" />
+</Frame>
+
+The Usage Analytics section provides insights into your API usage patterns.
+
+### Monitoring Usage
+
+Track your API usage with detailed charts and metrics:
+
+- **Usage Over Time**: View daily, weekly, or monthly usage trends
+- **Usage by Extraction Type**: See which extraction types you use most frequently
+- **Success Rate**: Monitor the success rate of your extraction requests
+- **Average Processing Time**: Track how quickly your extractions are processed
+
+### Quota Management
+
+Keep track of your subscription quota:
+
+- **Current Usage**: See how much of your monthly quota you've used
+- **Usage Forecast**: Estimate if you'll exceed your quota based on current usage
+- **Upgrade Options**: Easily upgrade your plan if you need a higher quota
+
+## Extraction Playground
+
+<Frame>
+  <img src="/images/extraction-playground.png" alt="Extraction Playground" />
+</Frame>
+
+The Extraction Playground allows you to test the API with your own images before integrating it into your application.
+
+### Testing Extractions
+
+1. Upload an image or provide an image URL
+2. Select the extraction type (receipt, invoice, ID card, etc.)
+3. Configure any additional options
+4. Click "Extract" to process the image
+5. View the extracted data and confidence scores
+6. Export the results as JSON or copy the code snippet for your preferred language
+
+## Team Management
+
+<Frame>
+  <img src="/images/team-management.png" alt="Team Management" />
+</Frame>
+
+The Team Management section allows you to invite team members and manage their access to your VizAPI.ai account.
+
+### Adding Team Members
+
+1. Navigate to "Team" in the sidebar
+2. Click "Invite Team Member"
+3. Enter the email address of the person you want to invite
+4. Select their role (Admin, Developer, Viewer)
+5. Click "Send Invitation"
+
+### Managing Roles and Permissions
+
+VizAPI.ai offers three role types:
+
+- **Admin**: Full access to all dashboard features, including billing and team management
+- **Developer**: Access to API keys, extraction history, and the playground, but not billing or team management
+- **Viewer**: View-only access to extraction history and usage analytics
+
+## Billing and Subscription
+
+<Frame>
+  <img src="/images/billing-subscription.png" alt="Billing and Subscription" />
+</Frame>
+
+The Billing section allows you to manage your subscription plan and payment methods.
+
+### Changing Your Plan
+
+1. Navigate to "Billing" in the sidebar
+2. View your current plan and usage
+3. Click "Change Plan" to upgrade or downgrade
+4. Select your new plan
+5. Confirm the change
+
+### Managing Payment Methods
+
+1. Navigate to "Billing" in the sidebar
+2. Click "Payment Methods"
+3. Add, edit, or remove payment methods
+4. Set a default payment method
+
+### Viewing Invoices
+
+Access all your past invoices:
+
+1. Navigate to "Billing" in the sidebar
+2. Click "Invoices"
+3. View or download any invoice
+
+## Account Settings
+
+<Frame>
+  <img src="/images/account-settings.png" alt="Account Settings" />
+</Frame>
+
+The Settings section allows you to configure your account preferences.
+
+### Profile Settings
+
+Update your personal information:
+
+- **Name**: Update your display name
+- **Email**: Change your email address (requires verification)
+- **Password**: Update your password
+- **Two-Factor Authentication**: Enable or disable 2FA for enhanced security
+
+### Notification Preferences
+
+Configure how and when you receive notifications:
+
+- **Email Notifications**: Usage alerts, billing notifications, etc.
+- **Webhook Notifications**: Configure global webhooks for account events
+
+## Developer Resources
+
+<Frame>
+  <img src="/images/developer-resources.png" alt="Developer Resources" />
+</Frame>
+
+The Developer Resources section provides access to tools and documentation to help you integrate VizAPI.ai into your applications.
+
+### Available Resources
+
+- **API Documentation**: Comprehensive API reference
+- **SDK Libraries**: Links to our client libraries for various programming languages
+- **Sample Code**: Example implementations for common use cases
+- **Postman Collection**: Download a Postman collection to test the API
+- **Webhook Tester**: Test your webhook endpoints
+
+## Support and Help
+
+<Frame>
+  <img src="/images/support-help.png" alt="Support and Help" />
+</Frame>
+
+The Support section provides access to help resources and our support team.
+
+### Getting Help
+
+- **Knowledge Base**: Browse articles and tutorials
+- **FAQ**: Find answers to common questions
+- **Contact Support**: Submit a support ticket
+- **Live Chat**: Chat with our support team during business hours
+
+## Best Practices
+
+To make the most of your VizAPI.ai dashboard:
+
+1. **Regularly Monitor Usage**: Check your usage analytics to avoid unexpected quota limits
+2. **Use Descriptive API Key Names**: Name your keys based on their purpose or environment
+3. **Review Extraction History**: Analyze failed extractions to improve your implementation
+4. **Set Up Team Access**: Invite team members with appropriate roles to collaborate effectively
+5. **Enable Security Features**: Use two-factor authentication and IP restrictions for enhanced security
+
+For additional help with the dashboard, contact our support team at [support@vizapi.ai](mailto:support@vizapi.ai). 

@@ -1,33 +1,137 @@
 ---
-title: 'Introduction'
-description: 'Example section for showcasing API endpoints'
+title: 'API Reference'
+description: 'Complete reference documentation for the VizAPI.ai REST API'
 ---
 
-<Note>
-  If you're not looking to build API reference documentation, you can delete
-  this section by removing the api-reference folder.
-</Note>
+# VizAPI.ai API Reference
 
-## Welcome
+Welcome to the VizAPI.ai API reference documentation. Our API allows you to extract structured data from images, documents, and other visual content.
 
-There are two ways to build API documentation: [OpenAPI](https://mintlify.com/docs/api-playground/openapi/setup) and [MDX components](https://mintlify.com/docs/api-playground/mdx/configuration). For the starter kit, we are using the following OpenAPI specification.
+## Base URL
 
-<Card
-  title="Plant Store Endpoints"
-  icon="leaf"
-  href="https://github.com/mintlify/starter/blob/main/api-reference/openapi.json"
->
-  View the OpenAPI specification file
-</Card>
+All API requests should be made to the following base URL:
+
+```
+https://api.vizapi.ai/v1
+```
 
 ## Authentication
 
-All API endpoints are authenticated using Bearer tokens and picked up from the specification file.
+VizAPI.ai uses API keys for authentication. You can obtain your API key from the [VizAPI.ai dashboard](https://app.vizapi.ai/dashboard).
+
+All API requests must include your API key in the `x-api-key` header:
+
+```
+x-api-key: YOUR_API_KEY
+```
+
+<Warning>
+  Keep your API key secure and never expose it in client-side code or public repositories.
+</Warning>
+
+## Request Format
+
+API requests should be made using HTTPS with JSON-encoded bodies. Set the `Content-Type` header to `application/json`.
+
+## Response Format
+
+All responses are returned in JSON format. A typical successful response includes:
 
 ```json
-"security": [
-  {
-    "bearerAuth": []
+{
+  "success": true,
+  "data": {
+    // Response data specific to the endpoint
   }
-]
+}
 ```
+
+## Error Handling
+
+When an error occurs, the API returns an appropriate HTTP status code and a JSON response with error details:
+
+```json
+{
+  "success": false,
+  "error": {
+    "code": "error_code",
+    "message": "Error message description"
+  }
+}
+```
+
+Common error codes include:
+
+| Status Code | Description |
+| ----------- | ----------- |
+| 400 | Bad Request - The request was malformed or missing required parameters |
+| 401 | Unauthorized - Invalid or missing API key |
+| 404 | Not Found - The requested resource was not found |
+| 429 | Too Many Requests - You have exceeded the rate limit for API requests |
+| 500 | Internal Server Error - An unexpected error occurred on our servers |
+
+## Rate Limits
+
+VizAPI.ai implements rate limiting to ensure fair usage of the platform. The specific limits depend on your subscription plan.
+
+When you exceed the rate limit, the API returns a `429 Too Many Requests` status code with a `Retry-After` header indicating the number of seconds to wait before making another request.
+
+## Available Endpoints
+
+VizAPI.ai provides the following main endpoints:
+
+### Templates
+
+| Endpoint | Method | Description |
+| -------- | ------ | ----------- |
+| [/templates/create](/api-reference/endpoint/templates-create) | POST | Create a new template |
+| [/templates/create-batch](/api-reference/endpoint/templates-create-batch) | POST | Create multiple templates in a batch |
+| [/templates/public](/api-reference/endpoint/templates-public) | GET | Get all public templates |
+| [/templates/private/{user_id}](/api-reference/endpoint/templates-private) | GET | Get all private templates for a user |
+| [/templates/{template_id}](/api-reference/endpoint/templates-get) | GET | Get a template by ID |
+| [/templates/job/{job_id}](/api-reference/endpoint/templates-job) | GET | Get all templates for a specific job |
+| [/templates/{template_id}/images](/api-reference/endpoint/templates-images) | GET | Get all images for a template |
+| [/templates/{template_id}](/api-reference/endpoint/templates-delete) | DELETE | Delete a template |
+| [/templates/update](/api-reference/endpoint/templates-update) | PUT | Update a template |
+
+### Agents
+
+| Endpoint | Method | Description |
+| -------- | ------ | ----------- |
+| [/agents/suggest-fields](/api-reference/endpoint/agents-suggest-fields) | POST | Analyze a document and suggest fields for extraction |
+| [/agents/extract-values](/api-reference/endpoint/agents-extract-values) | POST | Extract values from a document using a template |
+
+### Users
+
+| Endpoint | Method | Description |
+| -------- | ------ | ----------- |
+| [/users/main-api-key/{user_id}](/api-reference/endpoint/users-main-api-key) | GET | Get the main API key for a user |
+| [/users/main-api-key/regenerate](/api-reference/endpoint/users-regenerate-api-key) | POST | Regenerate the main API key for a user |
+| [/users/api-keys/{user_id}](/api-reference/endpoint/users-api-keys) | GET | Get all API keys for a user |
+| [/users/api-keys](/api-reference/endpoint/users-create-api-key) | POST | Create a new API key |
+| [/users/api-keys/{api_key_id}](/api-reference/endpoint/users-delete-api-key) | DELETE | Delete an API key |
+
+### Utility Endpoints
+
+| Endpoint | Method | Description |
+| -------- | ------ | ----------- |
+| [/health](/api-reference/endpoint/health) | GET | Check the health status of the API |
+
+## SDK Libraries
+
+For easier integration, we provide official SDK libraries for several programming languages:
+
+- [JavaScript/TypeScript](https://github.com/vizapi-ai/vizapi-js)
+- [Python](https://github.com/vizapi-ai/vizapi-python)
+- [PHP](https://github.com/vizapi-ai/vizapi-php)
+- [Ruby](https://github.com/vizapi-ai/vizapi-ruby)
+- [Java](https://github.com/vizapi-ai/vizapi-java)
+- [Go](https://github.com/vizapi-ai/vizapi-go)
+
+## API Versioning
+
+The VizAPI.ai API uses versioning to ensure backward compatibility. The current version is `v1`. When we make breaking changes, we'll release a new version (e.g., `v2`) while maintaining support for previous versions.
+
+## Support
+
+If you have any questions or need assistance with the API, please contact our support team at [support@vizapi.ai](mailto:support@vizapi.ai).

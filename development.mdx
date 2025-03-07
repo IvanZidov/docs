@@ -1,107 +1,251 @@
 ---
-title: 'Development'
-description: 'Preview changes locally to update your docs'
+title: 'Development Guide'
+description: 'Integrate VizAPI.ai into your development workflow'
 ---
 
 <Info>
-  **Prerequisite**: Please install Node.js (version 19 or higher) before proceeding. <br />
-  Please upgrade to ```docs.json``` before proceeding and delete the legacy ```mint.json``` file.
+  **Prerequisites**: This guide assumes you have already created a VizAPI.ai account and obtained your API key.
 </Info>
 
-Follow these steps to install and run Mintlify on your operating system:
+## SDK Installation
 
-**Step 1**: Install Mintlify:
+VizAPI.ai provides official SDK libraries for several popular programming languages to make integration easier.
 
-<CodeGroup>
-
-  ```bash npm
-  npm i -g mintlify
-  ```
-
-```bash yarn
-yarn global add mintlify
-```
-
-</CodeGroup>
-
-**Step 2**: Navigate to the docs directory (where the `docs.json` file is located) and execute the following command:
-
-```bash
-mintlify dev
-```
-
-A local preview of your documentation will be available at `http://localhost:3000`.
-
-### Custom Ports
-
-By default, Mintlify uses port 3000. You can customize the port Mintlify runs on by using the `--port` flag. To run Mintlify on port 3333, for instance, use this command:
-
-```bash
-mintlify dev --port 3333
-```
-
-If you attempt to run Mintlify on a port that's already in use, it will use the next available port:
-
-```md
-Port 3000 is already in use. Trying 3001 instead.
-```
-
-## Mintlify Versions
-
-Please note that each CLI release is associated with a specific version of Mintlify. If your local website doesn't align with the production version, please update the CLI:
+### JavaScript/TypeScript SDK
 
 <CodeGroup>
 
 ```bash npm
-npm i -g mintlify@latest
+npm install @vizapi/sdk
 ```
 
 ```bash yarn
-yarn global upgrade mintlify
+yarn add @vizapi/sdk
 ```
 
 </CodeGroup>
 
-## Validating Links
+### Python SDK
 
-The CLI can assist with validating reference links made in your documentation. To identify any broken links, use the following command:
+<CodeGroup>
 
-```bash
-mintlify broken-links
+```bash pip
+pip install vizapi
 ```
 
-## Deployment
+```bash poetry
+poetry add vizapi
+```
 
-<Tip>
-  Unlimited editors available under the [Pro
-  Plan](https://mintlify.com/pricing) and above.
-</Tip>
+</CodeGroup>
 
-If the deployment is successful, you should see the following:
+## Basic SDK Usage
 
-<Frame>
-  <img src="/images/checks-passed.png" style={{ borderRadius: '0.5rem' }} />
-</Frame>
+Here's how to use our SDKs in your application:
 
-## Code Formatting
+### JavaScript/TypeScript
 
-We suggest using extensions on your IDE to recognize and format MDX. If you're a VSCode user, consider the [MDX VSCode extension](https://marketplace.visualstudio.com/items?itemName=unifiedjs.vscode-mdx) for syntax highlighting, and [Prettier](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode) for code formatting.
+```javascript
+import { VizAPI } from '@vizapi/sdk';
+
+// Initialize the client
+const vizapi = new VizAPI('YOUR_API_KEY');
+
+// Extract data from an image
+async function extractFromImage() {
+  try {
+    const result = await vizapi.extract({
+      image_url: 'https://example.com/sample-receipt.jpg',
+      extraction_type: 'receipt'
+    });
+    
+    console.log(result.data);
+  } catch (error) {
+    console.error('Extraction failed:', error);
+  }
+}
+
+extractFromImage();
+```
+
+### Python
+
+```python
+from vizapi import VizAPI
+
+// Initialize the client
+vizapi = VizAPI('YOUR_API_KEY')
+
+// Extract data from an image
+try:
+    result = vizapi.extract(
+        image_url='https://example.com/sample-receipt.jpg',
+        extraction_type='receipt'
+    )
+    print(result.data)
+except Exception as e:
+    print(f"Extraction failed: {e}")
+```
+
+## Local Development Environment
+
+For the best development experience, we recommend setting up a dedicated environment for working with VizAPI.ai.
+
+### Environment Variables
+
+Store your API key in environment variables to keep it secure:
+
+<CodeGroup>
+
+```bash .env
+VIZAPI_API_KEY=your_api_key_here
+```
+
+</CodeGroup>
+
+Then in your code:
+
+<CodeGroup>
+
+```javascript JavaScript
+import { VizAPI } from '@vizapi/sdk';
+import dotenv from 'dotenv';
+
+dotenv.config();
+
+const vizapi = new VizAPI(process.env.VIZAPI_API_KEY);
+```
+
+```python Python
+import os
+from vizapi import VizAPI
+from dotenv import load_dotenv
+
+load_dotenv()
+
+vizapi = VizAPI(os.getenv('VIZAPI_API_KEY'))
+```
+
+</CodeGroup>
+
+## Testing Your Integration
+
+VizAPI.ai provides a sandbox environment for testing your integration without using your production quota.
+
+<Steps>
+  <Step title="Get a Sandbox API Key">
+    In your dashboard, navigate to API Keys and generate a key with the "Sandbox" environment option.
+  </Step>
+  <Step title="Use the Sandbox Endpoint">
+    When initializing the SDK, specify the sandbox environment:
+    
+    ```javascript
+    const vizapi = new VizAPI('YOUR_SANDBOX_API_KEY', { environment: 'sandbox' });
+    ```
+    
+    ```python
+    vizapi = VizAPI('YOUR_SANDBOX_API_KEY', environment='sandbox')
+    ```
+  </Step>
+  <Step title="Test with Sample Images">
+    We provide a set of sample images for testing different extraction types:
+    
+    ```
+    https://samples.vizapi.ai/receipt.jpg
+    https://samples.vizapi.ai/invoice.jpg
+    https://samples.vizapi.ai/id_card.jpg
+    https://samples.vizapi.ai/business_card.jpg
+    ```
+  </Step>
+</Steps>
+
+## Handling Rate Limits
+
+VizAPI.ai implements rate limiting to ensure fair usage of the platform. Here's how to handle rate limits in your code:
+
+```javascript
+try {
+  const result = await vizapi.extract({
+    image_url: 'https://example.com/sample-receipt.jpg',
+    extraction_type: 'receipt'
+  });
+  
+  console.log(result.data);
+} catch (error) {
+  if (error.status === 429) {
+    // Rate limit exceeded
+    const retryAfter = error.headers.get('Retry-After');
+    console.log(`Rate limit exceeded. Retry after ${retryAfter} seconds.`);
+    
+    // Implement retry logic here
+  } else {
+    console.error('Extraction failed:', error);
+  }
+}
+```
+
+## Webhook Integration
+
+For long-running extractions, we recommend using webhooks to receive notifications when processing is complete:
+
+```javascript
+const result = await vizapi.extract({
+  image_url: 'https://example.com/large-document.pdf',
+  extraction_type: 'document',
+  webhook_url: 'https://your-app.com/api/vizapi-webhook'
+});
+
+console.log(`Extraction started with ID: ${result.extraction_id}`);
+```
+
+Then set up an endpoint in your application to receive the webhook:
+
+```javascript
+// Express.js example
+app.post('/api/vizapi-webhook', (req, res) => {
+  const { extraction_id, status, data } = req.body;
+  
+  if (status === 'completed') {
+    // Process the extracted data
+    console.log(`Extraction ${extraction_id} completed:`, data);
+  } else if (status === 'failed') {
+    // Handle the failure
+    console.error(`Extraction ${extraction_id} failed:`, data.error);
+  }
+  
+  res.status(200).send('Webhook received');
+});
+```
 
 ## Troubleshooting
 
 <AccordionGroup>
-  <Accordion title='Error: Could not load the "sharp" module using the darwin-arm64 runtime'>
-
-    This may be due to an outdated version of node. Try the following:
-    1. Remove the currently-installed version of mintlify: `npm remove -g mintlify`
-    2. Upgrade to Node v19 or higher.
-    3. Reinstall mintlify: `npm install -g mintlify`
+  <Accordion title="API Key Authentication Issues">
+    If you're receiving authentication errors, verify that:
+    - Your API key is correct and active in the dashboard
+    - You're using the correct environment (production vs. sandbox)
+    - Your API key has the necessary permissions for the operation
   </Accordion>
 
-  <Accordion title="Issue: Encountering an unknown error">
+  <Accordion title="Image Processing Failures">
+    If image extraction is failing:
+    - Ensure the image URL is publicly accessible
+    - Check that the image format is supported (JPG, PNG, PDF, TIFF)
+    - Verify the image quality is sufficient (not too blurry or low resolution)
+    - Try with a different extraction type that might be more appropriate
+  </Accordion>
   
-    Solution: Go to the root of your device and delete the \~/.mintlify folder. Afterwards, run `mintlify dev` again.
+  <Accordion title="SDK Version Compatibility">
+    Make sure you're using the latest version of our SDK:
+    
+    ```bash
+    npm update @vizapi/sdk
+    ```
+    
+    ```bash
+    pip install --upgrade vizapi
+    ```
   </Accordion>
 </AccordionGroup>
 
-Curious about what changed in the CLI version? [Check out the CLI changelog.](https://www.npmjs.com/package/mintlify?activeTab=versions)
+For additional help, contact our support team at [support@vizapi.ai](mailto:support@vizapi.ai) or visit our [community forum](https://community.vizapi.ai).
