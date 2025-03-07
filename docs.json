@@ -44,12 +44,30 @@
             ]
           },
           {
-            "group": "Endpoint Examples",
+            "group": "Templates",
             "pages": [
-              "api-reference/endpoint/get",
-              "api-reference/endpoint/create",
-              "api-reference/endpoint/delete",
-              "api-reference/endpoint/webhook"
+              "api-reference/endpoint/templates-create",
+              "api-reference/endpoint/templates-public"
+            ]
+          },
+          {
+            "group": "Agents",
+            "pages": [
+              "api-reference/endpoint/agents-suggest-fields",
+              "api-reference/endpoint/agents-extract-values",
+              "api-reference/endpoint/extract"
+            ]
+          },
+          {
+            "group": "Users",
+            "pages": [
+              "api-reference/endpoint/users-api-keys"
+            ]
+          },
+          {
+            "group": "Utility",
+            "pages": [
+              "api-reference/endpoint/health"
             ]
           }
         ]
