@@ -33,19 +33,19 @@ The `/agents/extract-values` endpoint extracts structured data from a document b
     </ParamField>
     
     <ParamField name="type" type="string">
-      The data type of the field.
+      The data type of the field. Possible values include: "string", "number", "date", "object", "boolean".
     </ParamField>
     
-    <ParamField name="fields" type="object">
-      Nested fields for complex data structures.
+    <ParamField name="subfields" type="array">
+      Nested fields for complex data structures. Each subfield follows the same structure as a top-level field.
     </ParamField>
     
     <ParamField name="return_as_list" type="boolean">
-      Whether the field should be returned as a list.
+      Whether the field should be returned as a list. Set to true for fields that contain multiple items (like line items in an invoice).
     </ParamField>
     
     <ParamField name="enum_values" type="array">
-      Possible values for enum fields.
+      Possible values for enum fields. Used when the field should only contain specific values.
     </ParamField>
   </Expandable>
 </ParamField>
@@ -73,23 +73,25 @@ The `/agents/extract-values` endpoint extracts structured data from a document b
     </ResponseField>
     
     <ResponseField name="type" type="string">
-      The data type of the field.
+      The data type of the field. Possible values include: "string", "number", "date", "object", "boolean".
     </ResponseField>
     
-    <ResponseField name="fields" type="object">
-      Nested fields for complex data structures.
+    <ResponseField name="subfields" type="array">
+      Nested fields for complex data structures. Each subfield follows the same structure as a top-level field.
     </ResponseField>
     
     <ResponseField name="return_as_list" type="boolean">
-      Whether the field is returned as a list.
+      Whether the field is returned as a list. Set to true for fields that contain multiple items (like line items in an invoice).
     </ResponseField>
     
     <ResponseField name="enum_values" type="array">
-      Possible values for enum fields.
+      Possible values for enum fields. Used when the field should only contain specific values.
     </ResponseField>
     
     <ResponseField name="value" type="any">
-      The extracted value for the field.
+      The extracted value for the field. The type of this value will match the specified field type.
+      For fields with return_as_list=true, this will be an array of values.
+      For fields of type "object" with subfields, this will be an object with keys matching the subfield names.
     </ResponseField>
   </Expandable>
 </ResponseField>
@@ -160,122 +162,187 @@ print(data)
   "extracted_template_values": [
     {
       "name": "invoice_number",
-      "description": "The invoice identifier",
+      "description": "The unique identifier for the invoice.",
       "required": true,
       "type": "string",
+      "subfields": [],
       "return_as_list": false,
       "enum_values": [],
-      "value": "INV-2023-001"
+      "value": "99DAE4C8-0008"
     },
     {
-      "name": "date",
-      "description": "The invoice date",
+      "name": "date_of_issue",
+      "description": "The date the invoice was issued.",
+      "required": true,
+      "type": "date",
+      "subfields": [],
+      "return_as_list": false,
+      "enum_values": [],
+      "value": "September 1, 2023"
+    },
+    {
+      "name": "due_date",
+      "description": "The date by which the invoice must be paid.",
+      "required": true,
+      "type": "date",
+      "subfields": [],
+      "return_as_list": false,
+      "enum_values": [],
+      "value": "September 8, 2023"
+    },
+    {
+      "name": "billing_period",
+      "description": "The period for which the services are billed.",
+      "required": false,
+      "type": "string",
+      "subfields": [],
+      "return_as_list": false,
+      "enum_values": [],
+      "value": "01/08/2023 - 31/08/2023"
+    },
+    {
+      "name": "bill_to_name",
+      "description": "The name of the person or entity being billed.",
       "required": true,
       "type": "string",
+      "subfields": [],
       "return_as_list": false,
       "enum_values": [],
-      "value": "2023-05-15"
+      "value": "Hendeer"
     },
     {
-      "name": "vendor",
-      "description": "Vendor information",
-      "required": true,
-      "type": "object",
-      "fields": {
-        "name": {
-          "name": "name",
-          "description": "Vendor name",
-          "required": true,
-          "type": "string",
-          "return_as_list": false,
-          "enum_values": [],
-          "value": "ACME Corporation"
-        },
-        "address": {
-          "name": "address",
-          "description": "Vendor address",
-          "required": false,
-          "type": "string",
-          "return_as_list": false,
-          "enum_values": [],
-          "value": "123 Main St, Anytown, USA"
-        }
-      },
+      "name": "bill_to_email",
+      "description": "The email address of the person or entity being billed.",
+      "required": false,
+      "type": "string",
+      "subfields": [],
       "return_as_list": false,
       "enum_values": [],
-      "value": {
-        "name": "ACME Corporation",
-        "address": "123 Main St, Anytown, USA"
-      }
+      "value": "hello@hendeer.com"
     },
     {
-      "name": "items",
-      "description": "Line items in the invoice",
+      "name": "total_amount_due",
+      "description": "The total amount that is due for payment.",
       "required": true,
+      "type": "number",
+      "subfields": [],
+      "return_as_list": false,
+      "enum_values": [],
+      "value": 46.8
+    },
+    {
+      "name": "line_items",
+      "description": "The list of items or services billed in the invoice.",
+      "required": false,
       "type": "object",
-      "fields": {
-        "description": {
+      "subfields": [
+        {
           "name": "description",
-          "description": "Item description",
+          "description": "Description of the item or service.",
           "required": true,
           "type": "string",
+          "subfields": [],
           "return_as_list": false,
           "enum_values": [],
           "value": null
         },
-        "quantity": {
+        {
           "name": "quantity",
-          "description": "Item quantity",
+          "description": "The quantity of the item or service.",
           "required": true,
           "type": "number",
+          "subfields": [],
           "return_as_list": false,
           "enum_values": [],
           "value": null
         },
-        "unit_price": {
+        {
           "name": "unit_price",
-          "description": "Price per unit",
+          "description": "The price per unit of the item or service.",
           "required": true,
           "type": "number",
+          "subfields": [],
           "return_as_list": false,
           "enum_values": [],
           "value": null
         },
-        "amount": {
+        {
+          "name": "tax",
+          "description": "The tax applied to the item or service.",
+          "required": false,
+          "type": "number",
+          "subfields": [],
+          "return_as_list": false,
+          "enum_values": [],
+          "value": null
+        },
+        {
           "name": "amount",
-          "description": "Total amount for the item",
+          "description": "The total amount for the line item.",
           "required": true,
           "type": "number",
+          "subfields": [],
           "return_as_list": false,
           "enum_values": [],
           "value": null
         }
-      },
+      ],
       "return_as_list": true,
       "enum_values": [],
       "value": [
-        {
-          "description": "Consulting Services",
-          "quantity": 10,
-          "unit_price": 150.00,
-          "amount": 1500.00
-        },
-        {
-          "description": "Software License",
-          "quantity": 1,
-          "unit_price": 500.00,
-          "amount": 500.00
-        }
+        [
+          {
+            "name": "description",
+            "description": "Description of the item or service.",
+            "required": true,
+            "type": "string",
+            "subfields": [],
+            "return_as_list": false,
+            "enum_values": [],
+            "value": "Hendeer - Mother's Day - Evening Standard News and Media Limited (01/08/2023-01/09/2023)"
+          },
+          {
+            "name": "quantity",
+            "description": "The quantity of the item or service.",
+            "required": true,
+            "type": "number",
+            "subfields": [],
+            "return_as_list": false,
+            "enum_values": [],
+            "value": "26"
+          },
+          {
+            "name": "unit_price",
+            "description": "The price per unit of the item or service.",
+            "required": true,
+            "type": "number",
+            "subfields": [],
+            "return_as_list": false,
+            "enum_values": [],
+            "value": "1.5"
+          },
+          {
+            "name": "tax",
+            "description": "The tax applied to the item or service.",
+            "required": false,
+            "type": "number",
+            "subfields": [],
+            "return_as_list": false,
+            "enum_values": [],
+            "value": "20"
+          },
+          {
+            "name": "amount",
+            "description": "The total amount for the line item.",
+            "required": true,
+            "type": "number",
+            "subfields": [],
+            "return_as_list": false,
+            "enum_values": [],
+            "value": "39.0"
+          }
+        ]
       ]
-    },
-    {
-      "name": "total",
-      "description": "Total invoice amount",
-      "required": true,
-      "type": "number",
-      "return_as_list": false,
-      "enum_values": [],
-      "value": 2000.00
     }
   ]
 }

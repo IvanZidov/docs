@@ -47,23 +47,23 @@ The `/agents/suggest-fields` endpoint analyzes a document and/or text descriptio
     </ResponseField>
     
     <ResponseField name="type" type="string">
-      The data type of the field.
+      The data type of the field. Possible values include: "string", "number", "date", "object", "boolean".
     </ResponseField>
     
-    <ResponseField name="fields" type="object">
-      Nested fields for complex data structures.
+    <ResponseField name="subfields" type="array">
+      Nested fields for complex data structures. Each subfield follows the same structure as a top-level field.
     </ResponseField>
     
     <ResponseField name="return_as_list" type="boolean">
-      Whether the field should be returned as a list.
+      Whether the field should be returned as a list. Set to true for fields that contain multiple items (like line items in an invoice).
     </ResponseField>
     
     <ResponseField name="enum_values" type="array">
-      Possible values for enum fields.
+      Possible values for enum fields. Used when the field should only contain specific values.
     </ResponseField>
     
     <ResponseField name="value" type="any">
-      The extracted value (null in the suggest-fields response).
+      The extracted value (null in the suggest-fields response). This field is included for consistency with the extract-values response.
     </ResponseField>
   </Expandable>
 </ResponseField>
@@ -246,6 +246,7 @@ print(data)
       "description": "The invoice identifier",
       "required": true,
       "type": "string",
+      "subfields": [],
       "return_as_list": false,
       "enum_values": [],
       "value": null
@@ -255,6 +256,7 @@ print(data)
       "description": "The invoice date",
       "required": true,
       "type": "string",
+      "subfields": [],
       "return_as_list": false,
       "enum_values": [],
       "value": null
@@ -264,26 +266,28 @@ print(data)
       "description": "Vendor information",
       "required": true,
       "type": "object",
-      "fields": {
-        "name": {
+      "subfields": [
+        {
           "name": "name",
           "description": "Vendor name",
           "required": true,
           "type": "string",
+          "subfields": [],
           "return_as_list": false,
           "enum_values": [],
           "value": null
         },
-        "address": {
+        {
           "name": "address",
           "description": "Vendor address",
           "required": false,
           "type": "string",
+          "subfields": [],
           "return_as_list": false,
           "enum_values": [],
           "value": null
         }
-      },
+      ],
       "return_as_list": false,
       "enum_values": [],
       "value": null
@@ -293,44 +297,48 @@ print(data)
       "description": "Line items in the invoice",
       "required": true,
       "type": "object",
-      "fields": {
-        "description": {
+      "subfields": [
+        {
           "name": "description",
           "description": "Item description",
           "required": true,
           "type": "string",
+          "subfields": [],
           "return_as_list": false,
           "enum_values": [],
           "value": null
         },
-        "quantity": {
+        {
           "name": "quantity",
           "description": "Item quantity",
           "required": true,
           "type": "number",
+          "subfields": [],
           "return_as_list": false,
           "enum_values": [],
           "value": null
         },
-        "unit_price": {
+        {
           "name": "unit_price",
           "description": "Price per unit",
           "required": true,
           "type": "number",
+          "subfields": [],
           "return_as_list": false,
           "enum_values": [],
           "value": null
         },
-        "amount": {
+        {
           "name": "amount",
           "description": "Total amount for the item",
           "required": true,
           "type": "number",
+          "subfields": [],
           "return_as_list": false,
           "enum_values": [],
           "value": null
         }
-      },
+      ],
       "return_as_list": true,
       "enum_values": [],
       "value": null
@@ -340,6 +348,7 @@ print(data)
       "description": "Total invoice amount",
       "required": true,
       "type": "number",
+      "subfields": [],
       "return_as_list": false,
       "enum_values": [],
       "value": null
