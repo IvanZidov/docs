@@ -84,15 +84,7 @@ VizAPI.ai provides the following main endpoints:
 
 | Endpoint | Method | Description |
 | -------- | ------ | ----------- |
-| [/templates/create](/api-reference/endpoint/templates-create) | POST | Create a new template |
-| [/templates/create-batch](/api-reference/endpoint/templates-create-batch) | POST | Create multiple templates in a batch |
-| [/templates/public](/api-reference/endpoint/templates-public) | GET | Get all public templates |
-| [/templates/private/{user_id}](/api-reference/endpoint/templates-private) | GET | Get all private templates for a user |
 | [/templates/{template_id}](/api-reference/endpoint/templates-get) | GET | Get a template by ID |
-| [/templates/job/{job_id}](/api-reference/endpoint/templates-job) | GET | Get all templates for a specific job |
-| [/templates/{template_id}/images](/api-reference/endpoint/templates-images) | GET | Get all images for a template |
-| [/templates/{template_id}](/api-reference/endpoint/templates-delete) | DELETE | Delete a template |
-| [/templates/update](/api-reference/endpoint/templates-update) | PUT | Update a template |
 
 ### Agents
 
@@ -101,32 +93,11 @@ VizAPI.ai provides the following main endpoints:
 | [/agents/suggest-fields](/api-reference/endpoint/agents-suggest-fields) | POST | Analyze a document and suggest fields for extraction |
 | [/agents/extract-values](/api-reference/endpoint/agents-extract-values) | POST | Extract values from a document using a template |
 
-### Users
-
-| Endpoint | Method | Description |
-| -------- | ------ | ----------- |
-| [/users/main-api-key/{user_id}](/api-reference/endpoint/users-main-api-key) | GET | Get the main API key for a user |
-| [/users/main-api-key/regenerate](/api-reference/endpoint/users-regenerate-api-key) | POST | Regenerate the main API key for a user |
-| [/users/api-keys/{user_id}](/api-reference/endpoint/users-api-keys) | GET | Get all API keys for a user |
-| [/users/api-keys](/api-reference/endpoint/users-create-api-key) | POST | Create a new API key |
-| [/users/api-keys/{api_key_id}](/api-reference/endpoint/users-delete-api-key) | DELETE | Delete an API key |
-
 ### Utility Endpoints
 
 | Endpoint | Method | Description |
 | -------- | ------ | ----------- |
 | [/health](/api-reference/endpoint/health) | GET | Check the health status of the API |
-
-## SDK Libraries
-
-For easier integration, we provide official SDK libraries for several programming languages:
-
-- [JavaScript/TypeScript](https://github.com/vizapi-ai/vizapi-js)
-- [Python](https://github.com/vizapi-ai/vizapi-python)
-- [PHP](https://github.com/vizapi-ai/vizapi-php)
-- [Ruby](https://github.com/vizapi-ai/vizapi-ruby)
-- [Java](https://github.com/vizapi-ai/vizapi-java)
-- [Go](https://github.com/vizapi-ai/vizapi-go)
 
 ## API Versioning
 

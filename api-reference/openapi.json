@@ -1,8 +1,8 @@
 {
   "openapi": "3.1.0",
   "info": {
-    "title": "OpenAPI Plant Store",
-    "description": "A sample API that uses a plant store as an example to demonstrate features in the OpenAPI specification",
+    "title": "VizAPI.ai API",
+    "description": "API for extracting structured data from images and documents",
     "license": {
       "name": "MIT"
     },
@@ -10,45 +10,63 @@
   },
   "servers": [
     {
-      "url": "http://sandbox.mintlify.com"
+      "url": "https://api.vizapi.ai/v1"
     }
   ],
   "security": [
     {
-      "bearerAuth": []
+      "apiKeyHeader": []
     }
   ],
   "paths": {
-    "/plants": {
+    "/templates/{template_id}": {
       "get": {
-        "description": "Returns all plants from the system that the user has access to",
+        "summary": "Get Template By Id",
+        "description": "Retrieves a template by its ID",
         "parameters": [
           {
-            "name": "limit",
-            "in": "query",
-            "description": "The maximum number of results to return",
+            "name": "template_id",
+            "in": "path",
+            "description": "ID of the template to retrieve",
+            "required": true,
             "schema": {
-              "type": "integer",
-              "format": "int32"
+              "type": "string"
             }
           }
         ],
         "responses": {
           "200": {
-            "description": "Plant response",
+            "description": "Template retrieved successfully",
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/Plant"
-                  }
+                  "$ref": "#/components/schemas/Template"
                 }
               }
             }
           },
-          "400": {
-            "description": "Unexpected error",
+          "401": {
+            "description": "Unauthorized - Invalid or missing API key",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Template not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
             "content": {
               "application/json": {
                 "schema": {
@@ -58,15 +76,18 @@
             }
           }
         }
-      },
+      }
+    },
+    "/agents/suggest-fields": {
       "post": {
-        "description": "Creates a new plant in the store",
+        "summary": "Suggest fields for a document",
+        "description": "Analyzes a document and suggests fields for extraction",
         "requestBody": {
-          "description": "Plant to add to the store",
+          "description": "Input for field suggestion",
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/NewPlant"
+                "$ref": "#/components/schemas/SuggestFieldsInput"
               }
             }
           },
@@ -74,17 +95,27 @@
         },
         "responses": {
           "200": {
-            "description": "plant response",
+            "description": "Fields suggested successfully",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Plant"
+                  "$ref": "#/components/schemas/SuggestFieldsOutput"
                 }
               }
             }
           },
-          "400": {
-            "description": "unexpected error",
+          "401": {
+            "description": "Unauthorized - Invalid or missing API key",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
             "content": {
               "application/json": {
                 "schema": {
@@ -96,28 +127,44 @@
         }
       }
     },
-    "/plants/{id}": {
-      "delete": {
-        "description": "Deletes a single plant based on the ID supplied",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "description": "ID of plant to delete",
-            "required": true,
-            "schema": {
-              "type": "integer",
-              "format": "int64"
+    "/agents/extract-values": {
+      "post": {
+        "summary": "Extract values from a document",
+        "description": "Extracts values from a document using a template",
+        "requestBody": {
+          "description": "Input for value extraction",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ExtractValuesInput"
+              }
             }
-          }
-        ],
-        "responses": {
-          "204": {
-            "description": "Plant deleted",
-            "content": {}
           },
-          "400": {
-            "description": "unexpected error",
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Values extracted successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ExtractValuesOutput"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized - Invalid or missing API key",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
             "content": {
               "application/json": {
                 "schema": {
@@ -128,25 +175,37 @@
           }
         }
       }
-    }
-  },
-  "webhooks": {
-    "/plant/webhook": {
-      "post": {
-        "description": "Information about a new plant added to the store",
-        "requestBody": {
-          "description": "Plant added to the store",
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/NewPlant"
-              }
-            }
-          }
-        },
+    },
+    "/health": {
+      "get": {
+        "summary": "Health Check",
+        "description": "Check the health status of the API",
         "responses": {
           "200": {
-            "description": "Return a 200 status to indicate that the data was received successfully"
+            "description": "API is healthy",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "healthy"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "API is unhealthy",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
           }
         }
       }
@@ -154,63 +213,235 @@
   },
   "components": {
     "schemas": {
-      "Plant": {
-        "required": [
-          "name"
-        ],
+      "Template": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "The unique identifier for the template"
+          },
+          "name": {
+            "type": "string",
+            "description": "The name of the template"
+          },
+          "description": {
+            "type": "string",
+            "description": "The description of the template"
+          },
+          "category": {
+            "type": "string",
+            "description": "The category of the template"
+          },
+          "tags": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Tags associated with the template"
+          },
+          "fields": {
+            "type": "object",
+            "additionalProperties": true,
+            "description": "Field definitions for the template"
+          },
+          "is_public": {
+            "type": "boolean",
+            "description": "Whether the template is public or private"
+          },
+          "metadata": {
+            "type": "object",
+            "additionalProperties": true,
+            "description": "Additional metadata for the template"
+          }
+        },
+        "required": ["name", "description", "category", "fields"]
+      },
+      "SuggestFieldsInput": {
+        "type": "object",
+        "properties": {
+          "image_url": {
+            "type": "string",
+            "description": "URL of the image or document to analyze"
+          },
+          "text_description": {
+            "type": "string",
+            "description": "Text description of the data to extract"
+          }
+        },
+        "anyOf": [
+          { "required": ["image_url"] },
+          { "required": ["text_description"] }
+        ]
+      },
+      "SuggestFieldsOutput": {
+        "type": "object",
+        "properties": {
+          "template_name": {
+            "type": "string",
+            "description": "Suggested name for the template"
+          },
+          "template": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/TemplateField"
+            },
+            "description": "Suggested fields for extraction"
+          }
+        },
+        "required": ["template_name", "template"]
+      },
+      "ExtractValuesInput": {
+        "type": "object",
+        "properties": {
+          "template_id": {
+            "type": "string",
+            "description": "ID of an existing template to use for extraction"
+          },
+          "template": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/TemplateField"
+            },
+            "description": "Field definitions to extract from the document"
+          },
+          "image_url": {
+            "type": "string",
+            "description": "URL of the image or document to extract data from"
+          }
+        },
+        "required": ["image_url"],
+        "anyOf": [
+          { "required": ["template_id"] },
+          { "required": ["template"] }
+        ]
+      },
+      "ExtractValuesOutput": {
+        "type": "object",
+        "properties": {
+          "extracted_template_values": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ExtractedField"
+            },
+            "description": "Fields with extracted values"
+          }
+        },
+        "required": ["extracted_template_values"]
+      },
+      "TemplateField": {
         "type": "object",
         "properties": {
           "name": {
-            "description": "The name of the plant",
-            "type": "string"
+            "type": "string",
+            "description": "The name of the field"
           },
-          "tag": {
-            "description": "Tag to specify the type",
-            "type": "string"
+          "description": {
+            "type": "string",
+            "description": "A description of the field"
+          },
+          "required": {
+            "type": "boolean",
+            "description": "Whether the field is required"
+          },
+          "type": {
+            "type": "string",
+            "description": "The data type of the field",
+            "enum": ["string", "number", "date", "object", "boolean"]
+          },
+          "subfields": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/TemplateField"
+            },
+            "description": "Nested fields for complex data structures"
+          },
+          "return_as_list": {
+            "type": "boolean",
+            "description": "Whether the field should be returned as a list"
+          },
+          "enum_values": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Possible values for enum fields"
           }
-        }
+        },
+        "required": ["name"]
       },
-      "NewPlant": {
-        "allOf": [
-          {
-            "$ref": "#/components/schemas/Plant"
+      "ExtractedField": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "The name of the field"
           },
-          {
-            "required": [
-              "id"
-            ],
+          "description": {
+            "type": "string",
+            "description": "A description of the field"
+          },
+          "required": {
+            "type": "boolean",
+            "description": "Whether the field is required"
+          },
+          "type": {
+            "type": "string",
+            "description": "The data type of the field",
+            "enum": ["string", "number", "date", "object", "boolean"]
+          },
+          "subfields": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ExtractedField"
+            },
+            "description": "Nested fields for complex data structures"
+          },
+          "return_as_list": {
+            "type": "boolean",
+            "description": "Whether the field is returned as a list"
+          },
+          "enum_values": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Possible values for enum fields"
+          },
+          "value": {
+            "description": "The extracted value for the field"
+          }
+        },
+        "required": ["name", "value"]
+      },
+      "Error": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean",
+            "example": false
+          },
+          "error": {
             "type": "object",
             "properties": {
-              "id": {
-                "description": "Identification number of the plant",
-                "type": "integer",
-                "format": "int64"
+              "code": {
+                "type": "string",
+                "example": "error_code"
+              },
+              "message": {
+                "type": "string",
+                "example": "Error message description"
               }
             }
           }
-        ]
-      },
-      "Error": {
-        "required": [
-          "error",
-          "message"
-        ],
-        "type": "object",
-        "properties": {
-          "error": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "message": {
-            "type": "string"
-          }
-        }
+        },
+        "required": ["success", "error"]
       }
     },
     "securitySchemes": {
-      "bearerAuth": {
-        "type": "http",
-        "scheme": "bearer"
+      "apiKeyHeader": {
+        "type": "apiKey",
+        "in": "header",
+        "name": "x-api-key"
       }
     }
   }

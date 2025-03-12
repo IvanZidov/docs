@@ -48,12 +48,28 @@ Let's make a simple request to extract data from an image.
 <CodeGroup>
 
 ```bash
-curl -X POST https://api.vizapi.ai/v1/extract \
-  -H "Authorization: Bearer YOUR_API_KEY" \
+curl -X POST https://api.vizapi.ai/v1/agents/extract-values \
+  -H "x-api-key: YOUR_API_KEY" \
   -H "Content-Type: application/json" \
   -d '{
     "image_url": "https://example.com/sample-receipt.jpg",
-    "extraction_type": "receipt"
+    "template": [
+      {
+        "name": "merchant",
+        "description": "The merchant name",
+        "type": "string"
+      },
+      {
+        "name": "date",
+        "description": "The receipt date",
+        "type": "date"
+      },
+      {
+        "name": "total",
+        "description": "The total amount",
+        "type": "number"
+      }
+    ]
   }'
 ```
 
@@ -67,15 +83,31 @@ curl -X POST https://api.vizapi.ai/v1/extract \
 const fetch = require('node-fetch');
 
 async function extractData() {
-  const response = await fetch('https://api.vizapi.ai/v1/extract', {
+  const response = await fetch('https://api.vizapi.ai/v1/agents/extract-values', {
     method: 'POST',
     headers: {
-      'Authorization': 'Bearer YOUR_API_KEY',
+      'x-api-key': 'YOUR_API_KEY',
       'Content-Type': 'application/json'
     },
     body: JSON.stringify({
       image_url: 'https://example.com/sample-receipt.jpg',
-      extraction_type: 'receipt'
+      template: [
+        {
+          name: 'merchant',
+          description: 'The merchant name',
+          type: 'string'
+        },
+        {
+          name: 'date',
+          description: 'The receipt date',
+          type: 'date'
+        },
+        {
+          name: 'total',
+          description: 'The total amount',
+          type: 'number'
+        }
+      ]
     })
   });
   
@@ -95,14 +127,30 @@ extractData();
 ```python
 import requests
 
-url = "https://api.vizapi.ai/v1/extract"
+url = "https://api.vizapi.ai/v1/agents/extract-values"
 headers = {
-    "Authorization": "Bearer YOUR_API_KEY",
+    "x-api-key": "YOUR_API_KEY",
     "Content-Type": "application/json"
 }
 payload = {
     "image_url": "https://example.com/sample-receipt.jpg",
-    "extraction_type": "receipt"
+    "template": [
+        {
+            "name": "merchant",
+            "description": "The merchant name",
+            "type": "string"
+        },
+        {
+            "name": "date",
+            "description": "The receipt date",
+            "type": "date"
+        },
+        {
+            "name": "total",
+            "description": "The total amount",
+            "type": "number"
+        }
+    ]
 }
 
 response = requests.post(url, headers=headers, json=payload)
@@ -118,30 +166,26 @@ VizAPI.ai returns structured JSON data based on the content of your image. Here'
 
 ```json
 {
-  "success": true,
-  "extraction_id": "ext_12345abcde",
-  "data": {
-    "merchant": "ACME Store",
-    "date": "2023-05-15",
-    "total": 42.99,
-    "currency": "USD",
-    "items": [
-      {
-        "description": "Office Supplies",
-        "quantity": 2,
-        "unit_price": 9.99,
-        "amount": 19.98
-      },
-      {
-        "description": "Printer Paper",
-        "quantity": 1,
-        "unit_price": 15.99,
-        "amount": 15.99
-      }
-    ],
-    "tax": 7.02
-  },
-  "confidence_score": 0.95
+  "extracted_template_values": [
+    {
+      "name": "merchant",
+      "description": "The merchant name",
+      "type": "string",
+      "value": "ACME Store"
+    },
+    {
+      "name": "date",
+      "description": "The receipt date",
+      "type": "date",
+      "value": "2023-05-15"
+    },
+    {
+      "name": "total",
+      "description": "The total amount",
+      "type": "number",
+      "value": 42.99
+    }
+  ]
 }
 ```
 
@@ -154,13 +198,6 @@ VizAPI.ai returns structured JSON data based on the content of your image. Here'
     href="/api-reference/introduction"
   >
     Learn about all available endpoints and options
-  </Card>
-  <Card
-    title="SDK Libraries"
-    icon="puzzle-piece"
-    href="/essentials/sdk-libraries"
-  >
-    Use our client libraries for easier integration
   </Card>
   <Card
     title="Extraction Types"

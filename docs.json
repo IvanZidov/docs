@@ -20,17 +20,6 @@
               "quickstart",
               "development"
             ]
-          },
-          {
-            "group": "Essentials",
-            "pages": [
-              "essentials/markdown",
-              "essentials/code",
-              "essentials/images",
-              "essentials/settings",
-              "essentials/navigation",
-              "essentials/reusable-snippets"
-            ]
           }
         ]
       },
@@ -46,22 +35,14 @@
           {
             "group": "Templates",
             "pages": [
-              "api-reference/endpoint/templates-create",
-              "api-reference/endpoint/templates-public"
+              "api-reference/endpoint/templates-get"
             ]
           },
           {
             "group": "Agents",
             "pages": [
               "api-reference/endpoint/agents-suggest-fields",
-              "api-reference/endpoint/agents-extract-values",
-              "api-reference/endpoint/extract"
-            ]
-          },
-          {
-            "group": "Users",
-            "pages": [
-              "api-reference/endpoint/users-api-keys"
+              "api-reference/endpoint/agents-extract-values"
             ]
           },
           {

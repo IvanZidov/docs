@@ -7,84 +7,109 @@ description: 'Integrate VizAPI.ai into your development workflow'
   **Prerequisites**: This guide assumes you have already created a VizAPI.ai account and obtained your API key.
 </Info>
 
-## SDK Installation
+## Direct API Integration
 
-VizAPI.ai provides official SDK libraries for several popular programming languages to make integration easier.
+Since VizAPI.ai provides a RESTful API, you can integrate it directly into your application using standard HTTP requests.
 
-### JavaScript/TypeScript SDK
+### Authentication
 
-<CodeGroup>
+All API requests must include your API key in the `x-api-key` header:
 
-```bash npm
-npm install @vizapi/sdk
+```
+x-api-key: YOUR_API_KEY
 ```
 
-```bash yarn
-yarn add @vizapi/sdk
-```
+### Basic API Usage
 
-</CodeGroup>
-
-### Python SDK
-
-<CodeGroup>
-
-```bash pip
-pip install vizapi
-```
-
-```bash poetry
-poetry add vizapi
-```
-
-</CodeGroup>
-
-## Basic SDK Usage
-
-Here's how to use our SDKs in your application:
+Here's how to use our API in your application:
 
 ### JavaScript/TypeScript
 
 ```javascript
-import { VizAPI } from '@vizapi/sdk';
-
-// Initialize the client
-const vizapi = new VizAPI('YOUR_API_KEY');
-
-// Extract data from an image
-async function extractFromImage() {
+// Using fetch API
+async function extractValuesFromDocument() {
   try {
-    const result = await vizapi.extract({
-      image_url: 'https://example.com/sample-receipt.jpg',
-      extraction_type: 'receipt'
+    const response = await fetch('https://api.vizapi.ai/v1/agents/extract-values', {
+      method: 'POST',
+      headers: {
+        'x-api-key': 'YOUR_API_KEY',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        image_url: 'https://example.com/sample-receipt.jpg',
+        template: [
+          {
+            name: 'merchant',
+            description: 'The merchant name',
+            type: 'string'
+          },
+          {
+            name: 'date',
+            description: 'The receipt date',
+            type: 'date'
+          },
+          {
+            name: 'total',
+            description: 'The total amount',
+            type: 'number'
+          }
+        ]
+      })
     });
     
-    console.log(result.data);
+    const result = await response.json();
+    console.log(result);
   } catch (error) {
     console.error('Extraction failed:', error);
   }
 }
 
-extractFromImage();
+extractValuesFromDocument();
 ```
 
 ### Python
 
 ```python
-from vizapi import VizAPI
+import requests
 
-// Initialize the client
-vizapi = VizAPI('YOUR_API_KEY')
+def extract_values_from_document():
+    url = 'https://api.vizapi.ai/v1/agents/extract-values'
+    headers = {
+        'x-api-key': 'YOUR_API_KEY',
+        'Content-Type': 'application/json'
+    }
+    payload = {
+        'image_url': 'https://example.com/sample-receipt.jpg',
+        'template': [
+            {
+                'name': 'merchant',
+                'description': 'The merchant name',
+                'type': 'string'
+            },
+            {
+                'name': 'date',
+                'description': 'The receipt date',
+                'type': 'date'
+            },
+            {
+                'name': 'total',
+                'description': 'The total amount',
+                'type': 'number'
+            }
+        ]
+    }
+    
+    try:
+        response = requests.post(url, headers=headers, json=payload)
+        response.raise_for_status()  # Raise an exception for HTTP errors
+        result = response.json()
+        print(result)
+        return result
+    except Exception as e:
+        print(f"Extraction failed: {e}")
+        return None
 
-// Extract data from an image
-try:
-    result = vizapi.extract(
-        image_url='https://example.com/sample-receipt.jpg',
-        extraction_type='receipt'
-    )
-    print(result.data)
-except Exception as e:
-    print(f"Extraction failed: {e}")
+extract_values_from_document()
 ```
 
 ## Local Development Environment
@@ -108,56 +133,60 @@ Then in your code:
 <CodeGroup>
 
 ```javascript JavaScript
-import { VizAPI } from '@vizapi/sdk';
 import dotenv from 'dotenv';
 
 dotenv.config();
 
-const vizapi = new VizAPI(process.env.VIZAPI_API_KEY);
+const apiKey = process.env.VIZAPI_API_KEY;
+
+async function extractValuesFromDocument() {
+  const response = await fetch('https://api.vizapi.ai/v1/agents/extract-values', {
+    method: 'POST',
+    headers: {
+      'x-api-key': apiKey,
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      image_url: 'https://example.com/sample-receipt.jpg',
+      template: [
+        {
+          name: 'merchant',
+          description: 'The merchant name',
+          type: 'string'
+        },
+        {
+          name: 'date',
+          description: 'The receipt date',
+          type: 'date'
+        },
+        {
+          name: 'total',
+          description: 'The total amount',
+          type: 'number'
+        }
+      ]
+    })
+  });
+}
 ```
 
 ```python Python
 import os
-from vizapi import VizAPI
 from dotenv import load_dotenv
 
 load_dotenv()
 
-vizapi = VizAPI(os.getenv('VIZAPI_API_KEY'))
+api_key = os.getenv('VIZAPI_API_KEY')
+
+def extract_values_from_document():
+    headers = {
+        'x-api-key': api_key,
+        'Content-Type': 'application/json'
+    }
+    # ... rest of the code
 ```
 
 </CodeGroup>
-
-## Testing Your Integration
-
-VizAPI.ai provides a sandbox environment for testing your integration without using your production quota.
-
-<Steps>
-  <Step title="Get a Sandbox API Key">
-    In your dashboard, navigate to API Keys and generate a key with the "Sandbox" environment option.
-  </Step>
-  <Step title="Use the Sandbox Endpoint">
-    When initializing the SDK, specify the sandbox environment:
-    
-    ```javascript
-    const vizapi = new VizAPI('YOUR_SANDBOX_API_KEY', { environment: 'sandbox' });
-    ```
-    
-    ```python
-    vizapi = VizAPI('YOUR_SANDBOX_API_KEY', environment='sandbox')
-    ```
-  </Step>
-  <Step title="Test with Sample Images">
-    We provide a set of sample images for testing different extraction types:
-    
-    ```
-    https://samples.vizapi.ai/receipt.jpg
-    https://samples.vizapi.ai/invoice.jpg
-    https://samples.vizapi.ai/id_card.jpg
-    https://samples.vizapi.ai/business_card.jpg
-    ```
-  </Step>
-</Steps>
 
 ## Handling Rate Limits
 
@@ -165,56 +194,34 @@ VizAPI.ai implements rate limiting to ensure fair usage of the platform. Here's 
 
 ```javascript
 try {
-  const result = await vizapi.extract({
-    image_url: 'https://example.com/sample-receipt.jpg',
-    extraction_type: 'receipt'
+  const response = await fetch('https://api.vizapi.ai/v1/agents/extract-values', {
+    method: 'POST',
+    headers: {
+      'x-api-key': 'YOUR_API_KEY',
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      image_url: 'https://example.com/sample-receipt.jpg',
+      template: [
+        // ... template fields
+      ]
+    })
   });
   
-  console.log(result.data);
-} catch (error) {
-  if (error.status === 429) {
+  if (response.status === 429) {
     // Rate limit exceeded
-    const retryAfter = error.headers.get('Retry-After');
+    const retryAfter = response.headers.get('Retry-After');
     console.log(`Rate limit exceeded. Retry after ${retryAfter} seconds.`);
     
     // Implement retry logic here
-  } else {
-    console.error('Extraction failed:', error);
+    return;
   }
+  
+  const result = await response.json();
+  console.log(result);
+} catch (error) {
+  console.error('Extraction failed:', error);
 }
-```
-
-## Webhook Integration
-
-For long-running extractions, we recommend using webhooks to receive notifications when processing is complete:
-
-```javascript
-const result = await vizapi.extract({
-  image_url: 'https://example.com/large-document.pdf',
-  extraction_type: 'document',
-  webhook_url: 'https://your-app.com/api/vizapi-webhook'
-});
-
-console.log(`Extraction started with ID: ${result.extraction_id}`);
-```
-
-Then set up an endpoint in your application to receive the webhook:
-
-```javascript
-// Express.js example
-app.post('/api/vizapi-webhook', (req, res) => {
-  const { extraction_id, status, data } = req.body;
-  
-  if (status === 'completed') {
-    // Process the extracted data
-    console.log(`Extraction ${extraction_id} completed:`, data);
-  } else if (status === 'failed') {
-    // Handle the failure
-    console.error(`Extraction ${extraction_id} failed:`, data.error);
-  }
-  
-  res.status(200).send('Webhook received');
-});
 ```
 
 ## Troubleshooting
@@ -223,7 +230,7 @@ app.post('/api/vizapi-webhook', (req, res) => {
   <Accordion title="API Key Authentication Issues">
     If you're receiving authentication errors, verify that:
     - Your API key is correct and active in the dashboard
-    - You're using the correct environment (production vs. sandbox)
+    - You're using the correct header format (`x-api-key: YOUR_API_KEY`)
     - Your API key has the necessary permissions for the operation
   </Accordion>
 
@@ -232,20 +239,16 @@ app.post('/api/vizapi-webhook', (req, res) => {
     - Ensure the image URL is publicly accessible
     - Check that the image format is supported (JPG, PNG, PDF, TIFF)
     - Verify the image quality is sufficient (not too blurry or low resolution)
-    - Try with a different extraction type that might be more appropriate
+    - Try with a simpler template with fewer fields
   </Accordion>
   
-  <Accordion title="SDK Version Compatibility">
-    Make sure you're using the latest version of our SDK:
-    
-    ```bash
-    npm update @vizapi/sdk
-    ```
-    
-    ```bash
-    pip install --upgrade vizapi
-    ```
+  <Accordion title="Request Format Issues">
+    If you're getting 400 Bad Request errors:
+    - Double-check your JSON payload structure
+    - Ensure all required fields are included
+    - Verify that field types are correctly specified
+    - Check for any typos or formatting issues in your request
   </Accordion>
 </AccordionGroup>
 
-For additional help, contact our support team at [support@vizapi.ai](mailto:support@vizapi.ai) or visit our [community forum](https://community.vizapi.ai).
+For additional help, contact our support team at [support@vizapi.ai](mailto:support@vizapi.ai).
