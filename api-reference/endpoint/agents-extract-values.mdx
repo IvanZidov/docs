@@ -12,46 +12,36 @@ The `/agents/extract-values` endpoint extracts structured data from a document b
   Your API key for authentication.
 </ParamField>
 
-<ParamField body="template_id" type="string">
-  The ID of an existing template to use for extraction. If provided, the `template` field is optional.
+<ParamField body="template_id" type="string" required>
+  The ID of an existing template to use for extraction.
 </ParamField>
 
-<ParamField body="template" type="array">
-  An array of field definitions to extract from the document. Required if `template_id` is not provided.
-  
-  <Expandable title="Template field structure">
-    <ParamField name="name" type="string" required>
-      The name of the field.
-    </ParamField>
-    
-    <ParamField name="description" type="string">
-      A description of the field.
-    </ParamField>
-    
-    <ParamField name="required" type="boolean">
-      Whether the field is required.
-    </ParamField>
-    
-    <ParamField name="type" type="string">
-      The data type of the field. Possible values include: "string", "number", "date", "object", "boolean".
-    </ParamField>
-    
-    <ParamField name="subfields" type="array">
-      Nested fields for complex data structures. Each subfield follows the same structure as a top-level field.
-    </ParamField>
-    
-    <ParamField name="return_as_list" type="boolean">
-      Whether the field should be returned as a list. Set to true for fields that contain multiple items (like line items in an invoice).
-    </ParamField>
-    
-    <ParamField name="enum_values" type="array">
-      Possible values for enum fields. Used when the field should only contain specific values.
-    </ParamField>
-  </Expandable>
+<ParamField body="version_number" type="number">
+  The version number of the template to use. If provided along with `template_id`, access will be verified.
 </ParamField>
 
 <ParamField body="image_url" type="string" required>
   The URL of the image or document to extract data from. The URL must be publicly accessible.
+  
+  Alternatively, you can provide a base64-encoded image using the data URL format:
+  ```
+  data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAMC...
+  ```
+  See our [Base64 Encoding Guide](/api-reference/templates/base64-encoding) for code snippets in various programming languages.
+</ParamField>
+
+<ParamField body="advanced" type="object">
+  Advanced options for extraction.
+  
+  <Expandable title="Advanced options structure">
+    <ParamField name="model_name" type="string">
+      Optional model name to use for extraction. If not provided, the default model will be used.
+    </ParamField>
+    
+    <ParamField name="target_language" type="string">
+      Optional target language for the extraction results. If provided, values will be extracted in this language.
+    </ParamField>
+  </Expandable>
 </ParamField>
 
 ## Response
@@ -73,7 +63,7 @@ The `/agents/extract-values` endpoint extracts structured data from a document b
     </ResponseField>
     
     <ResponseField name="type" type="string">
-      The data type of the field. Possible values include: "string", "number", "date", "object", "boolean".
+      The data type of the field. Possible values include: "string", "number", "date", "object", "boolean", "enum".
     </ResponseField>
     
     <ResponseField name="subfields" type="array">
@@ -98,7 +88,7 @@ The `/agents/extract-values` endpoint extracts structured data from a document b
 
 ## Examples
 
-### Example Request
+### Example Request with Image URL
 
 <CodeGroup>
 
@@ -108,7 +98,12 @@ curl -X POST https://api.vizapi.ai/v1/agents/extract-values \
   -H "Content-Type: application/json" \
   -d '{
     "template_id": "template_12345",
-    "image_url": "https://example.com/invoice.jpg"
+    "version_number": 1,
+    "image_url": "https://example.com/invoice.jpg",
+    "advanced": {
+      "model_name": "openai/gpt-4o",
+      "target_language": "Spanish"
+    }
   }'
 ```
 
@@ -124,7 +119,12 @@ async function extractValues() {
     },
     body: JSON.stringify({
       template_id: 'template_12345',
-      image_url: 'https://example.com/invoice.jpg'
+      version_number: 1,
+      image_url: 'https://example.com/invoice.jpg',
+      advanced: {
+        model_name: 'openai/gpt-4o',
+        target_language': 'Spanish'
+      }
     })
   });
   
@@ -145,7 +145,12 @@ headers = {
 }
 payload = {
     "template_id": "template_12345",
-    "image_url": "https://example.com/invoice.jpg"
+    "version_number": 1,
+    "image_url": "https://example.com/invoice.jpg",
+    "advanced": {
+        "model_name": "openai/gpt-4o",
+        "target_language": "Spanish"
+    }
 }
 
 response = requests.post(url, headers=headers, json=payload)
@@ -154,6 +159,46 @@ print(data)
 ```
 
 </CodeGroup>
+
+### Example Request with Base64 Encoded Image
+
+```javascript
+const fetch = require('node-fetch');
+const fs = require('fs');
+
+// Read and encode the image
+const imagePath = 'path/to/your/image.jpg';
+const imageBuffer = fs.readFileSync(imagePath);
+const base64Image = imageBuffer.toString('base64');
+
+// Create a data URL
+const dataUrl = `data:image/jpeg;base64,${base64Image}`;
+
+// Call the API
+async function extractValues() {
+  const response = await fetch('https://api.vizapi.ai/v1/agents/extract-values', {
+    method: 'POST',
+    headers: {
+      'x-api-key': 'YOUR_API_KEY',
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      template_id: 'template_12345',
+      version_number: 1,
+      image_url: dataUrl,
+      advanced: {
+        model_name: 'openai/gpt-4o',
+        target_language: 'Spanish'
+      }
+    })
+  });
+  
+  const data = await response.json();
+  console.log(data);
+}
+
+extractValues();
+```
 
 ### Example Response
 
@@ -178,7 +223,7 @@ print(data)
       "subfields": [],
       "return_as_list": false,
       "enum_values": [],
-      "value": "September 1, 2023"
+      "value": "1 de septiembre de 2023"
     },
     {
       "name": "due_date",
@@ -188,7 +233,7 @@ print(data)
       "subfields": [],
       "return_as_list": false,
       "enum_values": [],
-      "value": "September 8, 2023"
+      "value": "8 de septiembre de 2023"
     },
     {
       "name": "billing_period",
@@ -289,60 +334,7 @@ print(data)
       ],
       "return_as_list": true,
       "enum_values": [],
-      "value": [
-        [
-          {
-            "name": "description",
-            "description": "Description of the item or service.",
-            "required": true,
-            "type": "string",
-            "subfields": [],
-            "return_as_list": false,
-            "enum_values": [],
-            "value": "Hendeer - Mother's Day - Evening Standard News and Media Limited (01/08/2023-01/09/2023)"
-          },
-          {
-            "name": "quantity",
-            "description": "The quantity of the item or service.",
-            "required": true,
-            "type": "number",
-            "subfields": [],
-            "return_as_list": false,
-            "enum_values": [],
-            "value": "26"
-          },
-          {
-            "name": "unit_price",
-            "description": "The price per unit of the item or service.",
-            "required": true,
-            "type": "number",
-            "subfields": [],
-            "return_as_list": false,
-            "enum_values": [],
-            "value": "1.5"
-          },
-          {
-            "name": "tax",
-            "description": "The tax applied to the item or service.",
-            "required": false,
-            "type": "number",
-            "subfields": [],
-            "return_as_list": false,
-            "enum_values": [],
-            "value": "20"
-          },
-          {
-            "name": "amount",
-            "description": "The total amount for the line item.",
-            "required": true,
-            "type": "number",
-            "subfields": [],
-            "return_as_list": false,
-            "enum_values": [],
-            "value": "39.0"
-          }
-        ]
-      ]
+      "value": []
     }
   ]
 }

@@ -1,0 +1,393 @@
+---
+title: 'Base64 Encoding Snippets'
+description: 'Code snippets for generating base64 encoded image data in different programming languages'
+---
+
+# Base64 Encoding Snippets
+
+This page provides code snippets for encoding images to base64 in various programming languages. 
+These snippets are useful for sending image data directly in API requests instead of using image URLs.
+
+## JavaScript
+
+```javascript
+// Using Node.js built-in modules
+const fs = require('fs');
+
+function encodeImageToBase64(imagePath) {
+  try {
+    // Read the image file
+    const imageBuffer = fs.readFileSync(imagePath);
+    
+    // Convert the buffer to base64
+    const base64Image = imageBuffer.toString('base64');
+    
+    // Return the base64 string
+    return base64Image;
+  } catch (error) {
+    console.error('Error encoding image to base64:', error);
+    throw error;
+  }
+}
+
+// Usage example
+const imagePath = 'path/to/your/image.jpg';
+const base64String = encodeImageToBase64(imagePath);
+console.log(base64String);
+
+// To use with APIs, format as a data URL
+const dataUrl = `data:image/jpeg;base64,${base64String}`;
+```
+
+### JavaScript (Browser)
+
+```javascript
+function encodeImageToBase64(imageFile) {
+  return new Promise((resolve, reject) => {
+    const fileReader = new FileReader();
+    
+    fileReader.onload = () => {
+      // The result attribute contains the data as a data URL representing the file's data as a base64 encoded string
+      // Format: data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAMC...
+      const base64String = fileReader.result.split(',')[1]; // Extract just the base64 part
+      resolve(base64String);
+    };
+    
+    fileReader.onerror = () => {
+      reject(new Error('Error reading file'));
+    };
+    
+    fileReader.readAsDataURL(imageFile);
+  });
+}
+
+// Usage example with a file input element
+document.getElementById('fileInput').addEventListener('change', async (event) => {
+  const file = event.target.files[0];
+  try {
+    const base64String = await encodeImageToBase64(file);
+    console.log(base64String);
+  } catch (error) {
+    console.error('Error:', error);
+  }
+});
+```
+
+## Python
+
+```python
+import base64
+
+def encode_image_to_base64(image_path):
+    """
+    Encode an image file to base64 string
+    
+    Args:
+        image_path (str): Path to the image file
+        
+    Returns:
+        str: Base64 encoded string of the image
+    """
+    try:
+        with open(image_path, "rb") as image_file:
+            # Read binary data and encode to base64
+            encoded_string = base64.b64encode(image_file.read())
+            # Convert bytes to string
+            return encoded_string.decode('utf-8')
+    except Exception as e:
+        print(f"Error encoding image to base64: {e}")
+        raise
+
+# Usage example
+image_path = "path/to/your/image.jpg"
+base64_string = encode_image_to_base64(image_path)
+print(base64_string)
+
+# To use with APIs, format as a data URL
+data_url = f"data:image/jpeg;base64,{base64_string}"
+```
+
+## PHP
+
+```php
+<?php
+/**
+ * Encode an image file to base64
+ *
+ * @param string $image_path Path to the image file
+ * @return string Base64 encoded string
+ */
+function encode_image_to_base64($image_path) {
+    try {
+        // Read the image file
+        $image_data = file_get_contents($image_path);
+        
+        // Encode to base64
+        $base64_string = base64_encode($image_data);
+        
+        return $base64_string;
+    } catch (Exception $e) {
+        echo "Error encoding image to base64: " . $e->getMessage();
+        throw $e;
+    }
+}
+
+// Usage example
+$image_path = "path/to/your/image.jpg";
+$base64_string = encode_image_to_base64($image_path);
+echo $base64_string;
+
+// To use with APIs, format as a data URL
+$data_url = "data:image/jpeg;base64," . $base64_string;
+?>
+```
+
+## Java
+
+```java
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.util.Base64;
+
+public class Base64ImageEncoder {
+    
+    /**
+     * Encode an image file to base64
+     * 
+     * @param imagePath Path to the image file
+     * @return Base64 encoded string
+     * @throws IOException If an I/O error occurs
+     */
+    public static String encodeImageToBase64(String imagePath) throws IOException {
+        try {
+            // Read the image file
+            File file = new File(imagePath);
+            byte[] imageBytes = Files.readAllBytes(file.toPath());
+            
+            // Encode to base64
+            String base64String = Base64.getEncoder().encodeToString(imageBytes);
+            
+            return base64String;
+        } catch (IOException e) {
+            System.err.println("Error encoding image to base64: " + e.getMessage());
+            throw e;
+        }
+    }
+    
+    public static void main(String[] args) {
+        try {
+            String imagePath = "path/to/your/image.jpg";
+            String base64String = encodeImageToBase64(imagePath);
+            System.out.println(base64String);
+            
+            // To use with APIs, format as a data URL
+            String dataUrl = "data:image/jpeg;base64," + base64String;
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+## C#
+
+```csharp
+using System;
+using System.IO;
+
+class Base64ImageEncoder
+{
+    /// <summary>
+    /// Encode an image file to base64
+    /// </summary>
+    /// <param name="imagePath">Path to the image file</param>
+    /// <returns>Base64 encoded string</returns>
+    public static string EncodeImageToBase64(string imagePath)
+    {
+        try
+        {
+            // Read the image file
+            byte[] imageBytes = File.ReadAllBytes(imagePath);
+            
+            // Encode to base64
+            string base64String = Convert.ToBase64String(imageBytes);
+            
+            return base64String;
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error encoding image to base64: {ex.Message}");
+            throw;
+        }
+    }
+    
+    static void Main(string[] args)
+    {
+        try
+        {
+            string imagePath = "path/to/your/image.jpg";
+            string base64String = EncodeImageToBase64(imagePath);
+            Console.WriteLine(base64String);
+            
+            // To use with APIs, format as a data URL
+            string dataUrl = $"data:image/jpeg;base64,{base64String}";
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex.Message);
+        }
+    }
+}
+```
+
+## Ruby
+
+```ruby
+require 'base64'
+
+# Encode an image file to base64
+#
+# @param image_path [String] Path to the image file
+# @return [String] Base64 encoded string
+def encode_image_to_base64(image_path)
+  begin
+    # Read the image file
+    image_data = File.binread(image_path)
+    
+    # Encode to base64
+    base64_string = Base64.strict_encode64(image_data)
+    
+    return base64_string
+  rescue => e
+    puts "Error encoding image to base64: #{e.message}"
+    raise e
+  end
+end
+
+# Usage example
+image_path = "path/to/your/image.jpg"
+base64_string = encode_image_to_base64(image_path)
+puts base64_string
+
+# To use with APIs, format as a data URL
+data_url = "data:image/jpeg;base64,#{base64_string}"
+```
+
+## Go
+
+```go
+package main
+
+import (
+	"encoding/base64"
+	"fmt"
+	"io/ioutil"
+	"os"
+)
+
+// EncodeImageToBase64 encodes an image file to base64
+func EncodeImageToBase64(imagePath string) (string, error) {
+	// Read the image file
+	imageBytes, err := ioutil.ReadFile(imagePath)
+	if err != nil {
+		fmt.Println("Error reading image file:", err)
+		return "", err
+	}
+	
+	// Encode to base64
+	base64String := base64.StdEncoding.EncodeToString(imageBytes)
+	
+	return base64String, nil
+}
+
+func main() {
+	imagePath := "path/to/your/image.jpg"
+	base64String, err := EncodeImageToBase64(imagePath)
+	if err != nil {
+		fmt.Println("Error:", err)
+		os.Exit(1)
+	}
+	
+	fmt.Println(base64String)
+	
+	// To use with APIs, format as a data URL
+	dataURL := fmt.Sprintf("data:image/jpeg;base64,%s", base64String)
+	_ = dataURL // Use as needed
+}
+```
+
+## Swift
+
+```swift
+import Foundation
+
+func encodeImageToBase64(imagePath: String) -> String? {
+    do {
+        // Read the image file
+        let imageData = try Data(contentsOf: URL(fileURLWithPath: imagePath))
+        
+        // Encode to base64
+        let base64String = imageData.base64EncodedString()
+        
+        return base64String
+    } catch {
+        print("Error encoding image to base64: \(error)")
+        return nil
+    }
+}
+
+// Usage example
+if let base64String = encodeImageToBase64(imagePath: "path/to/your/image.jpg") {
+    print(base64String)
+    
+    // To use with APIs, format as a data URL
+    let dataUrl = "data:image/jpeg;base64,\(base64String)"
+} else {
+    print("Failed to encode image")
+}
+```
+
+## Using Base64 Encoded Images with VizAPI
+
+When using base64 encoded images with VizAPI, you'll need to convert the base64 string to a format that our API can accept.
+
+### Example with the Extract Values Endpoint
+
+```javascript
+const fetch = require('node-fetch');
+const fs = require('fs');
+
+// Read and encode the image
+const imagePath = 'path/to/your/image.jpg';
+const imageBuffer = fs.readFileSync(imagePath);
+const base64Image = imageBuffer.toString('base64');
+
+// Create a data URL
+const dataUrl = `data:image/jpeg;base64,${base64Image}`;
+
+// Call the API
+async function extractValues() {
+  const response = await fetch('https://api.vizapi.ai/v1/agents/extract-values', {
+    method: 'POST',
+    headers: {
+      'x-api-key': 'YOUR_API_KEY',
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      template_id: 'template_12345',
+      version_number: 1,
+      image_url: dataUrl,
+      advanced: {
+        model_name: 'openai/gpt-4o',
+        target_language: 'English'
+      }
+    })
+  });
+  
+  const data = await response.json();
+  console.log(data);
+}
+
+extractValues();
+``` 

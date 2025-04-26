@@ -33,6 +33,20 @@ x-api-key: YOUR_API_KEY
 
 API requests should be made using HTTPS with JSON-encoded bodies. Set the `Content-Type` header to `application/json`.
 
+## Image Input
+
+VizAPI accepts images in two formats:
+
+1. **Image URL**: Provide a publicly accessible URL to your image.
+2. **Base64 Encoded Image**: Send the image data directly in your request as a base64-encoded data URL.
+
+For base64 encoding, use the format:
+```
+data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAA...
+```
+
+For code snippets on how to generate base64-encoded images in various programming languages, see our [Base64 Encoding Guide](/api-reference/templates/base64-encoding).
+
 ## Response Format
 
 All responses are returned in JSON format. A typical successful response includes:

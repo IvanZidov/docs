@@ -327,23 +327,30 @@
             "type": "string",
             "description": "ID of an existing template to use for extraction"
           },
-          "template": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/TemplateField"
-            },
-            "description": "Field definitions to extract from the document"
+          "version_number": {
+            "type": "integer",
+            "description": "Version number of the template to use"
           },
           "image_url": {
             "type": "string",
-            "description": "URL of the image or document to extract data from"
+            "description": "URL of the image or document to extract data from. Can also be a base64-encoded image data URL (format: data:image/jpeg;base64,...)"
+          },
+          "advanced": {
+            "type": "object",
+            "properties": {
+              "model_name": {
+                "type": "string",
+                "description": "Optional model name to use for extraction"
+              },
+              "target_language": {
+                "type": "string",
+                "description": "Optional target language for the extraction results"
+              }
+            },
+            "description": "Advanced options for extraction"
           }
         },
-        "required": ["image_url"],
-        "anyOf": [
-          { "required": ["template_id"] },
-          { "required": ["template"] }
-        ]
+        "required": ["template_id", "image_url"]
       },
       "ExtractValuesOutput": {
         "type": "object",
@@ -376,7 +383,7 @@
           "type": {
             "type": "string",
             "description": "The data type of the field",
-            "enum": ["string", "number", "date", "object", "boolean"]
+            "enum": ["string", "number", "date", "object", "boolean", "enum"]
           },
           "subfields": {
             "type": "array",
@@ -417,7 +424,7 @@
           "type": {
             "type": "string",
             "description": "The data type of the field",
-            "enum": ["string", "number", "date", "object", "boolean"]
+            "enum": ["string", "number", "date", "object", "boolean", "enum"]
           },
           "subfields": {
             "type": "array",
