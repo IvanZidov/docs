@@ -16,6 +16,10 @@ The `/templates/{template_id}` endpoint retrieves a template by its unique ident
   The unique identifier of the template to retrieve.
 </ParamField>
 
+<ParamField query="version" type="integer">
+  Optional specific version of the template to retrieve. If not specified, the latest version will be returned.
+</ParamField>
+
 ## Response
 
 <ResponseField name="id" type="string">
@@ -61,6 +65,11 @@ curl -X GET https://api.vizapi.ai/v1/templates/template_12345 \
   -H "x-api-key: YOUR_API_KEY"
 ```
 
+```bash cURL (with version)
+curl -X GET https://api.vizapi.ai/v1/templates/template_12345?version=2 \
+  -H "x-api-key: YOUR_API_KEY"
+```
+
 ```javascript Node.js
 const fetch = require('node-fetch');
 
@@ -79,6 +88,24 @@ async function getTemplate() {
 getTemplate();
 ```
 
+```javascript Node.js (with version)
+const fetch = require('node-fetch');
+
+async function getTemplateVersion() {
+  const response = await fetch('https://api.vizapi.ai/v1/templates/template_12345?version=2', {
+    method: 'GET',
+    headers: {
+      'x-api-key': 'YOUR_API_KEY'
+    }
+  });
+  
+  const data = await response.json();
+  console.log(data);
+}
+
+getTemplateVersion();
+```
+
 ```python Python
 import requests
 
@@ -88,6 +115,22 @@ headers = {
 }
 
 response = requests.get(url, headers=headers)
+data = response.json()
+print(data)
+```
+
+```python Python (with version)
+import requests
+
+url = "https://api.vizapi.ai/v1/templates/template_12345"
+params = {
+    "version": 2
+}
+headers = {
+    "x-api-key": "YOUR_API_KEY"
+}
+
+response = requests.get(url, params=params, headers=headers)
 data = response.json()
 print(data)
 ```

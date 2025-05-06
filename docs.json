@@ -35,7 +35,8 @@
           {
             "group": "Templates",
             "pages": [
-              "api-reference/endpoint/templates-get"
+              "api-reference/endpoint/templates-get",
+              "api-reference/endpoint/templates-list"
             ]
           },
           {
