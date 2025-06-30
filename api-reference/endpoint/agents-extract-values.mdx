@@ -12,12 +12,12 @@ The `/agents/extract-values` endpoint extracts structured data from a document b
   Your API key for authentication.
 </ParamField>
 
-<ParamField body="template_id" type="string" required>
-  The ID of an existing template to use for extraction.
+<ParamField body="template_id" type="string">
+  The ID of an existing template to use for extraction. Required for template-based extraction.
 </ParamField>
 
 <ParamField body="version_number" type="number">
-  The version number of the template to use. If provided along with `template_id`, access will be verified.
+  Optional version number of the template to use. If not provided or set to 0, the latest version will be used. If provided along with `template_id`, access will be verified.
 </ParamField>
 
 <ParamField body="image_url" type="string" required>
@@ -37,10 +37,6 @@ The `/agents/extract-values` endpoint extracts structured data from a document b
   Advanced options for extraction.
   
   <Expandable title="Advanced options structure">
-    <ParamField name="model_name" type="string">
-      Optional model name to use for extraction. If not provided, the default model will be used.
-    </ParamField>
-    
     <ParamField name="target_language" type="string">
       Optional target language for the extraction results. If provided, values will be extracted in this language.
     </ParamField>
@@ -85,6 +81,11 @@ The `/agents/extract-values` endpoint extracts structured data from a document b
       The extracted value for the field. The type of this value will match the specified field type.
       For fields with return_as_list=true, this will be an array of values.
       For fields of type "object" with subfields, this will be an object with keys matching the subfield names.
+      For image fields, this will be the URL of the generated image.
+    </ResponseField>
+    
+    <ResponseField name="error" type="string">
+      Error message if field processing failed (especially relevant for image generation). This field is only present when there was an error processing the specific field.
     </ResponseField>
   </Expandable>
 </ResponseField>
@@ -95,7 +96,20 @@ The `/agents/extract-values` endpoint extracts structured data from a document b
 
 <CodeGroup>
 
-```bash cURL
+```bash cURL (Latest Version)
+curl -X POST https://api.vizapi.ai/v1/agents/extract-values \
+  -H "x-api-key: YOUR_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "template_id": "template_12345",
+    "image_url": "https://example.com/invoice.jpg",
+    "advanced": {
+      "target_language": "Spanish"
+    }
+  }'
+```
+
+```bash cURL (Specific Version)
 curl -X POST https://api.vizapi.ai/v1/agents/extract-values \
   -H "x-api-key: YOUR_API_KEY" \
   -H "Content-Type: application/json" \
@@ -104,16 +118,41 @@ curl -X POST https://api.vizapi.ai/v1/agents/extract-values \
     "version_number": 1,
     "image_url": "https://example.com/invoice.jpg",
     "advanced": {
-      "model_name": "openai/gpt-4o",
       "target_language": "Spanish"
     }
   }'
 ```
 
-```javascript Node.js
+```javascript Node.js (Latest Version)
 const fetch = require('node-fetch');
 
-async function extractValues() {
+async function extractValuesLatest() {
+  const response = await fetch('https://api.vizapi.ai/v1/agents/extract-values', {
+    method: 'POST',
+    headers: {
+      'x-api-key': 'YOUR_API_KEY',
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      template_id: 'template_12345',
+      image_url: 'https://example.com/invoice.jpg',
+      advanced: {
+        target_language: 'Spanish'
+      }
+    })
+  });
+  
+  const data = await response.json();
+  console.log(data);
+}
+
+extractValuesLatest();
+```
+
+```javascript Node.js (Specific Version)
+const fetch = require('node-fetch');
+
+async function extractValuesSpecific() {
   const response = await fetch('https://api.vizapi.ai/v1/agents/extract-values', {
     method: 'POST',
     headers: {
@@ -125,8 +164,7 @@ async function extractValues() {
       version_number: 1,
       image_url: 'https://example.com/invoice.jpg',
       advanced: {
-        model_name: 'openai/gpt-4o',
-        target_language': 'Spanish'
+        target_language: 'Spanish'
       }
     })
   });
@@ -135,10 +173,31 @@ async function extractValues() {
   console.log(data);
 }
 
-extractValues();
+extractValuesSpecific();
 ```
 
-```python Python
+```python Python (Latest Version)
+import requests
+
+url = "https://api.vizapi.ai/v1/agents/extract-values"
+headers = {
+    "x-api-key": "YOUR_API_KEY",
+    "Content-Type": "application/json"
+}
+payload = {
+    "template_id": "template_12345",
+    "image_url": "https://example.com/invoice.jpg",
+    "advanced": {
+        "target_language": "Spanish"
+    }
+}
+
+response = requests.post(url, headers=headers, json=payload)
+data = response.json()
+print(data)
+```
+
+```python Python (Specific Version)
 import requests
 
 url = "https://api.vizapi.ai/v1/agents/extract-values"
@@ -151,7 +210,6 @@ payload = {
     "version_number": 1,
     "image_url": "https://example.com/invoice.jpg",
     "advanced": {
-        "model_name": "openai/gpt-4o",
         "target_language": "Spanish"
     }
 }
@@ -187,10 +245,9 @@ async function extractValues() {
     },
     body: JSON.stringify({
       template_id: 'template_12345',
-      version_number: 1,
+      // version_number: 1,  // Optional - omit to use latest version
       image_url: dataUrl,
       advanced: {
-        model_name: 'openai/gpt-4o',
         target_language: 'Spanish'
       }
     })
@@ -338,6 +395,17 @@ extractValues();
       "return_as_list": true,
       "enum_values": [],
       "value": []
+    },
+    {
+      "name": "company_logo",
+      "description": "Generated company logo based on invoice data",
+      "required": false,
+      "type": "image",
+      "subfields": [],
+      "return_as_list": false,
+      "enum_values": [],
+      "value": null,
+      "error": "Unable to generate company logo: insufficient context provided in the document"
     }
   ]
 }
@@ -351,5 +419,5 @@ extractValues();
 | 401 | Unauthorized - Invalid or missing API key |
 | 402 | Payment Required - Insufficient credits to perform the extraction |
 | 403 | Forbidden - Access denied to the specified template |
-| 404 | Not Found - The specified template_id was not found |
+| 404 | Not Found - The specified template_id was not found, or the specified version_number does not exist |
 | 500 | Internal Server Error - An unexpected error occurred on our servers | 

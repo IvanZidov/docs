@@ -42,16 +42,28 @@ The `/templates/{template_id}` endpoint retrieves a template by its unique ident
   The tags associated with the template.
 </ResponseField>
 
-<ResponseField name="fields" type="object">
-  The field definitions for the template.
+<ResponseField name="usage_count" type="integer">
+  The number of times this template has been used.
+</ResponseField>
+
+<ResponseField name="fields" type="array">
+  The field definitions for the template. Each field follows the same structure as described in the suggest-fields response.
 </ResponseField>
 
 <ResponseField name="is_public" type="boolean">
   Whether the template is public or private.
 </ResponseField>
 
-<ResponseField name="metadata" type="object">
-  Additional metadata for the template.
+<ResponseField name="user_id" type="string">
+  The ID of the user who owns this template (for private templates).
+</ResponseField>
+
+<ResponseField name="created_at" type="string">
+  When the template was created (ISO 8601 format).
+</ResponseField>
+
+<ResponseField name="updated_at" type="string">
+  When the template was last updated (ISO 8601 format).
 </ResponseField>
 
 ## Examples
@@ -146,24 +158,40 @@ print(data)
   "description": "Template for extracting data from invoices",
   "category": "invoice",
   "tags": ["finance", "accounting"],
-  "fields": {
-    "invoice_number": {
+  "usage_count": 25,
+  "fields": [
+    {
+      "name": "invoice_number",
       "type": "string",
-      "description": "The invoice identifier"
+      "description": "The invoice identifier",
+      "required": true,
+      "return_as_list": false,
+      "subfields": [],
+      "enum_values": []
     },
-    "date": {
-      "type": "string",
-      "description": "The invoice date"
+    {
+      "name": "date",
+      "type": "date",
+      "description": "The invoice date",
+      "required": true,
+      "return_as_list": false,
+      "subfields": [],
+      "enum_values": []
     },
-    "total": {
+    {
+      "name": "total",
       "type": "number",
-      "description": "The total amount"
+      "description": "The total amount",
+      "required": true,
+      "return_as_list": false,
+      "subfields": [],
+      "enum_values": []
     }
-  },
+  ],
   "is_public": false,
-  "metadata": {
-    "version": "1.0"
-  }
+  "user_id": "user_67890",
+  "created_at": "2024-01-15T10:30:00Z",
+  "updated_at": "2024-01-20T14:45:00Z"
 }
 ```
 

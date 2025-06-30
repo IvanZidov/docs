@@ -65,6 +65,36 @@ VizAPI supports the following image formats:
 - **Maximum dimensions**: 2048x2048 pixels (larger images will be automatically resized)
 - Images must be publicly accessible if using URLs
 
+### Supported Field Types
+
+VizAPI supports the following field types for data extraction:
+
+- **string** - Text values
+- **number** - Numeric values (integers and decimals)
+- **boolean** - True/false values
+- **date** - Date values (extracted in various formats)
+- **enum** - Predefined list of possible values
+- **object** - Complex nested structures with subfields
+- **image** - AI-generated images based on extracted data and context
+
+### Advanced Features
+
+#### Template Metadata Generation
+When using the suggest-fields endpoint, you can request automatic generation of template metadata including title, description, category, and tags by setting `with_metadata: true`.
+
+#### Multi-language Support
+Extraction results can be translated to a target language by providing the `target_language` parameter in the advanced options.
+
+#### Template Versioning
+Templates support versioning to allow for iterative improvements while maintaining backward compatibility. When working with templates:
+- If no `version_number` is specified, the latest version is automatically used
+- Setting `version_number` to `0` also selects the latest version
+- Specifying a specific version number (e.g., `1`, `2`, `3`) will use that exact version
+- If a requested version doesn't exist, a 404 error will be returned
+
+#### Image Field Generation
+VizAPI supports generating images as part of data extraction. Image fields can include context from other extracted fields and support reference images to guide generation.
+
 For code snippets on how to generate base64-encoded images in various programming languages, see our [Base64 Encoding Guide](/api-reference/templates/base64-encoding).
 
 ## Response Format

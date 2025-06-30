@@ -298,7 +298,8 @@
         "properties": {
           "id": {
             "type": "string",
-            "description": "The unique identifier for the template"
+            "description": "The unique identifier for the template",
+            "nullable": true
           },
           "name": {
             "type": "string",
@@ -317,41 +318,95 @@
             "items": {
               "type": "string"
             },
-            "description": "Tags associated with the template"
+            "description": "Tags associated with the template",
+            "nullable": true
+          },
+          "usage_count": {
+            "type": "integer",
+            "description": "The number of times this template has been used",
+            "nullable": true,
+            "default": 0
           },
           "fields": {
-            "type": "object",
-            "additionalProperties": true,
-            "description": "Field definitions for the template"
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/TemplateField"
+            },
+            "description": "Field definitions for the template",
+            "nullable": true
           },
           "is_public": {
             "type": "boolean",
-            "description": "Whether the template is public or private"
+            "description": "Whether the template is public or private",
+            "nullable": true,
+            "default": false
           },
-          "metadata": {
-            "type": "object",
-            "additionalProperties": true,
-            "description": "Additional metadata for the template"
+          "user_id": {
+            "type": "string",
+            "description": "The ID of the user who owns this template",
+            "nullable": true
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "description": "When the template was created",
+            "nullable": true
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time",
+            "description": "When the template was last updated",
+            "nullable": true
           }
         },
-        "required": ["name", "description", "category", "fields"]
+        "required": ["name", "description", "category"]
       },
       "SuggestFieldsInput": {
         "type": "object",
         "properties": {
           "image_url": {
             "type": "string",
-            "description": "URL of the image or document to analyze"
+            "description": "URL of the image or document to analyze. Can also be a base64-encoded image data URL (format: data:image/jpeg;base64,...)"
           },
           "text_description": {
             "type": "string",
             "description": "Text description of the data to extract"
+          },
+          "with_metadata": {
+            "type": "boolean",
+            "description": "Whether to include metadata generation (title, description, category, tags) in addition to fields",
+            "default": false
           }
         },
         "anyOf": [
           { "required": ["image_url"] },
           { "required": ["text_description"] }
         ]
+      },
+      "TemplateMetadata": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string",
+            "description": "A descriptive title for the extraction template"
+          },
+          "description": {
+            "type": "string",
+            "description": "A detailed description of what this template extracts"
+          },
+          "category": {
+            "type": "string",
+            "description": "The category this template belongs to (e.g., 'Document Processing', 'Invoice Analysis', 'Receipt Parsing', etc.)"
+          },
+          "tags": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "A list of relevant tags for this template"
+          }
+        },
+        "required": ["title", "description", "category", "tags"]
       },
       "SuggestFieldsOutput": {
         "type": "object",
@@ -366,6 +421,15 @@
               "$ref": "#/components/schemas/TemplateField"
             },
             "description": "Suggested fields for extraction"
+          },
+          "metadata": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/TemplateMetadata"
+              }
+            ],
+            "description": "Template metadata including title, description, category, and tags (only when with_metadata is True)",
+            "nullable": true
           }
         },
         "required": ["template_name", "template"]
@@ -379,7 +443,8 @@
           },
           "version_number": {
             "type": "integer",
-            "description": "Version number of the template to use"
+            "description": "Optional version number of the template to use. If not provided or set to 0, the latest version will be used.",
+            "nullable": true
           },
           "image_url": {
             "type": "string",
@@ -390,13 +455,13 @@
             "properties": {
               "target_language": {
                 "type": "string",
-                "description": "Optional target language for the extraction results"
+                "description": "Optional target language for the extraction results. If provided, values will be extracted in this language."
               }
             },
             "description": "Advanced options for extraction"
           }
         },
-        "required": ["template_id", "image_url"]
+        "required": ["image_url"]
       },
       "ExtractValuesOutput": {
         "type": "object",
@@ -420,34 +485,55 @@
           },
           "description": {
             "type": "string",
-            "description": "A description of the field"
+            "description": "A description of the field",
+            "nullable": true
           },
           "required": {
             "type": "boolean",
-            "description": "Whether the field is required"
+            "description": "Whether the field is required",
+            "nullable": true
           },
           "type": {
             "type": "string",
             "description": "The data type of the field",
-            "enum": ["string", "number", "date", "object", "boolean", "enum"]
+            "enum": ["string", "number", "boolean", "object", "enum", "date", "image"],
+            "nullable": true
           },
           "subfields": {
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/TemplateField"
             },
-            "description": "Nested fields for complex data structures"
+            "description": "Nested fields for complex data structures",
+            "nullable": true
           },
           "return_as_list": {
             "type": "boolean",
-            "description": "Whether the field should be returned as a list"
+            "description": "Whether the field should be returned as a list",
+            "nullable": true
           },
           "enum_values": {
             "type": "array",
             "items": {
               "type": "string"
             },
-            "description": "Possible values for enum fields"
+            "description": "Possible values for enum fields",
+            "nullable": true
+          },
+          "include_extraction_output": {
+            "type": "boolean",
+            "description": "For image fields: whether to include other extracted field values as context for image generation",
+            "nullable": true
+          },
+          "enable_reference_image": {
+            "type": "boolean",
+            "description": "For image fields: whether reference image upload is enabled",
+            "nullable": true
+          },
+          "reference_image_url": {
+            "type": "string",
+            "description": "For image fields: URL of the reference image to guide generation",
+            "nullable": true
           }
         },
         "required": ["name"]
@@ -459,42 +545,36 @@
             "type": "string",
             "description": "The name of the field"
           },
-          "description": {
-            "type": "string",
-            "description": "A description of the field"
-          },
-          "required": {
-            "type": "boolean",
-            "description": "Whether the field is required"
-          },
           "type": {
             "type": "string",
             "description": "The data type of the field",
-            "enum": ["string", "number", "date", "object", "boolean", "enum"]
+            "enum": ["string", "number", "boolean", "object", "enum", "date", "image"],
+            "nullable": true
+          },
+          "return_as_list": {
+            "type": "boolean",
+            "description": "Whether the field is returned as a list",
+            "nullable": true
           },
           "subfields": {
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/ExtractedField"
             },
-            "description": "Nested fields for complex data structures"
-          },
-          "return_as_list": {
-            "type": "boolean",
-            "description": "Whether the field is returned as a list"
-          },
-          "enum_values": {
-            "type": "array",
-            "items": {
-              "type": "string"
-            },
-            "description": "Possible values for enum fields"
+            "description": "Nested fields for complex data structures",
+            "nullable": true
           },
           "value": {
-            "description": "The extracted value for the field"
+            "description": "The extracted value for the field. Can be a string, list, or dictionary depending on the field type and return_as_list flag. For image fields, this will be the URL of the generated image.",
+            "nullable": true
+          },
+          "error": {
+            "type": "string",
+            "description": "Error message if field processing failed (especially relevant for image generation)",
+            "nullable": true
           }
         },
-        "required": ["name", "value"]
+        "required": ["name"]
       },
       "Error": {
         "type": "object",
