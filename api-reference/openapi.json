@@ -388,10 +388,6 @@
           "advanced": {
             "type": "object",
             "properties": {
-              "model_name": {
-                "type": "string",
-                "description": "Optional model name to use for extraction"
-              },
               "target_language": {
                 "type": "string",
                 "description": "Optional target language for the extraction results"

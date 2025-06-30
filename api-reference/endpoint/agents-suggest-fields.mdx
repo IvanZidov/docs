@@ -14,6 +14,9 @@ The `/agents/suggest-fields` endpoint analyzes a document and/or text descriptio
 
 <ParamField body="image_url" type="string">
   The URL of the image or document to analyze. The URL must be publicly accessible.
+  
+  **Supported formats**: PNG, JPEG, GIF, WebP, TIFF, BMP, ICO, SVG, EPS, TGA  
+  **Maximum file size**: 10MB
 </ParamField>
 
 <ParamField body="text_description" type="string">
@@ -361,6 +364,6 @@ print(data)
 
 | Status Code | Description |
 | ----------- | ----------- |
-| 400 | Bad Request - The request was malformed or missing required parameters |
+| 400 | Bad Request - The request was malformed, missing required parameters, unsupported image format, or image exceeds 10MB limit |
 | 401 | Unauthorized - Invalid or missing API key |
 | 500 | Internal Server Error - An unexpected error occurred on our servers | 
