@@ -1,377 +1,373 @@
 ---
 title: 'Dashboard Guide'
-description: 'Master the VizAPI.ai dashboard - your control center for visual data extraction'
+description: 'Master your VizAPI.ai dashboard - your control center for visual data extraction'
+icon: 'gauge'
 ---
+
+<img
+  style={{ borderRadius: '0.5rem' }}
+  src="https://vizapi.ai/images/dashboard-overview.png"
+  alt="VizAPI.ai Dashboard"
+/>
 
 ## Dashboard Overview
 
-The VizAPI.ai dashboard is your central hub for managing templates, extractions, API keys, and account settings. This guide will help you navigate and make the most of every feature.
+Your dashboard is mission control for all your data extraction needs. Here's everything you need to know to navigate like a pro.
 
-## Dashboard Layout
+<CardGroup cols={2}>
+  <Card
+    title="Templates"
+    icon="wand-magic-sparkles"
+  >
+    Manage extraction templates
+  </Card>
+  <Card
+    title="API Keys"
+    icon="key"
+  >
+    Control access and security
+  </Card>
+  <Card
+    title="Usage"
+    icon="chart-line"
+  >
+    Monitor credits and usage
+  </Card>
+  <Card
+    title="Settings"
+    icon="gear"
+  >
+    Account and preferences
+  </Card>
+</CardGroup>
 
-### Navigation Sidebar
+## Home Dashboard
 
-The left sidebar provides quick access to all major sections:
+### Quick Actions
 
-- **Dashboard**: Overview and quick actions
-- **Templates**: Browse and manage your templates
-- **API Keys**: Manage authentication keys
-- **Usage**: Monitor credits and billing
-- **Settings**: Account and preferences
+<Tabs>
+  <Tab title="Templates">
+    **Browse Templates**: Explore our curated library of pre-built templates for common extraction tasks.
+    
+    Perfect for: Text extraction, data processing, and content analysis.
+  </Tab>
+  <Tab title="New Extraction">
+    **Create Custom**: Build your own extraction template from scratch.
+    
+    Perfect for: Unique content or specific business needs.
+  </Tab>
+  <Tab title="API Integration">
+    **Code Examples**: Ready-to-use code snippets in popular languages.
+    
+    Languages: Python, JavaScript, Go, PHP, cURL
+  </Tab>
+</Tabs>
 
-### Main Content Area
+### Key Metrics
 
-The main area displays context-specific information and tools based on your selected section.
+<AccordionGroup>
+  <Accordion title="Total Extractions" icon="database">
+    Count of all extraction templates you've created. Click to view details.
+  </Accordion>
+  
+  <Accordion title="Total API Calls" icon="api">
+    Cumulative API requests across all templates. Updates in real-time.
+  </Accordion>
+  
+  <Accordion title="Active This Week" icon="calendar">
+    Templates used in the past 7 days. Helps identify your most valuable templates.
+  </Accordion>
+  
+  <Accordion title="Most Used Template" icon="star">
+    Your highest-traffic template. Click to view performance details.
+  </Accordion>
+</AccordionGroup>
 
-## Dashboard Home
+## My Extractions
 
-### Quick Start Section
+Your template management hub with everything you need at a glance:
 
-The hero section at the top provides immediate access to key actions:
+### Template Table
 
-#### Templates Button
-- Browse our curated library of pre-built templates
-- See expert-crafted templates for common use cases
-- One-click template deployment
+| Column | Description |
+|--------|-------------|
+| **Name** | Template display name (click to edit) |
+| **Created** | When the template was created |
+| **Last Used** | Most recent API call timestamp |
+| **Usage Count** | Total API calls for this template |
+| **Actions** | Quick actions menu |
 
-#### New Extraction Button
-- Launch the custom template builder
-- Create templates tailored to your specific needs
-- Access the AI-powered field suggestion engine
+### Quick Actions Menu
 
-#### API Integration Panel
-Shows code snippets for popular programming languages:
-- **Python**: `requests.post(api_url, ...)`
-- **JavaScript**: `fetch(apiUrl, { ... })`
-- **Go**: `http.Post(apiURL, ...)`
-- **PHP**: `curl_exec($ch);`
-- **cURL**: `curl -X POST ...`
-
-Each snippet provides a starting point for integration in your preferred language.
-
-### Dashboard Metrics
-
-Four key performance indicators give you instant insights:
-
-#### Total Extractions
-- Count of all extraction templates you've created
-- Includes both active and inactive templates
-- Click to view detailed breakdown
-
-#### Total API Calls
-- Cumulative count of all API requests across all templates
-- Includes successful and failed requests
-- Updates in real-time
-
-#### Active This Week
-- Templates that have been used in the past 7 days
-- Helps identify your most valuable templates
-- Quick filter to see recent activity
-
-#### Most Used Template
-- Your highest-traffic template by API call count
-- Helps identify successful patterns
-- Click to view template details
-
-## My Extractions Table
-
-### Column Details
-
-#### Name
-- Template display name
-- Click to edit template
-- Shows status indicators (active/inactive)
-
-#### Created
-- Template creation date
-- Formatted as "MMM DD, YYYY"
-- Sortable column
-
-#### Last Used
-- Timestamp of most recent API call
-- Shows "Never" if unused
-- Smart relative formatting:
-  - "Just now" (< 1 minute)
-  - "X minutes ago" (< 1 hour)
-  - "X hours ago" (< 1 day)
-  - "X days ago" (< 1 week)
-  - Actual date (> 1 week)
-
-#### Usage Count
-- Total number of API calls for this template
-- Badge styling for high-usage templates
-- Click to view detailed analytics
-
-#### Actions Menu
-Each template has a three-dot menu with options:
-- **Edit**: Modify template fields and settings
-- **Clone**: Create a copy for testing variations
-- **API Integration**: View code snippets and endpoint details
-- **Analytics**: Detailed usage statistics
-- **Delete**: Remove template (with confirmation)
-
-### Batch Operations
-
-Select multiple templates to perform bulk actions:
-- **Bulk Delete**: Remove multiple templates at once
-- **Export**: Download template configurations
-- **Archive**: Move templates to archived state
+<CardGroup cols={2}>
+  <Card
+    title="Edit"
+    icon="pencil"
+  >
+    Modify template fields and settings
+  </Card>
+  <Card
+    title="Clone"
+    icon="copy"
+  >
+    Create a copy for testing variations
+  </Card>
+  <Card
+    title="API Code"
+    icon="code"
+  >
+    View integration code snippets
+  </Card>
+  <Card
+    title="Analytics"
+    icon="chart-bar"
+  >
+    Detailed usage statistics
+  </Card>
+</CardGroup>
 
 ## Template Library
 
-### Browsing Templates
+### Browsing Made Easy
 
-#### Categories
-Templates are organized by use case:
-- **Receipts**: Point-of-sale and expense tracking
-- **Invoices**: Business document processing
-- **Forms**: Digital form conversion
-- **ID Cards**: Identity verification
-- **Contracts**: Legal document analysis
-- **Custom**: Your personal templates
+#### Popular Categories
+<CardGroup cols={2}>
+  <Card
+    title="Text Extraction"
+    icon="text"
+  >
+    Extract text fields, names, and descriptions
+  </Card>
+  <Card
+    title="Data Processing"
+    icon="database"
+  >
+    Extract numbers, amounts, dates from content
+  </Card>
+  <Card
+    title="Content Analysis"
+    icon="magnifying-glass"
+  >
+    Analyze and extract key information from images
+  </Card>
+  <Card
+    title="Custom Templates"
+    icon="wrench"
+  >
+    Your personally created templates
+  </Card>
+</CardGroup>
 
-#### Template Cards
-Each template displays:
-- **Preview Image**: Sample document type
-- **Name & Description**: Clear labeling
-- **Field Count**: Number of extraction fields
-- **Usage Badge**: Popularity indicator
-- **Try It Button**: Quick preview/test
-
-#### Search & Filtering
+#### Search & Filter
 - **Search Bar**: Find templates by name or description
 - **Category Filter**: Filter by document type
-- **Sort Options**: Name, popularity, newest
-- **My Templates**: Show only your custom templates
+- **Sort Options**: Name, popularity, newest first
+- **My Templates**: Show only your custom creations
 
-### Template Deployment
+### Using Templates
 
-#### Using Pre-built Templates
-1. Click "Use Template" on any library template
-2. Customize field names and descriptions if needed
-3. Test with sample images
-4. Save to your extractions
-
-#### Template Customization
-- **Field Editor**: Visual interface for modifying fields
-- **Test Panel**: Upload sample documents for validation
-- **Preview Mode**: See extraction results before saving
-- **Version Control**: Create new versions without affecting production
+<Steps>
+  <Step title="Find Your Template">
+    Browse categories or search for what you need.
+  </Step>
+  <Step title="Preview & Test">
+    Click "Preview" to see sample extractions and field structure.
+  </Step>
+  <Step title="Deploy">
+    Click "Use Template" to add it to your extractions.
+  </Step>
+  <Step title="Customize">
+    Modify fields if needed using the visual editor.
+  </Step>
+</Steps>
 
 ## API Key Management
 
-### Main API Key Section
+### Your Main API Key
 
-Your primary API key provides full account access:
+Your primary key for all API access:
 
-#### Key Display
-- **Masked Key**: Shows first 8 characters + asterisks
-- **Copy Button**: One-click copying to clipboard
-- **Regenerate**: Create new key (invalidates old one)
-- **Created Date**: When the key was generated
+<Warning>
+**Security First**: Never expose API keys in client-side code or public repositories.
+</Warning>
 
-#### Security Features
-- **Last Used**: Timestamp of most recent API call
-- **Usage Location**: Geographic region of last use
-- **Rate Limits**: Current limits and usage
-- **Permissions**: Full account access indicator
+#### Key Features
+- **Copy to Clipboard**: One-click copying
+- **Regenerate**: Create new key if compromised
+- **Usage Tracking**: See when and where it's used
+- **Rate Limits**: Current usage and limits
 
 ### Additional API Keys
 
-Create specialized keys for different use cases:
+Create specialized keys for different environments:
 
-#### Key Creation
-1. Click "Create New Key"
-2. Add descriptive name (e.g., "Production App")
-3. Optional description for context
-4. Select permissions (full access or template-specific)
-5. Copy the generated key immediately
+<Tabs>
+  <Tab title="Development">
+    Perfect for testing and development work.
+  </Tab>
+  <Tab title="Production">
+    Your live application's secure key.
+  </Tab>
+  <Tab title="Staging">
+    Testing environment before production.
+  </Tab>
+</Tabs>
 
-#### Key Management
-Each additional key shows:
-- **Name & Description**: Your custom labels
-- **Created Date**: When key was generated
-- **Last Used**: Most recent activity
-- **Status**: Active/Inactive toggle
-- **Actions**: Edit, regenerate, or delete
+#### Creating New Keys
 
-#### Security Best Practices
-- Use different keys for different environments
-- Regularly rotate keys for security
-- Monitor usage patterns for anomalies
-- Revoke unused or compromised keys immediately
+<Steps>
+  <Step title="Click 'Create New Key'">
+    Start the key creation process.
+  </Step>
+  <Step title="Add Details">
+    Give it a name and description (e.g., "Production App").
+  </Step>
+  <Step title="Copy Immediately">
+    You'll only see the key once - copy it now!
+  </Step>
+  <Step title="Update Your App">
+    Replace the key in your application code.
+  </Step>
+</Steps>
 
 ## Usage & Billing
 
-### Credit Overview
+### Credit System
 
-#### Current Balance
-- **Remaining Credits**: Available for new extractions
-- **Monthly Usage**: Credits consumed this billing period
-- **Daily Average**: Usage pattern insights
-- **Projected Depletion**: Estimated days until credits exhausted
+<AccordionGroup>
+  <Accordion title="How It Works" icon="circle-info">
+    - **1 Credit = 1 Successful Extraction**
+    - No charge for failed requests
+    - Credits never expire
+    - Real-time usage tracking
+  </Accordion>
+  
+  <Accordion title="Current Balance" icon="wallet">
+    - Remaining credits available
+    - Monthly usage summary
+    - Projected depletion date
+    - Usage by template breakdown
+  </Accordion>
+  
+  <Accordion title="Purchase More" icon="credit-card">
+    - **Starter**: 100 credits for $9.99
+    - **Growth**: 500 credits for $39.99
+    - **Scale**: 1,500 credits for $99.99
+    - Instant activation via Stripe
+  </Accordion>
+</AccordionGroup>
 
-#### Usage Breakdown
-- **By Template**: See which templates consume the most credits
-- **By Date**: Timeline view of daily usage
-- **By API Key**: Usage attribution per key
-- **Failed Requests**: Credits not consumed due to failures
+### Usage Analytics
 
-### Credit Packages
+Track your extraction patterns:
 
-#### Available Packages
-- **Basic**: 100 credits for $9.99
-  - Perfect for testing and small projects
-  - ~100 simple document extractions
-- **Standard**: 500 credits for $39.99
-  - Ideal for small to medium businesses
-  - ~500 document extractions
-- **Premium**: 1,500 credits for $99.99
-  - High-volume processing
-  - ~1,500 document extractions
-
-#### Purchase Process
-1. Click "Buy More Credits"
-2. Select desired package
-3. Secure checkout via Stripe
-4. Instant credit addition to account
-
-### Billing History
-
-#### Invoice Management
-- **Download Invoices**: PDF receipts for all purchases
-- **Payment History**: Complete transaction log
-- **Next Billing Date**: For subscription plans
-- **Payment Methods**: Manage saved cards
+- **Daily Usage**: See consumption trends
+- **Template Performance**: Which templates are most popular
+- **Success Rates**: Monitor extraction quality
+- **Cost Analysis**: Optimize your usage
 
 ## Settings
 
-### Account Settings
+### Account Basics
 
-#### Profile Information
-- **Display Name**: How you appear in the dashboard
-- **Email Address**: Primary contact and login
-- **Password**: Secure account access
-- **Time Zone**: For accurate timestamp display
+<Tabs>
+  <Tab title="Profile">
+    - Display name and email
+    - Password management
+    - Time zone settings
+  </Tab>
+  <Tab title="Preferences">
+    - Dashboard theme (light/dark)
+    - Email notifications
+    - Default API settings
+  </Tab>
+  <Tab title="Security">
+    - Two-factor authentication
+    - Login history
+    - Active sessions
+  </Tab>
+</Tabs>
 
-#### Preferences
-- **Dashboard Theme**: Light/dark mode toggle
-- **Email Notifications**: Usage alerts and updates
-- **API Defaults**: Default timeout and retry settings
-- **Language**: Interface language selection
+### Advanced Settings
 
-### Security Settings
+#### Webhooks
+Get notified when extractions complete:
 
-#### Authentication
-- **Two-Factor Auth**: Enhanced security with TOTP
-- **Login History**: Recent access locations and times
-- **Active Sessions**: Currently logged-in devices
-- **Password Policy**: Requirements and last change
+<Steps>
+  <Step title="Add Webhook URL">
+    Enter your endpoint URL.
+  </Step>
+  <Step title="Select Events">
+    Choose which events to receive.
+  </Step>
+  <Step title="Test Delivery">
+    Verify webhook is working.
+  </Step>
+</Steps>
 
 #### API Security
-- **Webhook Signatures**: Secure webhook validation
-- **IP Whitelisting**: Restrict API access by IP
+- **IP Whitelisting**: Restrict access by IP address
 - **Rate Limiting**: Custom limits per API key
-- **Audit Logs**: Complete API access history
-
-## Advanced Features
-
-### Webhook Configuration
-
-#### Webhook Setup
-1. Navigate to Settings → Webhooks
-2. Add webhook URL endpoint
-3. Select events to receive:
-   - Extraction completed
-   - Extraction failed
-   - Credit threshold reached
-   - Template updated
-4. Configure retry settings
-5. Test webhook delivery
-
-#### Webhook Security
-- **Signature Verification**: Validate webhook authenticity
-- **HTTPS Requirement**: Secure delivery only
-- **Timeout Settings**: Configure delivery timeouts
-- **Retry Logic**: Automatic retry on failure
-
-### Template Versioning
-
-#### Version Management
-- **Create Version**: Save template state
-- **Compare Versions**: Side-by-side field comparison
-- **Rollback**: Restore previous version
-- **Production Tags**: Mark stable versions
-
-#### Version History
-- **Change Log**: Track all template modifications
-- **Author Attribution**: See who made changes
-- **Deployment Status**: Which version is live
-- **Performance Metrics**: Usage stats per version
-
-### Analytics & Reporting
-
-#### Usage Analytics
-- **Traffic Patterns**: API call volume over time
-- **Geographic Distribution**: Usage by region
-- **Error Rates**: Success/failure ratios
-- **Response Times**: Performance metrics
-
-#### Custom Reports
-- **Date Range Selection**: Flexible reporting periods
-- **Export Options**: CSV, PDF report formats
-- **Scheduled Reports**: Automated email delivery
-- **Custom Metrics**: Define your own KPIs
+- **Audit Logs**: Complete access history
 
 ## Mobile Experience
 
-### Responsive Design
-The dashboard adapts seamlessly to mobile devices:
-- **Collapsible Sidebar**: Slide-out navigation
-- **Touch-Friendly**: Optimized for finger navigation
-- **Swipe Gestures**: Natural mobile interactions
-- **Offline Indicators**: Connection status display
+Your dashboard works great on mobile:
 
-### Mobile-Specific Features
-- **Quick Actions**: Swipe actions on table rows
-- **Simplified Views**: Condensed information display
-- **Touch Upload**: Direct file upload from device
-- **Push Notifications**: Real-time updates (where supported)
+<CardGroup cols={2}>
+  <Card
+    title="Responsive Design"
+    icon="mobile"
+  >
+    Adapts to any screen size
+  </Card>
+  <Card
+    title="Touch Friendly"
+    icon="hand-pointer"
+  >
+    Optimized for finger navigation
+  </Card>
+  <Card
+    title="Quick Actions"
+    icon="bolt"
+  >
+    Swipe gestures for common tasks
+  </Card>
+  <Card
+    title="Offline Ready"
+    icon="wifi"
+  >
+    Works even with poor connections
+  </Card>
+</CardGroup>
 
-## Troubleshooting
+## Getting Help
 
-### Common Issues
+<CardGroup cols={3}>
+  <Card
+    title="Help Center"
+    icon="circle-question"
+    href="/essentials"
+  >
+    Contextual help articles
+  </Card>
+  <Card
+    title="Live Chat"
+    icon="message"
+  >
+    Real-time support during business hours
+  </Card>
+  <Card
+    title="Email Support"
+    icon="envelope"
+    href="mailto:support@vizapi.ai"
+  >
+    For complex issues and requests
+  </Card>
+</CardGroup>
 
-#### Dashboard Loading Problems
-- Clear browser cache and cookies
-- Disable browser extensions temporarily
-- Check internet connection stability
-- Try incognito/private browsing mode
+---
 
-#### Data Sync Issues
-- Refresh the page to sync latest data
-- Check for multiple browser tabs
-- Verify API key permissions
-- Contact support with browser console errors
-
-#### Performance Optimization
-- Close unused browser tabs
-- Update to latest browser version
-- Disable unnecessary browser extensions
-- Use supported browsers (Chrome, Firefox, Safari, Edge)
-
-### Getting Help
-
-#### In-Dashboard Support
-- **Help Center**: Contextual help articles
-- **Live Chat**: Real-time support during business hours  
-- **Contact Form**: Email support for complex issues
-- **Feature Requests**: Submit ideas for improvements
-
-#### External Resources
-- **Documentation**: [docs.vizapi.ai](https://docs.vizapi.ai)
-- **API Reference**: Comprehensive endpoint documentation
-- **Community Forum**: User discussions and tips
-- **Status Page**: Service health and maintenance updates
-
-The dashboard is continuously updated with new features and improvements. Keep an eye on the changelog for the latest updates! 
+<Note>
+**Pro Tip**: The dashboard is continuously updated with new features. Keep an eye on the changelog for the latest improvements!
+</Note> 
