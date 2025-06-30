@@ -1,0 +1,370 @@
+---
+title: 'Product Roadmap'
+description: 'Upcoming features and improvements planned for VizAPI.ai'
+---
+
+## VizAPI.ai Product Roadmap
+
+We're continuously evolving VizAPI.ai to provide the most powerful and user-friendly visual data extraction platform. Here's what's coming next:
+
+## 🚀 Upcoming Features
+
+### Multiple Image Input Support
+**Status**: In Development  
+**Expected Release**: Q3 2025
+
+Process multiple images in a single extraction request for comprehensive document analysis.
+
+#### Key Features
+- **Batch Upload**: Upload multiple images simultaneously
+- **Unified Results**: Combine extraction results from all images
+- **Cross-Reference**: Link related data across multiple images
+- **Smart Grouping**: Automatically group related images
+
+#### Use Cases
+- **Multi-page Documents**: Process entire documents split across multiple images
+- **Invoice Packets**: Extract data from invoices with multiple supporting documents
+- **ID Verification**: Process front and back of ID cards together
+- **Receipt Collections**: Batch process multiple receipts from a single shopping trip
+
+#### API Example
+```javascript
+const response = await fetch('https://api.vizapi.ai/v1/agents/extract-values', {
+  method: 'POST',
+  headers: {
+    'x-api-key': 'YOUR_API_KEY',
+    'Content-Type': 'application/json'
+  },
+  body: JSON.stringify({
+    template_id: 'your-template-id',
+    images: [
+      'https://example.com/page1.jpg',
+      'https://example.com/page2.jpg',
+      'https://example.com/page3.jpg'
+    ],
+    processing_mode: 'unified'
+  })
+});
+```
+
+---
+
+### Video Input Support
+**Status**: Research Phase  
+**Expected Release**: Q4 2025
+
+Extract data from video content, including frame-by-frame analysis and temporal data extraction.
+
+#### Key Features
+- **Frame Extraction**: Automatically extract key frames from video
+- **Temporal Analysis**: Track data changes over time
+- **Motion Detection**: Identify and extract data from moving elements
+- **Quality Optimization**: Select best frames for extraction
+
+#### Use Cases
+- **Security Footage**: Extract license plates, timestamps, and identifiers
+- **Document Scanning**: Process documents filmed with mobile cameras
+- **Live Streaming**: Real-time data extraction from video streams
+- **Presentation Analysis**: Extract text and data from recorded presentations
+
+#### Technical Specifications
+- **Supported Formats**: MP4, AVI, MOV, WebM
+- **Maximum Duration**: 10 minutes
+- **Frame Rate**: Up to 30 FPS processing
+- **Resolution**: Up to 4K support
+
+---
+
+### MCP Server Integration
+**Status**: Planning Phase  
+**Expected Release**: Q4 2025
+
+Model Context Protocol (MCP) server for seamless integration with AI assistants and development tools.
+
+#### Key Features
+- **Claude Integration**: Direct integration with Claude and other AI assistants
+- **Real-time Processing**: Process images directly from AI conversations
+- **Context Awareness**: Maintain extraction context across conversations
+- **Tool Integration**: Connect with development environments and workflows
+
+#### Benefits
+- **Enhanced AI Workflows**: Streamline AI-powered document processing
+- **Developer Experience**: Integrate extraction capabilities into existing tools
+- **Automation**: Build automated pipelines with AI assistance
+- **Contextual Processing**: Leverage conversation context for better extractions
+
+#### Integration Example
+```javascript
+// MCP tool integration
+const mcpServer = new MCPServer({
+  name: 'vizapi-extractor',
+  version: '1.0.0',
+  tools: [
+    {
+      name: 'extract_document',
+      description: 'Extract structured data from images using VizAPI.ai',
+      inputSchema: {
+        type: 'object',
+        properties: {
+          image_url: { type: 'string' },
+          template_id: { type: 'string' }
+        }
+      }
+    }
+  ]
+});
+```
+
+---
+
+### Auto-Detect Document Type
+**Status**: In Development  
+**Expected Release**: Q3 2025
+
+Automatically detect document types and suggest appropriate templates for extraction.
+
+#### Key Features
+- **Smart Recognition**: AI-powered document type detection
+- **Template Suggestions**: Recommend best-matching templates
+- **Confidence Scoring**: Rate template matches with confidence levels
+- **Custom Training**: Train detection on your specific document types
+
+#### Document Types Supported
+- **Receipts**: Point-of-sale, gas stations, restaurants
+- **Invoices**: Service, product, medical, legal
+- **Forms**: Applications, surveys, registrations
+- **IDs**: Driver's licenses, passports, employee IDs
+- **Contracts**: Agreements, terms, legal documents
+- **Financial**: Bank statements, tax forms, insurance
+
+#### API Integration
+```javascript
+// Auto-detect endpoint
+const response = await fetch('https://api.vizapi.ai/v1/agents/detect-and-extract', {
+  method: 'POST',
+  headers: {
+    'x-api-key': 'YOUR_API_KEY',
+    'Content-Type': 'application/json'
+  },
+  body: JSON.stringify({
+    image_url: 'https://example.com/document.jpg',
+    auto_detect: true,
+    confidence_threshold: 0.8
+  })
+});
+
+// Response includes detected type and extraction
+const result = await response.json();
+console.log(result.detected_type); // "invoice"
+console.log(result.confidence); // 0.95
+console.log(result.extracted_values); // Extracted data
+```
+
+---
+
+### Advanced Bulk Processing
+**Status**: In Development  
+**Expected Release**: Q3 2025
+
+Enhanced bulk processing capabilities for high-volume document processing.
+
+#### Key Features
+- **Parallel Processing**: Process hundreds of documents simultaneously
+- **Progress Tracking**: Real-time progress updates and ETAs
+- **Error Handling**: Robust error recovery and retry mechanisms
+- **Result Aggregation**: Combine and format results across all documents
+
+#### Processing Modes
+- **Asynchronous**: Submit jobs and receive webhook notifications
+- **Streaming**: Real-time processing with live updates
+- **Scheduled**: Set up recurring bulk processing jobs
+- **Priority Queues**: Expedite critical processing jobs
+
+#### Enterprise Features
+- **Dedicated Resources**: Reserved processing capacity
+- **Custom Workflows**: Tailored processing pipelines
+- **Advanced Monitoring**: Detailed analytics and reporting
+- **SLA Guarantees**: Committed processing times
+
+#### API Example
+```javascript
+// Submit bulk processing job
+const job = await fetch('https://api.vizapi.ai/v1/bulk/process', {
+  method: 'POST',
+  headers: {
+    'x-api-key': 'YOUR_API_KEY',
+    'Content-Type': 'application/json'
+  },
+  body: JSON.stringify({
+    template_id: 'invoice-extractor',
+    images: [
+      'https://example.com/batch1/*.jpg',
+      'https://example.com/batch2/*.pdf'
+    ],
+    processing_mode: 'parallel',
+    webhook_url: 'https://your-app.com/webhook',
+    priority: 'high'
+  })
+});
+
+const jobInfo = await job.json();
+console.log(jobInfo.job_id); // Track processing status
+```
+
+---
+
+### Custom Model Fine-tuning
+**Status**: Research Phase  
+**Expected Release**: Q4 2025
+
+Train custom extraction models on your specific document types and formats.
+
+#### Key Features
+- **Custom Training**: Train models on your specific documents
+- **Domain Adaptation**: Optimize for industry-specific terminology
+- **Layout Recognition**: Learn unique document layouts and structures
+- **Continuous Learning**: Improve accuracy with feedback loops
+
+#### Training Process
+1. **Data Collection**: Upload training documents with labels
+2. **Model Training**: Fine-tune base models on your data
+3. **Validation**: Test model performance on validation sets
+4. **Deployment**: Deploy custom models to production
+5. **Monitoring**: Track performance and retrain as needed
+
+#### Use Cases
+- **Specialized Documents**: Legal contracts, medical records, insurance forms
+- **Unique Layouts**: Custom invoice formats, proprietary forms
+- **Industry-Specific**: Construction estimates, lab reports, financial statements
+- **Multi-language**: Documents in languages not well-supported by base models
+
+#### Pricing Model
+- **Training Credits**: Pay per training job based on data volume
+- **Custom Endpoints**: Dedicated API endpoints for your models
+- **Enterprise Plans**: Unlimited training and custom model hosting
+
+---
+
+### Dashboard Logging Controls
+**Status**: In Development  
+**Expected Release**: Q3 2025
+
+Comprehensive logging controls for enhanced privacy and compliance management.
+
+#### Key Features
+- **Granular Controls**: Enable/disable logging per template or API key
+- **Data Retention**: Configure how long logs are stored
+- **Privacy Modes**: Anonymize or encrypt sensitive data in logs
+- **Audit Trails**: Comprehensive logging for compliance requirements
+
+#### Logging Options
+- **Full Logging**: Complete request/response logging (default)
+- **Metadata Only**: Log only processing metadata, not content
+- **Anonymized**: Log data with PII removed or encrypted
+- **Disabled**: No logging for maximum privacy
+
+#### Compliance Features
+- **GDPR Compliance**: Right to erasure and data portability
+- **HIPAA Support**: Healthcare data handling compliance
+- **SOC 2**: Security and availability controls
+- **Custom Retention**: Configure retention periods per regulation
+
+#### Dashboard Controls
+- **Template-Level**: Set logging preferences per template
+- **API Key-Level**: Configure logging per API key
+- **Organization-Level**: Global logging policies
+- **Audit Dashboard**: View and export all logging activity
+
+#### API Configuration
+```javascript
+// Configure logging via API
+const response = await fetch('https://api.vizapi.ai/v1/templates/logging', {
+  method: 'POST',
+  headers: {
+    'x-api-key': 'YOUR_API_KEY',
+    'Content-Type': 'application/json'
+  },
+  body: JSON.stringify({
+    template_id: 'your-template-id',
+    logging_level: 'metadata_only',
+    retention_days: 30,
+    anonymize_pii: true
+  })
+});
+```
+
+---
+
+## 🔮 Future Vision
+
+### Long-term Goals
+- **Real-time Processing**: Sub-second extraction times
+- **Multi-modal AI**: Combine text, image, and context understanding
+- **Edge Computing**: On-device processing for maximum privacy
+
+### Enterprise Features
+- **White-label Solutions**: Fully customizable extraction platforms
+- **On-premise Deployment**: Complete control over data and processing
+- **Custom Integrations**: Direct integration with enterprise systems
+- **Dedicated Support**: 24/7 technical support and consulting
+
+---
+
+## 📋 Release Timeline
+
+### Q3 2025
+- ✅ Multiple Image Input Support
+- ✅ Auto-Detect Document Type
+- ✅ Advanced Bulk Processing
+- ✅ Dashboard Logging Controls
+
+### Q4 2025
+- 🔄 Video Input Support
+- 🔄 MCP Server Integration
+- 🔄 Custom Model Fine-tuning
+- 🔄 Enhanced Template Versioning
+- 🔄 Advanced Analytics Dashboard
+- 🔄 Real-time Processing Engine
+- 🔄 Multi-language OCR Enhancement
+- 🔄 Enterprise Security Features
+- 🔄 Edge Computing Support
+- 🔄 White-label Solutions
+
+---
+
+## 💬 Feedback & Requests
+
+We value your input in shaping VizAPI.ai's future. Help us prioritize features by:
+
+### Submit Feature Requests
+- **Dashboard**: Use the feedback widget in your dashboard
+- **Email**: Send detailed requests to [product@vizapi.ai](mailto:product@vizapi.ai)
+- **Community**: Join discussions in our user community
+
+### Beta Program
+Get early access to upcoming features:
+- **Early Access**: Test features before public release
+- **Direct Feedback**: Influence feature development
+- **Priority Support**: Get help implementing new features
+
+### Enterprise Roadmap
+Large organizations can request:
+- **Custom Features**: Specialized functionality for your needs
+- **Accelerated Timeline**: Fast-track critical features
+- **Dedicated Resources**: Assigned development team
+
+---
+
+## 📊 Status Legend
+
+- ✅ **In Development**: Actively being built
+- 🔄 **Research Phase**: Exploring technical feasibility
+- 📋 **Planning**: Designing architecture and specifications
+- 🚀 **Beta**: Available for testing
+- 🎯 **Released**: Generally available
+
+Stay updated on our progress by following our [changelog](https://app.vizapi.ai/changelog) and joining our [developer community](https://community.vizapi.ai).
+
+---
+
+*This roadmap is subject to change based on user feedback, technical constraints, and business priorities. Release dates are estimates and may be adjusted as development progresses.* 

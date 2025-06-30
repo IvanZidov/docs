@@ -1,130 +1,206 @@
 ---
-title: 'Quickstart'
-description: 'Start using VizAPI.ai in minutes'
+title: 'Quickstart Guide'
+description: 'Get started with VizAPI.ai in minutes - from signup to your first extraction'
 ---
 
 ## Getting Started with VizAPI.ai
 
-This guide will help you quickly integrate VizAPI.ai into your application to start extracting data from visual content.
+This comprehensive guide will walk you through everything you need to know to start extracting data from visual content using VizAPI.ai's powerful platform.
 
-### Step 1: Create an Account
+### Step 1: Create Your Account
 
 <Steps>
   <Step title="Sign Up">
-    Visit [app.vizapi.ai](https://app.vizapi.ai/signup) to create your VizAPI.ai account.
+    Visit [app.vizapi.ai](https://app.vizapi.ai/auth) to create your VizAPI.ai account. You can sign up with:
+    - Email and password
+    - Google account
+    - GitHub account
   </Step>
   <Step title="Verify Your Email">
-    Check your inbox for a verification email and follow the instructions to verify your account.
+    Check your inbox for a verification email. Click the verification link to activate your account.
+    
+    <Note>
+      The verification link will redirect you back to the platform automatically, regardless of which environment you signed up from.
+    </Note>
   </Step>
   <Step title="Access Your Dashboard">
-    Once verified, log in to access your [dashboard](https://app.vizapi.ai/dashboard).
+    Once verified, you'll be automatically redirected to your [dashboard](https://app.vizapi.ai/dashboard) where you can start creating extractions.
   </Step>
 </Steps>
 
-### Step 2: Get Your API Key
+### Step 2: Understand Your Dashboard
+
+Your dashboard is the control center for all your extraction needs:
+
+#### Quick Start Section
+- **Templates Button**: Browse our library of pre-built templates
+- **New Extraction Button**: Create a custom extraction from scratch
+- **API Integration**: View code snippets for popular programming languages
+
+#### My Extractions
+- View all your created extractions
+- See usage statistics and last access times
+- Clone successful extractions for similar use cases
+- Access API endpoints for each extraction
+
+#### Key Metrics
+- Total extractions created
+- Total API calls made
+- Active extractions this week
+- Most frequently used extraction
+
+### Step 3: Get Your API Keys
 
 <Steps>
   <Step title="Navigate to API Keys">
-    In your dashboard, go to the "API Keys" section.
+    In your dashboard sidebar, click on **"API Keys"** to access your key management area.
   </Step>
-  <Step title="Generate a New Key">
-    Click "Generate New API Key" and provide a name for your key (e.g., "Development", "Production").
-  </Step>
-  <Step title="Copy Your API Key">
-    Copy your newly generated API key. Keep this secure and don't share it publicly.
+  <Step title="Understanding Your API Keys">
+    VizAPI.ai provides two types of API keys:
+    
+    **Main API Key**
+    - Your primary key for dashboard access and general API usage
+    - Automatically generated when you create your account
+    - Can be regenerated if compromised
+    
+    **Additional API Keys**
+    - Create multiple keys for different applications or environments
+    - Add custom names and descriptions
+    - Perfect for production, staging, and development setups
     
     <Warning>
-      Your API key grants access to your VizAPI.ai account. Never expose it in client-side code or public repositories.
+      Keep your API keys secure! Never expose them in client-side code or public repositories.
     </Warning>
+  </Step>
+  <Step title="Create Additional Keys (Optional)">
+    Click **"Create New Key"** to generate additional API keys:
+    - Give your key a descriptive name (e.g., "Production App", "Development")
+    - Add an optional description
+    - Copy the generated key immediately - you won't see it again!
   </Step>
 </Steps>
 
-## Make Your First API Request
+### Step 4: Understanding Credits
 
-Let's make a simple request to extract data from an image.
+VizAPI.ai operates on a credit-based system:
 
-### Using cURL
+#### How Credits Work
+- Each API call consumes credits based on the complexity of the extraction
+- Credits are consumed only on successful extractions
+- Failed requests don't consume credits
+
+#### Purchasing Credits
+1. Navigate to **"Usage"** in your dashboard sidebar
+2. Click **"Buy More Credits"** 
+3. Choose from available credit packages:
+   - **Basic**: 100 credits for $9.99
+   - **Standard**: 500 credits for $39.99  
+   - **Premium**: 1,500 credits for $99.99
+4. Complete payment through our secure Stripe integration
+
+#### Monitoring Usage
+- View remaining credits in your dashboard
+- Get notifications when credits are running low
+- Track usage patterns and optimize your API calls
+
+### Step 5: Create Your First Extraction
+
+You have two options for creating extractions:
+
+#### Option A: Use a Pre-built Template
+
+<Steps>
+  <Step title="Browse Templates">
+    Click **"Templates"** in your dashboard to access our template library.
+  </Step>
+  <Step title="Choose a Template">
+    Select from expertly crafted templates like:
+    - Receipt Extractor
+    - Invoice Processor  
+    - ID Card Reader
+    - Form Digitizer
+  </Step>
+  <Step title="Customize (Optional)">
+    Modify the template fields to match your specific needs using our visual editor.
+  </Step>
+</Steps>
+
+#### Option B: Create a Custom Template
+
+<Steps>
+  <Step title="Start Custom Creation">
+    Click **"New Extraction"** from your dashboard.
+  </Step>
+  <Step title="Define Your Fields">
+    Add the fields you want to extract:
+    ```json
+    {
+      "name": "merchant",
+      "description": "The merchant or business name",
+      "type": "string"
+    }
+    ```
+  </Step>
+  <Step title="Test Your Template">
+    Upload a sample image to test your extraction and refine the fields as needed.
+  </Step>
+  <Step title="Save Your Template">
+    Give your template a descriptive name and save it. It will automatically become available as an API endpoint.
+  </Step>
+</Steps>
+
+### Step 6: Make Your First API Call
+
+Once you have a template, you can use it via API:
+
+#### Get Your Template Endpoint
+
+Each template gets its own API endpoint. Find it in your dashboard under "My Extractions".
+
+#### Using cURL
 
 <CodeGroup>
 
-```bash
+```bash cURL
 curl -X POST https://api.vizapi.ai/v1/agents/extract-values \
   -H "x-api-key: YOUR_API_KEY" \
   -H "Content-Type: application/json" \
   -d '{
-    "image_url": "https://example.com/sample-receipt.jpg",
-    "template": [
-      {
-        "name": "merchant",
-        "description": "The merchant name",
-        "type": "string"
-      },
-      {
-        "name": "date",
-        "description": "The receipt date",
-        "type": "date"
-      },
-      {
-        "name": "total",
-        "description": "The total amount",
-        "type": "number"
-      }
-    ]
+    "image_url": "https://example.com/receipt.jpg",
+    "template_id": "your-template-id"
   }'
 ```
 
 </CodeGroup>
 
-### Using JavaScript
+#### Using JavaScript/Node.js
 
 <CodeGroup>
 
-```javascript
-const fetch = require('node-fetch');
+```javascript JavaScript
+const response = await fetch('https://api.vizapi.ai/v1/agents/extract-values', {
+  method: 'POST',
+  headers: {
+    'x-api-key': 'YOUR_API_KEY',
+    'Content-Type': 'application/json'
+  },
+  body: JSON.stringify({
+    image_url: 'https://example.com/receipt.jpg',
+    template_id: 'your-template-id'
+  })
+});
 
-async function extractData() {
-  const response = await fetch('https://api.vizapi.ai/v1/agents/extract-values', {
-    method: 'POST',
-    headers: {
-      'x-api-key': 'YOUR_API_KEY',
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({
-      image_url: 'https://example.com/sample-receipt.jpg',
-      template: [
-        {
-          name: 'merchant',
-          description: 'The merchant name',
-          type: 'string'
-        },
-        {
-          name: 'date',
-          description: 'The receipt date',
-          type: 'date'
-        },
-        {
-          name: 'total',
-          description: 'The total amount',
-          type: 'number'
-        }
-      ]
-    })
-  });
-  
-  const data = await response.json();
-  console.log(data);
-}
-
-extractData();
+const data = await response.json();
+console.log(data);
 ```
 
 </CodeGroup>
 
-### Using Python
+#### Using Python
 
 <CodeGroup>
 
-```python
+```python Python
 import requests
 
 url = "https://api.vizapi.ai/v1/agents/extract-values"
@@ -133,24 +209,8 @@ headers = {
     "Content-Type": "application/json"
 }
 payload = {
-    "image_url": "https://example.com/sample-receipt.jpg",
-    "template": [
-        {
-            "name": "merchant",
-            "description": "The merchant name",
-            "type": "string"
-        },
-        {
-            "name": "date",
-            "description": "The receipt date",
-            "type": "date"
-        },
-        {
-            "name": "total",
-            "description": "The total amount",
-            "type": "number"
-        }
-    ]
+    "image_url": "https://example.com/receipt.jpg",
+    "template_id": "your-template-id"
 }
 
 response = requests.post(url, headers=headers, json=payload)
@@ -160,57 +220,105 @@ print(data)
 
 </CodeGroup>
 
-## Understanding the Response
+### Step 7: Understanding the Response
 
-VizAPI.ai returns structured JSON data based on the content of your image. Here's an example response for a receipt extraction:
+VizAPI.ai returns structured JSON data based on your template:
 
-```json
+```json Example Response
 {
-  "extracted_template_values": [
-    {
-      "name": "merchant",
-      "description": "The merchant name",
-      "type": "string",
-      "value": "ACME Store"
-    },
-    {
-      "name": "date",
-      "description": "The receipt date",
-      "type": "date",
-      "value": "2023-05-15"
-    },
-    {
-      "name": "total",
-      "description": "The total amount",
-      "type": "number",
-      "value": 42.99
-    }
-  ]
+  "success": true,
+  "extracted_values": {
+    "merchant": "ACME Coffee Shop",
+    "date": "2024-01-15",
+    "total": 12.99,
+    "items": [
+      {
+        "name": "Latte",
+        "price": 4.99
+      },
+      {
+        "name": "Croissant", 
+        "price": 7.99
+      }
+    ]
+  },
+  "confidence_scores": {
+    "merchant": 0.98,
+    "date": 0.95,
+    "total": 0.99
+  },
+  "credits_used": 2
 }
 ```
+
+### Advanced Features
+
+#### Template Versioning
+- Create multiple versions of your templates
+- Test new versions without affecting production
+- Roll back to previous versions if needed
+
+#### Batch Processing
+- Process multiple images in a single API call
+- Perfect for bulk document processing
+- Automatically handles rate limiting
+
+#### Webhook Integration
+- Get real-time notifications when extractions complete
+- Perfect for asynchronous workflows
+- Includes extraction results and metadata
 
 ## Next Steps
 
 <CardGroup cols={2}>
   <Card
-    title="Explore API Reference"
+    title="Template Management"
+    icon="wand-magic-sparkles"
+    href="/essentials/templates"
+  >
+    Learn advanced template creation and management techniques
+  </Card>
+  <Card
+    title="API Reference"
     icon="code"
     href="/api-reference/introduction"
   >
-    Learn about all available endpoints and options
+    Explore all available endpoints and advanced options
   </Card>
   <Card
-    title="Extraction Types"
-    icon="layer-group"
-    href="/essentials/extraction-types"
+    title="Dashboard Guide"
+    icon="gauge"
+    href="/essentials/dashboard"
   >
-    Discover all supported document and image types
+    Master all dashboard features and analytics
   </Card>
   <Card
-    title="Advanced Usage"
-    icon="wand-magic-sparkles"
-    href="/essentials/advanced-usage"
+    title="Integration Examples"
+    icon="puzzle-piece"
+    href="/development"
   >
-    Learn about custom extraction models and workflows
+    See real-world integration patterns and best practices
   </Card>
 </CardGroup>
+
+## Common Questions
+
+<AccordionGroup>
+  <Accordion title="How do I add more credits to my account?">
+    Navigate to the "Usage" section in your dashboard and click "Buy More Credits". Choose from our credit packages and complete payment through Stripe.
+  </Accordion>
+
+  <Accordion title="Can I use the same template for different image types?">
+    Templates work best when trained on similar image types. For different document types, we recommend creating separate templates or using our pre-built templates from the library.
+  </Accordion>
+
+  <Accordion title="What happens if my API key is compromised?">
+    You can regenerate your API key at any time from the API Keys section. The old key will be immediately invalidated, and you'll need to update your applications with the new key.
+  </Accordion>
+
+  <Accordion title="How do I upgrade from development to production?">
+    Create separate API keys for each environment. Use template versioning to promote tested templates to production, and monitor usage separately for each environment.
+  </Accordion>
+</AccordionGroup>
+
+Need more help? Contact our support team at [support@vizapi.ai](mailto:support@vizapi.ai).

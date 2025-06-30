@@ -17,8 +17,20 @@
             "group": "Get Started",
             "pages": [
               "introduction",
-              "quickstart",
-              "development"
+              "quickstart"
+            ]
+          },
+          {
+            "group": "Platform Essentials",
+            "pages": [
+              "essentials/dashboard",
+              "essentials/templates"
+            ]
+          },
+          {
+            "group": "Roadmap",
+            "pages": [
+              "roadmap/upcoming-features"
             ]
           }
         ]
@@ -63,14 +75,14 @@
           "icon": "book-open-cover"
         },
         {
+          "anchor": "Dashboard",
+          "href": "https://app.vizapi.ai",
+          "icon": "gauge"
+        },
+        {
           "anchor": "API",
           "href": "https://api.vizapi.ai",
           "icon": "code"
-        },
-        {
-          "anchor": "App",
-          "href": "https://app.vizapi.ai",
-          "icon": "desktop"
         }
       ]
     }

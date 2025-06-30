@@ -1,6 +1,6 @@
 ---
 title: Introduction
-description: "Welcome to VizAPI.ai - The Visual Data Extraction API"
+description: "Welcome to VizAPI.ai - Transform Visual Content into Structured Data"
 ---
 
 <img
@@ -16,53 +16,119 @@ description: "Welcome to VizAPI.ai - The Visual Data Extraction API"
 
 ## Welcome to VizAPI.ai
 
-VizAPI.ai is a powerful platform for extracting structured data from visual content. Our API makes it easy to transform images, documents, and other visual media into actionable data that can be integrated into your applications and workflows.
+VizAPI.ai is a powerful AI-driven platform that transforms visual content into structured, actionable data. Extract information from receipts, invoices, documents, forms, and any visual content through our intuitive dashboard or powerful REST API.
+
+### What Makes VizAPI.ai Different
+
+<CardGroup cols={2}>
+  <Card
+    title="Visual Template Builder"
+    icon="wand-magic-sparkles"
+  >
+    Create custom extraction templates with our AI-powered visual editor - no coding required
+  </Card>
+  <Card
+    title="Instant API Endpoints"
+    icon="bolt"
+  >
+    Every template automatically becomes a REST API endpoint with code examples for all languages
+  </Card>
+  <Card
+    title="Template Library"
+    icon="layer-group"
+  >
+    Choose from expert-crafted templates for common use cases like receipts, invoices, and forms
+  </Card>
+  <Card
+    title="Smart API Management"
+    icon="key"
+  >
+    Advanced API key management with usage tracking, versioning, and environment-specific keys
+  </Card>
+</CardGroup>
 
 ## Getting Started
 
-The first step to leveraging VizAPI.ai is understanding our platform and setting up your environment.
+Whether you prefer a visual interface or direct API integration, VizAPI.ai has you covered.
 
 <CardGroup cols={2}>
   <Card
-    title="Set Up Your Account"
-    icon="user-plus"
-    href="https://app.vizapi.ai/auth"
-  >
-    Create your VizAPI.ai account and get your API keys
-  </Card>
-  <Card
-    title="Quick Integration"
-    icon="bolt"
+    title="Dashboard Quick Start"
+    icon="gauge"
     href="/quickstart"
   >
-    Get started with VizAPI.ai in minutes
+    Get started with our visual dashboard - create templates and manage extractions
+  </Card>
+  <Card
+    title="Direct API Integration"
+    icon="code"
+    href="/development"
+  >
+    Integrate directly with our REST API for programmatic access
   </Card>
 </CardGroup>
 
-## Explore VizAPI.ai
+## Core Concepts
 
-Discover the features and capabilities of our platform to maximize your visual data extraction potential.
+Understanding these key concepts will help you get the most out of VizAPI.ai:
 
-<CardGroup cols={2}>
+### Templates
+Templates define what information you want to extract from your images. Each template consists of fields with descriptions, types, and extraction rules. Templates can be:
+- **Pre-built**: Choose from our library of expert-crafted templates
+- **Custom**: Create your own using our AI-powered visual editor
+- **Versioned**: Templates support versioning for production reliability
+
+### Extractions
+An extraction is a specific instance of applying a template to visual content. Each extraction:
+- Uses a specific template version
+- Processes your images/documents
+- Returns structured JSON data
+- Becomes available as a REST API endpoint
+
+### API Keys
+VizAPI.ai uses a sophisticated API key system:
+- **Main API Key**: Your primary key for dashboard and general access
+- **Template-Specific Keys**: Keys that only work with specific templates
+- **Environment Keys**: Different keys for development, staging, and production
+
+### Credits
+Credits power your extractions:
+- Each API call consumes credits based on complexity
+- Purchase credit packages through our integrated billing system
+- Track usage and get notifications when running low
+
+## Platform Features
+
+<CardGroup cols={3}>
   <Card
-    title="API Reference"
-    icon="code"
+    title="Smart Dashboard"
+    icon="desktop"
+    href="https://app.vizapi.ai"
+  >
+    Visual template builder, extraction management, and analytics
+  </Card>
+  <Card
+    title="API Documentation"
+    icon="book-open-cover"
     href="/api-reference/introduction"
   >
-    Comprehensive documentation of our API endpoints
+    Comprehensive REST API documentation with examples
   </Card>
   <Card
-    title="Use Cases"
-    icon="lightbulb"
-    href="/essentials/use-cases"
+    title="Template Library"
+    icon="folder"
   >
-    Explore common applications and integration patterns
-  </Card>
-  <Card
-    title="Dashboard Guide"
-    icon="gauge"
-    href="/essentials/dashboard"
-  >
-    Learn how to use the VizAPI.ai dashboard effectively
+    Browse and use pre-built templates for common document types
   </Card>
 </CardGroup>
+
+## Use Cases
+
+VizAPI.ai powers data extraction across industries:
+
+- **Receipt Processing**: Extract merchant, date, total, and line items
+- **Invoice Management**: Capture vendor details, amounts, and payment terms  
+- **Form Digitization**: Convert paper forms to structured data
+- **Document Analysis**: Extract key information from contracts and reports
+- **ID Verification**: Pull data from licenses, passports, and ID cards
+- **Inventory Management**: Process product labels and barcodes

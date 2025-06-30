@@ -1,260 +1,377 @@
 ---
 title: 'Dashboard Guide'
-description: 'Learn how to use the VizAPI.ai dashboard effectively'
+description: 'Master the VizAPI.ai dashboard - your control center for visual data extraction'
 ---
-
-# VizAPI.ai Dashboard Guide
-
-The VizAPI.ai dashboard is your central hub for managing your account, monitoring API usage, viewing extraction history, and accessing developer resources. This guide will help you navigate the dashboard and make the most of its features.
 
 ## Dashboard Overview
 
-<Frame>
-  <img src="/images/dashboard-overview.png" alt="Dashboard Overview" />
-</Frame>
+The VizAPI.ai dashboard is your central hub for managing templates, extractions, API keys, and account settings. This guide will help you navigate and make the most of every feature.
 
-The dashboard provides a comprehensive view of your VizAPI.ai account, including:
+## Dashboard Layout
 
-- **Usage Statistics**: Monitor your API usage and quota
-- **Recent Extractions**: View your most recent extraction requests
-- **API Keys**: Manage your API keys
-- **Billing Information**: View and update your subscription and payment details
-- **Team Management**: Invite and manage team members
-- **Settings**: Configure your account settings
+### Navigation Sidebar
 
-## Getting Started
+The left sidebar provides quick access to all major sections:
 
-After signing up and logging in to VizAPI.ai, you'll be directed to the dashboard home page. Here's how to get started:
+- **Dashboard**: Overview and quick actions
+- **Templates**: Browse and manage your templates
+- **API Keys**: Manage authentication keys
+- **Usage**: Monitor credits and billing
+- **Settings**: Account and preferences
 
-<Steps>
-  <Step title="Generate an API Key">
-    Navigate to the "API Keys" section and click "Generate New API Key". Give your key a descriptive name (e.g., "Development", "Production") and select the appropriate environment.
-  </Step>
-  <Step title="Explore Documentation">
-    Access the API documentation directly from the dashboard by clicking on the "Documentation" link in the sidebar.
-  </Step>
-  <Step title="Try the Playground">
-    Use the "Extraction Playground" to test extractions with sample images before integrating the API into your application.
-  </Step>
-</Steps>
+### Main Content Area
 
-## API Keys Management
+The main area displays context-specific information and tools based on your selected section.
 
-<Frame>
-  <img src="/images/api-keys-management.png" alt="API Keys Management" />
-</Frame>
+## Dashboard Home
 
-The API Keys section allows you to create, view, and manage your API keys.
+### Quick Start Section
 
-### Creating a New API Key
+The hero section at the top provides immediate access to key actions:
 
-1. Navigate to "API Keys" in the sidebar
-2. Click "Generate New API Key"
-3. Enter a name for your key
-4. Select the environment (Production or Sandbox)
-5. Click "Generate"
-6. Copy and securely store your API key (it will only be shown once)
+#### Templates Button
+- Browse our curated library of pre-built templates
+- See expert-crafted templates for common use cases
+- One-click template deployment
 
-### Managing Existing Keys
+#### New Extraction Button
+- Launch the custom template builder
+- Create templates tailored to your specific needs
+- Access the AI-powered field suggestion engine
+
+#### API Integration Panel
+Shows code snippets for popular programming languages:
+- **Python**: `requests.post(api_url, ...)`
+- **JavaScript**: `fetch(apiUrl, { ... })`
+- **Go**: `http.Post(apiURL, ...)`
+- **PHP**: `curl_exec($ch);`
+- **cURL**: `curl -X POST ...`
+
+Each snippet provides a starting point for integration in your preferred language.
+
+### Dashboard Metrics
+
+Four key performance indicators give you instant insights:
+
+#### Total Extractions
+- Count of all extraction templates you've created
+- Includes both active and inactive templates
+- Click to view detailed breakdown
+
+#### Total API Calls
+- Cumulative count of all API requests across all templates
+- Includes successful and failed requests
+- Updates in real-time
+
+#### Active This Week
+- Templates that have been used in the past 7 days
+- Helps identify your most valuable templates
+- Quick filter to see recent activity
+
+#### Most Used Template
+- Your highest-traffic template by API call count
+- Helps identify successful patterns
+- Click to view template details
+
+## My Extractions Table
+
+### Column Details
+
+#### Name
+- Template display name
+- Click to edit template
+- Shows status indicators (active/inactive)
 
-For each API key, you can:
-
-- **View Usage**: See how many requests have been made with this key
-- **Set Permissions**: Limit what operations this key can perform
-- **Regenerate**: Create a new key with the same settings (invalidates the old key)
-- **Delete**: Permanently remove the key (this action cannot be undone)
-
-<Warning>
-  Deleting or regenerating an API key will immediately invalidate the old key. Make sure to update your applications with the new key to prevent service disruption.
-</Warning>
-
-## Extraction History
-
-<Frame>
-  <img src="/images/extraction-history.png" alt="Extraction History" />
-</Frame>
-
-The Extraction History section provides a detailed log of all your API requests.
-
-### Viewing Extraction Details
-
-Click on any extraction in the history to view:
-
-- **Request Details**: The parameters sent in the request
-- **Response Data**: The structured data extracted from the image
-- **Original Image**: The image that was processed
-- **Confidence Scores**: The confidence level for each extracted field
-- **Processing Time**: How long the extraction took to complete
-
-### Filtering and Searching
-
-Use the filters to narrow down your extraction history:
-
-- **Date Range**: View extractions from a specific time period
-- **Extraction Type**: Filter by receipt, invoice, ID card, etc.
-- **Status**: Show only successful or failed extractions
-- **Search**: Find extractions by ID, content, or other attributes
-
-## Usage Analytics
-
-<Frame>
-  <img src="/images/usage-analytics.png" alt="Usage Analytics" />
-</Frame>
-
-The Usage Analytics section provides insights into your API usage patterns.
-
-### Monitoring Usage
-
-Track your API usage with detailed charts and metrics:
-
-- **Usage Over Time**: View daily, weekly, or monthly usage trends
-- **Usage by Extraction Type**: See which extraction types you use most frequently
-- **Success Rate**: Monitor the success rate of your extraction requests
-- **Average Processing Time**: Track how quickly your extractions are processed
-
-### Quota Management
-
-Keep track of your subscription quota:
-
-- **Current Usage**: See how much of your monthly quota you've used
-- **Usage Forecast**: Estimate if you'll exceed your quota based on current usage
-- **Upgrade Options**: Easily upgrade your plan if you need a higher quota
-
-## Extraction Playground
-
-<Frame>
-  <img src="/images/extraction-playground.png" alt="Extraction Playground" />
-</Frame>
-
-The Extraction Playground allows you to test the API with your own images before integrating it into your application.
-
-### Testing Extractions
-
-1. Upload an image or provide an image URL
-2. Select the extraction type (receipt, invoice, ID card, etc.)
-3. Configure any additional options
-4. Click "Extract" to process the image
-5. View the extracted data and confidence scores
-6. Export the results as JSON or copy the code snippet for your preferred language
-
-## Team Management
-
-<Frame>
-  <img src="/images/team-management.png" alt="Team Management" />
-</Frame>
-
-The Team Management section allows you to invite team members and manage their access to your VizAPI.ai account.
-
-### Adding Team Members
-
-1. Navigate to "Team" in the sidebar
-2. Click "Invite Team Member"
-3. Enter the email address of the person you want to invite
-4. Select their role (Admin, Developer, Viewer)
-5. Click "Send Invitation"
-
-### Managing Roles and Permissions
-
-VizAPI.ai offers three role types:
-
-- **Admin**: Full access to all dashboard features, including billing and team management
-- **Developer**: Access to API keys, extraction history, and the playground, but not billing or team management
-- **Viewer**: View-only access to extraction history and usage analytics
-
-## Billing and Subscription
-
-<Frame>
-  <img src="/images/billing-subscription.png" alt="Billing and Subscription" />
-</Frame>
-
-The Billing section allows you to manage your subscription plan and payment methods.
-
-### Changing Your Plan
-
-1. Navigate to "Billing" in the sidebar
-2. View your current plan and usage
-3. Click "Change Plan" to upgrade or downgrade
-4. Select your new plan
-5. Confirm the change
-
-### Managing Payment Methods
-
-1. Navigate to "Billing" in the sidebar
-2. Click "Payment Methods"
-3. Add, edit, or remove payment methods
-4. Set a default payment method
-
-### Viewing Invoices
-
-Access all your past invoices:
-
-1. Navigate to "Billing" in the sidebar
-2. Click "Invoices"
-3. View or download any invoice
-
-## Account Settings
-
-<Frame>
-  <img src="/images/account-settings.png" alt="Account Settings" />
-</Frame>
-
-The Settings section allows you to configure your account preferences.
-
-### Profile Settings
-
-Update your personal information:
-
-- **Name**: Update your display name
-- **Email**: Change your email address (requires verification)
-- **Password**: Update your password
-- **Two-Factor Authentication**: Enable or disable 2FA for enhanced security
-
-### Notification Preferences
-
-Configure how and when you receive notifications:
-
-- **Email Notifications**: Usage alerts, billing notifications, etc.
-- **Webhook Notifications**: Configure global webhooks for account events
-
-## Developer Resources
-
-<Frame>
-  <img src="/images/developer-resources.png" alt="Developer Resources" />
-</Frame>
-
-The Developer Resources section provides access to tools and documentation to help you integrate VizAPI.ai into your applications.
-
-### Available Resources
-
-- **API Documentation**: Comprehensive API reference
-- **SDK Libraries**: Links to our client libraries for various programming languages
-- **Sample Code**: Example implementations for common use cases
-- **Postman Collection**: Download a Postman collection to test the API
-- **Webhook Tester**: Test your webhook endpoints
-
-## Support and Help
-
-<Frame>
-  <img src="/images/support-help.png" alt="Support and Help" />
-</Frame>
-
-The Support section provides access to help resources and our support team.
+#### Created
+- Template creation date
+- Formatted as "MMM DD, YYYY"
+- Sortable column
+
+#### Last Used
+- Timestamp of most recent API call
+- Shows "Never" if unused
+- Smart relative formatting:
+  - "Just now" (< 1 minute)
+  - "X minutes ago" (< 1 hour)
+  - "X hours ago" (< 1 day)
+  - "X days ago" (< 1 week)
+  - Actual date (> 1 week)
+
+#### Usage Count
+- Total number of API calls for this template
+- Badge styling for high-usage templates
+- Click to view detailed analytics
+
+#### Actions Menu
+Each template has a three-dot menu with options:
+- **Edit**: Modify template fields and settings
+- **Clone**: Create a copy for testing variations
+- **API Integration**: View code snippets and endpoint details
+- **Analytics**: Detailed usage statistics
+- **Delete**: Remove template (with confirmation)
+
+### Batch Operations
+
+Select multiple templates to perform bulk actions:
+- **Bulk Delete**: Remove multiple templates at once
+- **Export**: Download template configurations
+- **Archive**: Move templates to archived state
+
+## Template Library
+
+### Browsing Templates
+
+#### Categories
+Templates are organized by use case:
+- **Receipts**: Point-of-sale and expense tracking
+- **Invoices**: Business document processing
+- **Forms**: Digital form conversion
+- **ID Cards**: Identity verification
+- **Contracts**: Legal document analysis
+- **Custom**: Your personal templates
+
+#### Template Cards
+Each template displays:
+- **Preview Image**: Sample document type
+- **Name & Description**: Clear labeling
+- **Field Count**: Number of extraction fields
+- **Usage Badge**: Popularity indicator
+- **Try It Button**: Quick preview/test
+
+#### Search & Filtering
+- **Search Bar**: Find templates by name or description
+- **Category Filter**: Filter by document type
+- **Sort Options**: Name, popularity, newest
+- **My Templates**: Show only your custom templates
+
+### Template Deployment
+
+#### Using Pre-built Templates
+1. Click "Use Template" on any library template
+2. Customize field names and descriptions if needed
+3. Test with sample images
+4. Save to your extractions
+
+#### Template Customization
+- **Field Editor**: Visual interface for modifying fields
+- **Test Panel**: Upload sample documents for validation
+- **Preview Mode**: See extraction results before saving
+- **Version Control**: Create new versions without affecting production
+
+## API Key Management
+
+### Main API Key Section
+
+Your primary API key provides full account access:
+
+#### Key Display
+- **Masked Key**: Shows first 8 characters + asterisks
+- **Copy Button**: One-click copying to clipboard
+- **Regenerate**: Create new key (invalidates old one)
+- **Created Date**: When the key was generated
+
+#### Security Features
+- **Last Used**: Timestamp of most recent API call
+- **Usage Location**: Geographic region of last use
+- **Rate Limits**: Current limits and usage
+- **Permissions**: Full account access indicator
+
+### Additional API Keys
+
+Create specialized keys for different use cases:
+
+#### Key Creation
+1. Click "Create New Key"
+2. Add descriptive name (e.g., "Production App")
+3. Optional description for context
+4. Select permissions (full access or template-specific)
+5. Copy the generated key immediately
+
+#### Key Management
+Each additional key shows:
+- **Name & Description**: Your custom labels
+- **Created Date**: When key was generated
+- **Last Used**: Most recent activity
+- **Status**: Active/Inactive toggle
+- **Actions**: Edit, regenerate, or delete
+
+#### Security Best Practices
+- Use different keys for different environments
+- Regularly rotate keys for security
+- Monitor usage patterns for anomalies
+- Revoke unused or compromised keys immediately
+
+## Usage & Billing
+
+### Credit Overview
+
+#### Current Balance
+- **Remaining Credits**: Available for new extractions
+- **Monthly Usage**: Credits consumed this billing period
+- **Daily Average**: Usage pattern insights
+- **Projected Depletion**: Estimated days until credits exhausted
+
+#### Usage Breakdown
+- **By Template**: See which templates consume the most credits
+- **By Date**: Timeline view of daily usage
+- **By API Key**: Usage attribution per key
+- **Failed Requests**: Credits not consumed due to failures
+
+### Credit Packages
+
+#### Available Packages
+- **Basic**: 100 credits for $9.99
+  - Perfect for testing and small projects
+  - ~100 simple document extractions
+- **Standard**: 500 credits for $39.99
+  - Ideal for small to medium businesses
+  - ~500 document extractions
+- **Premium**: 1,500 credits for $99.99
+  - High-volume processing
+  - ~1,500 document extractions
+
+#### Purchase Process
+1. Click "Buy More Credits"
+2. Select desired package
+3. Secure checkout via Stripe
+4. Instant credit addition to account
+
+### Billing History
+
+#### Invoice Management
+- **Download Invoices**: PDF receipts for all purchases
+- **Payment History**: Complete transaction log
+- **Next Billing Date**: For subscription plans
+- **Payment Methods**: Manage saved cards
+
+## Settings
+
+### Account Settings
+
+#### Profile Information
+- **Display Name**: How you appear in the dashboard
+- **Email Address**: Primary contact and login
+- **Password**: Secure account access
+- **Time Zone**: For accurate timestamp display
+
+#### Preferences
+- **Dashboard Theme**: Light/dark mode toggle
+- **Email Notifications**: Usage alerts and updates
+- **API Defaults**: Default timeout and retry settings
+- **Language**: Interface language selection
+
+### Security Settings
+
+#### Authentication
+- **Two-Factor Auth**: Enhanced security with TOTP
+- **Login History**: Recent access locations and times
+- **Active Sessions**: Currently logged-in devices
+- **Password Policy**: Requirements and last change
+
+#### API Security
+- **Webhook Signatures**: Secure webhook validation
+- **IP Whitelisting**: Restrict API access by IP
+- **Rate Limiting**: Custom limits per API key
+- **Audit Logs**: Complete API access history
+
+## Advanced Features
+
+### Webhook Configuration
+
+#### Webhook Setup
+1. Navigate to Settings → Webhooks
+2. Add webhook URL endpoint
+3. Select events to receive:
+   - Extraction completed
+   - Extraction failed
+   - Credit threshold reached
+   - Template updated
+4. Configure retry settings
+5. Test webhook delivery
+
+#### Webhook Security
+- **Signature Verification**: Validate webhook authenticity
+- **HTTPS Requirement**: Secure delivery only
+- **Timeout Settings**: Configure delivery timeouts
+- **Retry Logic**: Automatic retry on failure
+
+### Template Versioning
+
+#### Version Management
+- **Create Version**: Save template state
+- **Compare Versions**: Side-by-side field comparison
+- **Rollback**: Restore previous version
+- **Production Tags**: Mark stable versions
+
+#### Version History
+- **Change Log**: Track all template modifications
+- **Author Attribution**: See who made changes
+- **Deployment Status**: Which version is live
+- **Performance Metrics**: Usage stats per version
+
+### Analytics & Reporting
+
+#### Usage Analytics
+- **Traffic Patterns**: API call volume over time
+- **Geographic Distribution**: Usage by region
+- **Error Rates**: Success/failure ratios
+- **Response Times**: Performance metrics
+
+#### Custom Reports
+- **Date Range Selection**: Flexible reporting periods
+- **Export Options**: CSV, PDF report formats
+- **Scheduled Reports**: Automated email delivery
+- **Custom Metrics**: Define your own KPIs
+
+## Mobile Experience
+
+### Responsive Design
+The dashboard adapts seamlessly to mobile devices:
+- **Collapsible Sidebar**: Slide-out navigation
+- **Touch-Friendly**: Optimized for finger navigation
+- **Swipe Gestures**: Natural mobile interactions
+- **Offline Indicators**: Connection status display
+
+### Mobile-Specific Features
+- **Quick Actions**: Swipe actions on table rows
+- **Simplified Views**: Condensed information display
+- **Touch Upload**: Direct file upload from device
+- **Push Notifications**: Real-time updates (where supported)
+
+## Troubleshooting
+
+### Common Issues
+
+#### Dashboard Loading Problems
+- Clear browser cache and cookies
+- Disable browser extensions temporarily
+- Check internet connection stability
+- Try incognito/private browsing mode
+
+#### Data Sync Issues
+- Refresh the page to sync latest data
+- Check for multiple browser tabs
+- Verify API key permissions
+- Contact support with browser console errors
+
+#### Performance Optimization
+- Close unused browser tabs
+- Update to latest browser version
+- Disable unnecessary browser extensions
+- Use supported browsers (Chrome, Firefox, Safari, Edge)
 
 ### Getting Help
 
-- **Knowledge Base**: Browse articles and tutorials
-- **FAQ**: Find answers to common questions
-- **Contact Support**: Submit a support ticket
-- **Live Chat**: Chat with our support team during business hours
+#### In-Dashboard Support
+- **Help Center**: Contextual help articles
+- **Live Chat**: Real-time support during business hours  
+- **Contact Form**: Email support for complex issues
+- **Feature Requests**: Submit ideas for improvements
 
-## Best Practices
+#### External Resources
+- **Documentation**: [docs.vizapi.ai](https://docs.vizapi.ai)
+- **API Reference**: Comprehensive endpoint documentation
+- **Community Forum**: User discussions and tips
+- **Status Page**: Service health and maintenance updates
 
-To make the most of your VizAPI.ai dashboard:
-
-1. **Regularly Monitor Usage**: Check your usage analytics to avoid unexpected quota limits
-2. **Use Descriptive API Key Names**: Name your keys based on their purpose or environment
-3. **Review Extraction History**: Analyze failed extractions to improve your implementation
-4. **Set Up Team Access**: Invite team members with appropriate roles to collaborate effectively
-5. **Enable Security Features**: Use two-factor authentication and IP restrictions for enhanced security
-
-For additional help with the dashboard, contact our support team at [support@vizapi.ai](mailto:support@vizapi.ai). 
+The dashboard is continuously updated with new features and improvements. Keep an eye on the changelog for the latest updates! 
