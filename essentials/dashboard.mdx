@@ -1,6 +1,6 @@
 ---
 title: 'Dashboard Guide'
-description: 'Master your VizAPI.ai dashboard - your control center for visual data extraction'
+description: 'Master your VizAPI.ai dashboard - your control center for visual data extraction and template management'
 icon: 'gauge'
 ---
 
@@ -12,362 +12,685 @@ icon: 'gauge'
 
 ## Dashboard Overview
 
-Your dashboard is mission control for all your data extraction needs. Here's everything you need to know to navigate like a pro.
+Your dashboard is mission control for all your data extraction needs. Here's everything you need to know to navigate like a pro and master advanced template management.
 
 <CardGroup cols={2}>
   <Card
-    title="Templates"
+    title="Template Management"
     icon="wand-magic-sparkles"
   >
-    Manage extraction templates
+    Create, edit, and version extraction templates
   </Card>
   <Card
-    title="API Keys"
+    title="API Keys & Security"
     icon="key"
   >
-    Control access and security
+    Control access, environments, and security settings
   </Card>
   <Card
-    title="Usage"
+    title="Usage Analytics"
     icon="chart-line"
   >
-    Monitor credits and usage
+    Monitor credits, performance, and template success rates
   </Card>
   <Card
-    title="Settings"
+    title="Account Settings"
     icon="gear"
   >
-    Account and preferences
+    Preferences, billing, and advanced configurations
   </Card>
 </CardGroup>
 
 ## Home Dashboard
 
-### Quick Actions
+### Quick Actions Hub
 
 <Tabs>
   <Tab title="Templates">
-    **Browse Templates**: Explore our curated library of pre-built templates for common extraction tasks.
+    **Browse Library**: Explore our curated library of 20+ pre-built templates for common extraction tasks.
     
-    Perfect for: Text extraction, data processing, and content analysis.
+    **Featured Templates**: Text Extractor, Data Processor, Information Capturer, Content Analyzer.
+    
+    **Quick Deploy**: One-click deployment with optional customization.
   </Tab>
   <Tab title="New Extraction">
-    **Create Custom**: Build your own extraction template from scratch.
+    **Create Custom**: Build your own extraction template from scratch using our visual editor.
     
-    Perfect for: Unique content or specific business needs.
+    **Field Types**: 7 comprehensive types including string, number, date, boolean, enum, object, and image.
+    
+    **AI Assistance**: Smart field suggestions based on your content.
   </Tab>
   <Tab title="API Integration">
     **Code Examples**: Ready-to-use code snippets in popular languages.
     
-    Languages: Python, JavaScript, Go, PHP, cURL
+    **Languages**: Python, JavaScript, Go, PHP, cURL with authentication headers.
+    
+    **Version Control**: Access specific template versions in your API calls.
   </Tab>
 </Tabs>
 
-### Key Metrics
+### Performance Metrics
 
 <AccordionGroup>
-  <Accordion title="Total Extractions" icon="database">
-    Count of all extraction templates you've created. Click to view details.
+  <Accordion title="Total Templates" icon="database">
+    Count of all extraction templates you've created. Includes both custom and deployed pre-built templates.
+    
+    **Template Categories**:
+    - Custom templates: Your unique creations
+    - Deployed templates: Pre-built templates you're using
+    - Draft templates: Work in progress
   </Accordion>
   
-  <Accordion title="Total API Calls" icon="api">
-    Cumulative API requests across all templates. Updates in real-time.
+  <Accordion title="API Calls This Month" icon="api">
+    Monthly API requests across all templates with success rate tracking.
+    
+    **Metrics Include**:
+    - Total successful extractions
+    - Failed requests (with error breakdown)
+    - Average confidence scores
+    - Credits consumed
   </Accordion>
   
-  <Accordion title="Active This Week" icon="calendar">
-    Templates used in the past 7 days. Helps identify your most valuable templates.
+  <Accordion title="Active Templates" icon="calendar">
+    Templates used in the past 7 days with performance indicators.
+    
+    **Performance Indicators**:
+    - Green: >90% success rate
+    - Yellow: 80-90% success rate  
+    - Red: <80% success rate
   </Accordion>
   
-  <Accordion title="Most Used Template" icon="star">
-    Your highest-traffic template. Click to view performance details.
+  <Accordion title="Top Performing Template" icon="star">
+    Your highest-traffic template with detailed analytics.
+    
+    **Click to View**:
+    - Confidence score trends
+    - Field-level performance
+    - Usage patterns
+    - Version history
   </Accordion>
 </AccordionGroup>
 
-## My Extractions
+## Template Management Hub
 
-Your template management hub with everything you need at a glance:
+### My Templates Overview
 
-### Template Table
+Advanced template management with comprehensive filtering and sorting:
 
-| Column | Description |
-|--------|-------------|
-| **Name** | Template display name (click to edit) |
-| **Created** | When the template was created |
-| **Last Used** | Most recent API call timestamp |
-| **Usage Count** | Total API calls for this template |
-| **Actions** | Quick actions menu |
+#### Template Table
 
-### Quick Actions Menu
+| Column | Description | Features |
+|--------|-------------|----------|
+| **Name** | Template display name | Click to edit, sortable |
+| **Version** | Current version (e.g., 1.2) | Version history access |
+| **Category** | Template type/category | Filter by category |
+| **Created** | Creation timestamp | Sort by date |
+| **Last Used** | Most recent API call | Activity indicator |
+| **Success Rate** | Extraction success percentage | Performance indicator |
+| **Confidence** | Average confidence score | Quality indicator |
+| **Actions** | Quick actions menu | Edit, clone, analyze, delete |
+
+#### Advanced Filtering
 
 <CardGroup cols={2}>
   <Card
-    title="Edit"
+    title="Performance Filters"
+    icon="filter"
+  >
+    - **High Performers**: >95% success rate
+    - **Needs Attention**: <85% success rate
+    - **Recently Used**: Active in last 7 days
+    - **Draft Status**: Unpublished templates
+  </Card>
+  <Card
+    title="Content Filters"
+    icon="tag"
+  >
+    - **By Category**: Text, Data, Analysis, Custom
+    - **By Field Types**: Templates using specific field types
+    - **By Language**: Multi-language enabled templates
+    - **By Version**: Show specific version ranges
+  </Card>
+</CardGroup>
+
+### Template Actions Menu
+
+<CardGroup cols={2}>
+  <Card
+    title="Edit Template"
     icon="pencil"
   >
-    Modify template fields and settings
+    **Visual Editor**: Modify fields, descriptions, and settings
+    **Version Control**: Save as new version or update current
+    **Live Testing**: Test changes with real images
   </Card>
   <Card
-    title="Clone"
+    title="Clone Template"
     icon="copy"
   >
-    Create a copy for testing variations
+    **Smart Duplication**: Create variations for A/B testing
+    **Bulk Operations**: Clone multiple templates at once
+    **Cross-Category**: Adapt templates for different use cases
   </Card>
   <Card
-    title="API Code"
-    icon="code"
-  >
-    View integration code snippets
-  </Card>
-  <Card
-    title="Analytics"
+    title="Performance Analytics"
     icon="chart-bar"
   >
-    Detailed usage statistics
+    **Detailed Metrics**: Field-level success rates and confidence scores
+    **Usage Trends**: Daily/weekly/monthly usage patterns
+    **Error Analysis**: Common failure points and solutions
+  </Card>
+  <Card
+    title="API Integration"
+    icon="code"
+  >
+    **Code Snippets**: Copy-paste integration examples
+    **Webhook Setup**: Real-time extraction notifications
+    **Batch Processing**: Multi-image extraction examples
   </Card>
 </CardGroup>
 
 ## Template Library
 
-### Browsing Made Easy
+### Enhanced Browsing Experience
 
-#### Popular Categories
+#### Smart Categories
+
 <CardGroup cols={2}>
   <Card
     title="Text Extraction"
     icon="text"
   >
-    Extract text fields, names, and descriptions
+    **Templates**: Extract text fields, names, descriptions
+    **Use Cases**: Content analysis, document digitization
+    **Key Features**: Multi-language, confidence scoring
   </Card>
   <Card
     title="Data Processing"
     icon="database"
   >
-    Extract numbers, amounts, dates from content
+    **Templates**: Extract numbers, amounts, dates
+    **Use Cases**: Financial data, invoice processing
+    **Key Features**: Currency detection, date parsing
   </Card>
   <Card
     title="Content Analysis"
     icon="magnifying-glass"
   >
-    Analyze and extract key information from images
+    **Templates**: Analyze and extract key information
+    **Use Cases**: Quality control, content moderation
+    **Key Features**: Object detection, list extraction
   </Card>
   <Card
     title="Custom Templates"
     icon="wrench"
   >
-    Your personally created templates
+    **Templates**: Your personally created templates
+    **Use Cases**: Unique business requirements
+    **Key Features**: Full customization, version control
   </Card>
 </CardGroup>
 
-#### Search & Filter
-- **Search Bar**: Find templates by name or description
-- **Category Filter**: Filter by document type
-- **Sort Options**: Name, popularity, newest first
-- **My Templates**: Show only your custom creations
+#### Advanced Search & Discovery
 
-### Using Templates
+- **Smart Search**: Find templates by name, description, or field types
+- **Category Filtering**: Filter by document type or use case
+- **Performance Sorting**: Sort by success rate, popularity, or recency
+- **Tag System**: Custom tags for better organization
+- **Favorite Templates**: Star templates for quick access
+
+### Template Deployment Workflow
 
 <Steps>
-  <Step title="Find Your Template">
-    Browse categories or search for what you need.
+  <Step title="Discover & Preview">
+    Browse categories or search for templates. Click "Preview" to see:
+    - Sample extractions with confidence scores
+    - Field structure and data types
+    - Performance metrics and user ratings
   </Step>
-  <Step title="Preview & Test">
-    Click "Preview" to see sample extractions and field structure.
+  <Step title="Test & Validate">
+    Upload your own images to test template performance:
+    - Real-time extraction results
+    - Confidence score analysis
+    - Field-by-field validation
   </Step>
-  <Step title="Deploy">
-    Click "Use Template" to add it to your extractions.
+  <Step title="Deploy & Customize">
+    Click "Use Template" to deploy:
+    - Optional field customization
+    - Version selection (latest or specific)
+    - Environment targeting (dev/staging/prod)
   </Step>
-  <Step title="Customize">
-    Modify fields if needed using the visual editor.
+  <Step title="Monitor & Optimize">
+    Track performance and make improvements:
+    - Success rate monitoring
+    - Confidence score trends
+    - Version comparison analytics
   </Step>
 </Steps>
 
-## API Key Management
+## Advanced Template Features
 
-### Your Main API Key
-
-Your primary key for all API access:
-
-<Warning>
-**Security First**: Never expose API keys in client-side code or public repositories.
-</Warning>
-
-#### Key Features
-- **Copy to Clipboard**: One-click copying
-- **Regenerate**: Create new key if compromised
-- **Usage Tracking**: See when and where it's used
-- **Rate Limits**: Current usage and limits
-
-### Additional API Keys
-
-Create specialized keys for different environments:
-
-<Tabs>
-  <Tab title="Development">
-    Perfect for testing and development work.
-  </Tab>
-  <Tab title="Production">
-    Your live application's secure key.
-  </Tab>
-  <Tab title="Staging">
-    Testing environment before production.
-  </Tab>
-</Tabs>
-
-#### Creating New Keys
-
-<Steps>
-  <Step title="Click 'Create New Key'">
-    Start the key creation process.
-  </Step>
-  <Step title="Add Details">
-    Give it a name and description (e.g., "Production App").
-  </Step>
-  <Step title="Copy Immediately">
-    You'll only see the key once - copy it now!
-  </Step>
-  <Step title="Update Your App">
-    Replace the key in your application code.
-  </Step>
-</Steps>
-
-## Usage & Billing
-
-### Credit System
+### Template Versioning Control
 
 <AccordionGroup>
-  <Accordion title="How It Works" icon="circle-info">
-    - **1 Credit = 1 Successful Extraction**
-    - No charge for failed requests
-    - Credits never expire
-    - Real-time usage tracking
+  <Accordion title="Version Management" icon="git-branch">
+    **Create Versions**: Save template changes as new versions (1.0, 1.1, 2.0)
+    
+    **Version Comparison**: Side-by-side comparison of different versions
+    
+    **Rollback Capability**: Instantly revert to previous versions
+    
+    **API Version Control**: Specify exact versions in API calls for production stability
   </Accordion>
   
-  <Accordion title="Current Balance" icon="wallet">
-    - Remaining credits available
-    - Monthly usage summary
-    - Projected depletion date
-    - Usage by template breakdown
+  <Accordion title="A/B Testing" icon="flask">
+    **Traffic Splitting**: Route percentage of traffic to different versions
+    
+    **Performance Comparison**: Compare success rates and confidence scores
+    
+    **Automated Optimization**: Auto-promote better performing versions
+    
+    **Statistical Significance**: Built-in statistical analysis of results
   </Accordion>
   
-  <Accordion title="Purchase More" icon="credit-card">
-    - **Starter**: 100 credits for $9.99
-    - **Growth**: 500 credits for $39.99
-    - **Scale**: 1,500 credits for $99.99
-    - Instant activation via Stripe
+  <Accordion title="Deployment Pipeline" icon="rocket">
+    **Environment Promotion**: Move templates through dev → staging → production
+    
+    **Approval Workflows**: Require approval for production deployments
+    
+    **Automated Testing**: Run test suites before deployment
+    
+    **Rollout Strategies**: Gradual rollout with monitoring checkpoints
   </Accordion>
 </AccordionGroup>
 
-### Usage Analytics
+### Field-Level Configuration
 
-Track your extraction patterns:
-
-- **Daily Usage**: See consumption trends
-- **Template Performance**: Which templates are most popular
-- **Success Rates**: Monitor extraction quality
-- **Cost Analysis**: Optimize your usage
-
-## Settings
-
-### Account Basics
+#### Advanced Field Types
 
 <Tabs>
-  <Tab title="Profile">
-    - Display name and email
-    - Password management
-    - Time zone settings
+  <Tab title="Basic Fields">
+    **String**: Text with validation patterns
+    **Number**: Currency detection, decimal precision
+    **Date**: Multiple format support, timezone handling
+    **Boolean**: Custom true/false representations
   </Tab>
-  <Tab title="Preferences">
-    - Dashboard theme (light/dark)
-    - Email notifications
-    - Default API settings
+  <Tab title="Complex Fields">
+    **Object**: Nested structures with subfields
+    **Enum**: Predefined value sets with validation
+    **Image**: AI-generated images based on context
   </Tab>
-  <Tab title="Security">
-    - Two-factor authentication
-    - Login history
-    - Active sessions
+  <Tab title="Advanced Options">
+    **Conditional Logic**: Extract fields based on conditions
+    **Multi-language**: 40+ language support with translation
+    **Confidence Thresholds**: Minimum confidence requirements
+    **Batch Processing**: Handle multiple images efficiently
   </Tab>
 </Tabs>
 
-### Advanced Settings
+## API Key Management
 
-#### Webhooks
-Get notified when extractions complete:
+### Multi-Environment Setup
 
-<Steps>
-  <Step title="Add Webhook URL">
-    Enter your endpoint URL.
-  </Step>
-  <Step title="Select Events">
-    Choose which events to receive.
-  </Step>
-  <Step title="Test Delivery">
-    Verify webhook is working.
-  </Step>
-</Steps>
+<Tabs>
+  <Tab title="Development Keys">
+    **Purpose**: Testing and development work
+    **Features**: 
+    - Unlimited regeneration
+    - Detailed logging
+    - Sandbox mode
+    - No rate limiting
+  </Tab>
+  <Tab title="Production Keys">
+    **Purpose**: Live application integration
+    **Features**:
+    - Enhanced security
+    - Rate limiting
+    - Usage analytics
+    - Audit trails
+  </Tab>
+  <Tab title="Staging Keys">
+    **Purpose**: Pre-production testing
+    **Features**:
+    - Production-like environment
+    - Performance testing
+    - Load testing capabilities
+    - Deployment validation
+  </Tab>
+</Tabs>
 
-#### API Security
-- **IP Whitelisting**: Restrict access by IP address
-- **Rate Limiting**: Custom limits per API key
-- **Audit Logs**: Complete access history
-
-## Mobile Experience
-
-Your dashboard works great on mobile:
+### Key Security Features
 
 <CardGroup cols={2}>
   <Card
-    title="Responsive Design"
-    icon="mobile"
+    title="Access Control"
+    icon="shield"
   >
-    Adapts to any screen size
+    **IP Whitelisting**: Restrict access by IP address
+    **Domain Restrictions**: Limit usage to specific domains
+    **Expiration Dates**: Set automatic key expiration
   </Card>
   <Card
-    title="Touch Friendly"
-    icon="hand-pointer"
+    title="Monitoring"
+    icon="eye"
   >
-    Optimized for finger navigation
+    **Real-time Usage**: Live API call monitoring
+    **Anomaly Detection**: Unusual usage pattern alerts
+    **Geographic Tracking**: Usage by location
+  </Card>
+</CardGroup>
+
+### Creating & Managing Keys
+
+<Steps>
+  <Step title="Generate New Key">
+    Click "Create New Key" and specify:
+    - Environment (dev/staging/production)
+    - Permissions and restrictions
+    - Expiration settings
+    - Usage limits
+  </Step>
+  <Step title="Configure Security">
+    Set up security parameters:
+    - IP address restrictions
+    - Domain whitelisting
+    - Rate limiting rules
+    - Access permissions
+  </Step>
+  <Step title="Copy & Secure">
+    **Critical**: Copy the key immediately (shown only once)
+    - Store in secure password manager
+    - Update application configuration
+    - Test API connectivity
+  </Step>
+  <Step title="Monitor Usage">
+    Track key performance:
+    - Request volume and patterns
+    - Error rates and types
+    - Geographic usage
+    - Security alerts
+  </Step>
+</Steps>
+
+## Usage Analytics & Billing
+
+### Credit Management System
+
+<AccordionGroup>
+  <Accordion title="Credit Mechanics" icon="circle-info">
+    **Simple Pricing**: 1 credit = 1 successful extraction
+    **No Waste**: Failed requests don't consume credits
+    **Never Expire**: Credits remain in your account indefinitely
+    **Real-time Tracking**: Instant usage updates
+    
+    **Credit Consumption**:
+    - Single extraction: 1 credit
+    - Batch processing: 1 credit per image
+    - Failed requests: 0 credits
+    - Retries: Only successful extractions count
+  </Accordion>
+  
+  <Accordion title="Usage Analytics" icon="chart-bar">
+    **Comprehensive Metrics**:
+    - Daily/weekly/monthly usage trends
+    - Template-specific consumption
+    - Success rate analytics
+    - Performance benchmarking
+    
+    **Predictive Analytics**:
+    - Projected depletion dates
+    - Usage pattern analysis
+    - Cost optimization recommendations
+    - Seasonal trend identification
+  </Accordion>
+  
+  <Accordion title="Credit Packages" icon="credit-card">
+    **Flexible Pricing**:
+    - **Starter**: 100 credits for $9.99 (ideal for testing)
+    - **Growth**: 500 credits for $39.99 (small businesses)
+    - **Scale**: 1,500 credits for $99.99 (enterprise usage)
+    
+    **Enterprise Options**:
+    - Custom packages for high-volume users
+    - Volume discounts for 10,000+ credits
+    - Annual billing with additional savings
+  </Accordion>
+</AccordionGroup>
+
+### Performance Dashboard
+
+#### Template Performance Metrics
+
+<CardGroup cols={2}>
+  <Card
+    title="Success Rates"
+    icon="percentage"
+  >
+    **Template-Level**: Overall success percentage
+    **Field-Level**: Individual field extraction rates
+    **Trend Analysis**: Performance over time
+    **Benchmark Comparison**: vs. similar templates
+  </Card>
+  <Card
+    title="Confidence Scores"
+    icon="gauge"
+  >
+    **Average Scores**: Mean confidence across extractions
+    **Score Distribution**: Histogram of confidence ranges
+    **Field Analysis**: Per-field confidence metrics
+    **Quality Thresholds**: Customizable quality gates
+  </Card>
+  <Card
+    title="Processing Time"
+    icon="clock"
+  >
+    **Average Latency**: Mean response time
+    **Performance Trends**: Speed over time analysis
+    **Bottleneck Identification**: Slow field detection
+    **Optimization Suggestions**: Performance improvements
+  </Card>
+  <Card
+    title="Error Analysis"
+    icon="exclamation-triangle"
+  >
+    **Error Types**: Categorized failure reasons
+    **Common Patterns**: Recurring extraction issues
+    **Image Quality Issues**: Resolution/clarity problems
+    **Improvement Recommendations**: Actionable fixes
+  </Card>
+</CardGroup>
+
+## Settings & Configuration
+
+### Account Management
+
+<Tabs>
+  <Tab title="Profile Settings">
+    **Basic Information**:
+    - Display name and contact email
+    - Password management with 2FA
+    - Time zone configuration
+    - Notification preferences
+    
+    **Professional Settings**:
+    - Company information
+    - Team member management
+    - Billing contact details
+  </Tab>
+  <Tab title="Dashboard Preferences">
+    **UI Customization**:
+    - Light/dark theme selection
+    - Dashboard layout preferences
+    - Metric display options
+    - Default view settings
+    
+    **Data Preferences**:
+    - Default template categories
+    - Performance metric priorities
+    - Alert thresholds
+    - Export formats
+  </Tab>
+  <Tab title="Security Settings">
+    **Authentication**:
+    - Two-factor authentication setup
+    - Login history and active sessions
+    - Password policies
+    - Account recovery options
+    
+    **API Security**:
+    - Global rate limiting
+    - IP whitelisting preferences
+    - Audit log retention
+    - Security alert settings
+  </Tab>
+</Tabs>
+
+### Advanced Integrations
+
+#### Webhook Configuration
+
+<Steps>
+  <Step title="Webhook Setup">
+    Configure real-time notifications:
+    - Extraction completion events
+    - Template performance alerts
+    - Credit usage notifications
+    - Error condition alerts
+  </Step>
+  <Step title="Event Selection">
+    Choose which events to receive:
+    - Successful extractions
+    - Failed processing attempts
+    - Template version updates
+    - Usage threshold alerts
+  </Step>
+  <Step title="Endpoint Configuration">
+    Set up your webhook endpoint:
+    - URL validation and testing
+    - Authentication headers
+    - Retry policies
+    - Timeout settings
+  </Step>
+  <Step title="Testing & Validation">
+    Verify webhook functionality:
+    - Test event delivery
+    - Payload format validation
+    - Error handling verification
+    - Performance monitoring
+  </Step>
+</Steps>
+
+#### API Integration Tools
+
+<CardGroup cols={2}>
+  <Card
+    title="SDKs & Libraries"
+    icon="code"
+  >
+    **Official SDKs**: Python, JavaScript, Go, PHP
+    **Community Libraries**: Additional language support
+    **Code Examples**: Ready-to-use integration snippets
+    **Documentation**: Comprehensive API reference
+  </Card>
+  <Card
+    title="Testing Tools"
+    icon="flask"
+  >
+    **API Playground**: Interactive API testing
+    **Postman Collections**: Pre-configured API collections
+    **Mock Services**: Testing without credit consumption
+    **Performance Testing**: Load testing capabilities
+  </Card>
+</CardGroup>
+
+## Mobile Dashboard Experience
+
+### Responsive Design Features
+
+<CardGroup cols={2}>
+  <Card
+    title="Mobile Optimized"
+    icon="mobile"
+  >
+    **Adaptive Layout**: Optimized for all screen sizes
+    **Touch Interface**: Finger-friendly navigation
+    **Offline Capability**: Core features work offline
+    **Progressive Web App**: Install as mobile app
   </Card>
   <Card
     title="Quick Actions"
     icon="bolt"
   >
-    Swipe gestures for common tasks
-  </Card>
-  <Card
-    title="Offline Ready"
-    icon="wifi"
-  >
-    Works even with poor connections
+    **Swipe Gestures**: Quick template actions
+    **Voice Commands**: Hands-free operation
+    **Camera Integration**: Direct image upload
+    **Location Services**: Geo-tagged extractions
   </Card>
 </CardGroup>
 
-## Getting Help
+### Mobile-Specific Features
+
+- **Camera Upload**: Direct photo capture for extraction
+- **Offline Mode**: Queue extractions when offline
+- **Push Notifications**: Real-time alerts and updates
+- **Voice Notes**: Audio field descriptions
+- **GPS Tagging**: Location-based template suggestions
+
+## Getting Help & Support
+
+### Self-Service Resources
 
 <CardGroup cols={3}>
   <Card
-    title="Help Center"
+    title="Interactive Help"
     icon="circle-question"
-    href="/essentials"
   >
-    Contextual help articles
+    **Contextual Tooltips**: Hover help throughout dashboard
+    **Interactive Tours**: Guided walkthroughs for new features
+    **Video Tutorials**: Step-by-step visual guidance
   </Card>
   <Card
-    title="Live Chat"
+    title="Knowledge Base"
+    icon="book"
+  >
+    **Searchable Articles**: Complete documentation
+    **FAQ Section**: Common questions and answers
+    **Best Practices**: Template optimization guides
+  </Card>
+  <Card
+    title="Community Forum"
+    icon="users"
+  >
+    **User Community**: Connect with other developers
+    **Template Sharing**: Share and discover templates
+    **Success Stories**: Real-world implementation examples
+  </Card>
+</CardGroup>
+
+### Direct Support Options
+
+<CardGroup cols={2}>
+  <Card
+    title="Live Chat Support"
     icon="message"
   >
-    Real-time support during business hours
+    **Business Hours**: Real-time assistance during 9 AM - 6 PM EST
+    **Technical Support**: API integration help
+    **Template Optimization**: Performance improvement guidance
   </Card>
   <Card
     title="Email Support"
     icon="envelope"
     href="mailto:support@vizapi.ai"
   >
-    For complex issues and requests
+    **Complex Issues**: Detailed technical problems
+    **Account Issues**: Billing and account management
+    **Feature Requests**: New functionality suggestions
   </Card>
 </CardGroup>
 
 ---
 
 <Note>
-**Pro Tip**: The dashboard is continuously updated with new features. Keep an eye on the changelog for the latest improvements!
+**Pro Tip**: The dashboard is continuously updated with new features based on user feedback. Enable notifications in your settings to stay informed about new capabilities and improvements!
 </Note> 
