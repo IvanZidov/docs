@@ -110,38 +110,38 @@ print(data)
 [
   {
     "id": "template_12345",
-    "name": "Invoice Template",
-    "description": "Template for extracting data from invoices",
-    "category": "invoice",
-    "tags": ["finance", "accounting"],
+    "name": "Plant Disease Detector",
+    "description": "Template for analyzing plant health and detecting diseases",
+    "category": "agriculture",
+    "tags": ["farming", "disease-detection"],
     "usage_count": 25,
     "fields": [
       {
-        "name": "invoice_number",
+        "name": "plant_species",
         "type": "string",
-        "description": "The invoice identifier",
+        "description": "The species of plant being analyzed",
         "required": true,
         "return_as_list": false,
         "subfields": [],
         "enum_values": []
       },
       {
-        "name": "date",
-        "type": "date",
-        "description": "The invoice date",
+        "name": "disease_detected",
+        "type": "boolean",
+        "description": "Whether disease is present in the plant",
         "required": true,
         "return_as_list": false,
         "subfields": [],
         "enum_values": []
       },
       {
-        "name": "total",
-        "type": "number",
-        "description": "The total amount",
-        "required": true,
+        "name": "severity_level",
+        "type": "string",
+        "description": "The severity level of detected disease",
+        "required": false,
         "return_as_list": false,
         "subfields": [],
-        "enum_values": []
+        "enum_values": ["mild", "moderate", "severe"]
       }
     ],
     "is_public": false,
@@ -151,34 +151,34 @@ print(data)
   },
   {
     "id": "template_67890",
-    "name": "Receipt Template",
-    "description": "Template for extracting data from receipts",
-    "category": "receipt",
-    "tags": ["finance", "retail"],
+    "name": "Object Detection Template",
+    "description": "Template for detecting and counting objects in images",
+    "category": "detection",
+    "tags": ["object-detection", "counting"],
     "usage_count": 12,
     "fields": [
       {
-        "name": "vendor",
+        "name": "object_type",
         "type": "string",
-        "description": "The name of the vendor",
+        "description": "The type of object detected",
         "required": true,
         "return_as_list": false,
         "subfields": [],
         "enum_values": []
       },
       {
-        "name": "date",
-        "type": "date",
-        "description": "The receipt date",
-        "required": true,
-        "return_as_list": false,
-        "subfields": [],
-        "enum_values": []
-      },
-      {
-        "name": "total",
+        "name": "object_count",
         "type": "number",
-        "description": "The total amount",
+        "description": "The number of objects detected",
+        "required": true,
+        "return_as_list": false,
+        "subfields": [],
+        "enum_values": []
+      },
+      {
+        "name": "confidence_score",
+        "type": "number",
+        "description": "The confidence score of the detection",
         "required": true,
         "return_as_list": false,
         "subfields": [],

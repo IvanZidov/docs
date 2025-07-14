@@ -36,14 +36,14 @@ We're constantly evolving VizAPI.ai to be the most powerful and user-friendly vi
 ### Multiple Image Processing
 **Status**: 🔨 In Development
 
-Process multiple related images in a single extraction for complete document analysis.
+Process multiple related images in a single extraction for complete visual analysis.
 
 <AccordionGroup>
   <Accordion title="Perfect For" icon="use-case">
-    - **Multi-page Documents**: Process entire documents split across images
-    - **ID Verification**: Front and back of cards together
-    - **Invoice Packets**: Main invoice plus supporting documents
-    - **Receipt Batches**: Multiple receipts from one shopping trip
+    - **Multi-angle Analysis**: Process multiple views of the same subject
+    - **Time-series Monitoring**: Track changes across sequential images
+    - **Batch Quality Inspection**: Multiple products from one session
+    - **Comparative Analysis**: Side-by-side image comparisons
   </Accordion>
   
   <Accordion title="How It Works" icon="cog">
@@ -55,11 +55,11 @@ Process multiple related images in a single extraction for complete document ana
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        template_id: 'invoice-processor',
+        template_id: 'pose-analyzer',
         images: [
-          'https://example.com/page1.jpg',
-          'https://example.com/page2.jpg',
-          'https://example.com/page3.jpg'
+          'https://example.com/front-view.jpg',
+          'https://example.com/side-view.jpg',
+          'https://example.com/back-view.jpg'
         ]
       })
     });
@@ -69,25 +69,25 @@ Process multiple related images in a single extraction for complete document ana
 
 ---
 
-### Auto-Detect Document Type
+### Auto-Detect Image Type
 **Status**: 🔨 In Development
 
-AI automatically identifies document types and suggests the best templates.
+AI automatically identifies image types and suggests the best templates.
 
 <Tabs>
   <Tab title="Smart Recognition">
-    **Automatic Detection**: Upload any document and our AI will identify what it is
+    **Automatic Detection**: Upload any image and our AI will identify what it is
     
     **Template Suggestions**: Get recommendations for the best extraction templates
     
     **Confidence Scoring**: See how confident the AI is in its detection
   </Tab>
   <Tab title="Supported Types">
-    - **Receipts**: Store receipts, gas stations, restaurants
-    - **Invoices**: Business invoices, service bills, medical bills
-    - **Forms**: Applications, surveys, registrations
-    - **IDs**: Driver's licenses, passports, employee IDs
-    - **More**: Contracts, certificates, and custom document types
+    - **Medical Images**: X-rays, scans, pathology slides
+    - **Agricultural Images**: Crop monitoring, livestock analysis
+    - **Industrial Images**: Quality control, defect detection
+    - **Security Images**: Surveillance footage, access control
+    - **More**: Environmental monitoring, pose analysis, and custom image types
   </Tab>
 </Tabs>
 
@@ -96,14 +96,14 @@ AI automatically identifies document types and suggests the best templates.
 ### Advanced Bulk Processing
 **Status**: 🔨 In Development
 
-Process hundreds of documents efficiently with enhanced monitoring and control.
+Process hundreds of images efficiently with enhanced monitoring and control.
 
 <CardGroup cols={2}>
   <Card
     title="Parallel Processing"
     icon="bolt"
   >
-    Process multiple documents simultaneously for faster results
+    Process multiple images simultaneously for faster results
   </Card>
   <Card
     title="Progress Tracking"
@@ -163,10 +163,10 @@ Extract data from video content including frame analysis and temporal tracking.
     - **Motion Detection**: Extract data from moving content
   </Tab>
   <Tab title="Use Cases">
-    - **Document Scanning**: Process documents filmed with mobile cameras
-    - **Security Footage**: Extract timestamps, license plates, text
-    - **Presentation Analysis**: Extract data from recorded presentations
+    - **Motion Analysis**: Process movement patterns from video
+    - **Security Footage**: Extract timestamps, object tracking, scene analysis
     - **Quality Control**: Monitor production lines with video
+    - **Medical Imaging**: Extract data from dynamic medical procedures
   </Tab>
 </Tabs>
 
@@ -175,11 +175,11 @@ Extract data from video content including frame analysis and temporal tracking.
 ### Custom Model Training
 **Status**: 🧪 Research Phase
 
-Train specialized models on your specific document types and formats.
+Train specialized models on your specific image types and analysis needs.
 
 <Steps>
   <Step title="Upload Training Data">
-    Provide sample documents with labeled data for training.
+    Provide sample images with labeled data for training.
   </Step>
   <Step title="Model Training">
     Our AI fine-tunes models specifically for your use case.
@@ -222,7 +222,7 @@ Direct integration with AI assistants through Model Context Protocol.
     title="Automated Workflows"
     icon="workflow"
   >
-    Build AI-powered document processing pipelines
+    Build AI-powered image processing pipelines
   </Card>
 </CardGroup>
 
@@ -262,7 +262,7 @@ Direct integration with AI assistants through Model Context Protocol.
   <Tab title="Q3 2025">
     <CardGroup cols={2}>
       <Card title="✅ Multiple Image Processing" color="#22c55e" />
-      <Card title="✅ Auto-Detect Document Type" color="#22c55e" />
+      <Card title="✅ Auto-Detect Image Type" color="#22c55e" />
       <Card title="✅ Advanced Bulk Processing" color="#22c55e" />
       <Card title="✅ Enhanced Logging Controls" color="#22c55e" />
     </CardGroup>

@@ -1,10 +1,10 @@
 ---
 title: 'Extract Values'
 api: 'POST https://api.vizapi.ai/v1/agents/extract-values'
-description: 'Extracts values from a document using a template'
+description: 'Extracts values from an image using a template'
 ---
 
-The `/agents/extract-values` endpoint extracts structured data from a document based on a provided template.
+The `/agents/extract-values` endpoint extracts structured data from an image based on a provided template.
 
 ## Request
 
@@ -21,7 +21,7 @@ The `/agents/extract-values` endpoint extracts structured data from a document b
 </ParamField>
 
 <ParamField body="image_url" type="string" required>
-  The URL of the image or document to extract data from. The URL must be publicly accessible.
+  The URL of the image to extract data from. The URL must be publicly accessible.
   
   **Supported formats**: PNG, JPEG, GIF, WebP, TIFF, BMP, ICO, SVG, EPS, TGA  
   **Maximum file size**: 10MB
@@ -70,7 +70,7 @@ The `/agents/extract-values` endpoint extracts structured data from a document b
     </ResponseField>
     
     <ResponseField name="return_as_list" type="boolean">
-      Whether the field is returned as a list. Set to true for fields that contain multiple items (like line items in an invoice).
+      Whether the field is returned as a list. Set to true for fields that contain multiple items (like multiple objects detected in an image).
     </ResponseField>
     
     <ResponseField name="enum_values" type="array">
@@ -102,7 +102,7 @@ curl -X POST https://api.vizapi.ai/v1/agents/extract-values \
   -H "Content-Type: application/json" \
   -d '{
     "template_id": "template_12345",
-    "image_url": "https://example.com/invoice.jpg",
+    "image_url": "https://example.com/plant-leaf.jpg",
     "advanced": {
       "target_language": "Spanish"
     }
@@ -116,7 +116,7 @@ curl -X POST https://api.vizapi.ai/v1/agents/extract-values \
   -d '{
     "template_id": "template_12345",
     "version_number": 1,
-    "image_url": "https://example.com/invoice.jpg",
+    "image_url": "https://example.com/plant-leaf.jpg",
     "advanced": {
       "target_language": "Spanish"
     }
@@ -135,7 +135,7 @@ async function extractValuesLatest() {
     },
     body: JSON.stringify({
       template_id: 'template_12345',
-      image_url: 'https://example.com/invoice.jpg',
+      image_url: 'https://example.com/plant-leaf.jpg',
       advanced: {
         target_language: 'Spanish'
       }
@@ -162,7 +162,7 @@ async function extractValuesSpecific() {
     body: JSON.stringify({
       template_id: 'template_12345',
       version_number: 1,
-      image_url: 'https://example.com/invoice.jpg',
+      image_url: 'https://example.com/plant-leaf.jpg',
       advanced: {
         target_language: 'Spanish'
       }
@@ -186,7 +186,7 @@ headers = {
 }
 payload = {
     "template_id": "template_12345",
-    "image_url": "https://example.com/invoice.jpg",
+    "image_url": "https://example.com/plant-leaf.jpg",
     "advanced": {
         "target_language": "Spanish"
     }
@@ -208,7 +208,7 @@ headers = {
 payload = {
     "template_id": "template_12345",
     "version_number": 1,
-    "image_url": "https://example.com/invoice.jpg",
+    "image_url": "https://example.com/plant-leaf.jpg",
     "advanced": {
         "target_language": "Spanish"
     }
@@ -266,146 +266,78 @@ extractValues();
 {
   "extracted_template_values": [
     {
-      "name": "invoice_number",
-      "description": "The unique identifier for the invoice.",
+      "name": "plant_species",
+      "description": "The species of plant being analyzed.",
       "required": true,
       "type": "string",
       "subfields": [],
       "return_as_list": false,
       "enum_values": [],
-      "value": "99DAE4C8-0008"
+      "value": "Tomato (Solanum lycopersicum)"
     },
     {
-      "name": "date_of_issue",
-      "description": "The date the invoice was issued.",
+      "name": "disease_detected",
+      "description": "Whether disease is present in the plant.",
       "required": true,
-      "type": "date",
+      "type": "boolean",
       "subfields": [],
       "return_as_list": false,
       "enum_values": [],
-      "value": "1 de septiembre de 2023"
+      "value": true
     },
     {
-      "name": "due_date",
-      "description": "The date by which the invoice must be paid.",
-      "required": true,
-      "type": "date",
-      "subfields": [],
-      "return_as_list": false,
-      "enum_values": [],
-      "value": "8 de septiembre de 2023"
-    },
-    {
-      "name": "billing_period",
-      "description": "The period for which the services are billed.",
+      "name": "disease_type",
+      "description": "The type of disease detected.",
       "required": false,
       "type": "string",
       "subfields": [],
       "return_as_list": false,
       "enum_values": [],
-      "value": "01/08/2023 - 31/08/2023"
+      "value": "Blight"
     },
     {
-      "name": "bill_to_name",
-      "description": "The name of the person or entity being billed.",
-      "required": true,
-      "type": "string",
-      "subfields": [],
-      "return_as_list": false,
-      "enum_values": [],
-      "value": "Hendeer"
-    },
-    {
-      "name": "bill_to_email",
-      "description": "The email address of the person or entity being billed.",
+      "name": "severity_level",
+      "description": "The severity level of the detected disease.",
       "required": false,
       "type": "string",
       "subfields": [],
       "return_as_list": false,
-      "enum_values": [],
-      "value": "hello@hendeer.com"
+      "enum_values": ["mild", "moderate", "severe"],
+      "value": "moderate"
     },
     {
-      "name": "total_amount_due",
-      "description": "The total amount that is due for payment.",
-      "required": true,
+      "name": "affected_area_percentage",
+      "description": "Percentage of plant area affected by disease.",
+      "required": false,
       "type": "number",
       "subfields": [],
       "return_as_list": false,
       "enum_values": [],
-      "value": 46.8
+      "value": 25.5
     },
     {
-      "name": "line_items",
-      "description": "The list of items or services billed in the invoice.",
+      "name": "treatment_recommendations",
+      "description": "Recommended treatments for the detected disease.",
       "required": false,
-      "type": "object",
-      "subfields": [
-        {
-          "name": "description",
-          "description": "Description of the item or service.",
-          "required": true,
-          "type": "string",
-          "subfields": [],
-          "return_as_list": false,
-          "enum_values": [],
-          "value": null
-        },
-        {
-          "name": "quantity",
-          "description": "The quantity of the item or service.",
-          "required": true,
-          "type": "number",
-          "subfields": [],
-          "return_as_list": false,
-          "enum_values": [],
-          "value": null
-        },
-        {
-          "name": "unit_price",
-          "description": "The price per unit of the item or service.",
-          "required": true,
-          "type": "number",
-          "subfields": [],
-          "return_as_list": false,
-          "enum_values": [],
-          "value": null
-        },
-        {
-          "name": "tax",
-          "description": "The tax applied to the item or service.",
-          "required": false,
-          "type": "number",
-          "subfields": [],
-          "return_as_list": false,
-          "enum_values": [],
-          "value": null
-        },
-        {
-          "name": "amount",
-          "description": "The total amount for the line item.",
-          "required": true,
-          "type": "number",
-          "subfields": [],
-          "return_as_list": false,
-          "enum_values": [],
-          "value": null
-        }
-      ],
+      "type": "string",
+      "subfields": [],
       "return_as_list": true,
       "enum_values": [],
-      "value": []
+      "value": [
+        "Apply copper-based fungicide",
+        "Remove affected leaves",
+        "Improve air circulation"
+      ]
     },
     {
-      "name": "company_logo",
-      "description": "Generated company logo based on invoice data",
+      "name": "analysis_visualization",
+      "description": "Generated visualization showing disease analysis results",
       "required": false,
       "type": "image",
       "subfields": [],
       "return_as_list": false,
       "enum_values": [],
-      "value": null,
-      "error": "Unable to generate company logo: insufficient context provided in the document"
+      "value": "https://storage.vizapi.ai/generated/analysis-viz-abc123.jpg"
     }
   ]
 }

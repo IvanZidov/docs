@@ -1,0 +1,392 @@
+---
+title: 'Extract Values from File'
+api: 'POST https://api.vizapi.ai/v1/agents/extract-values-file'
+description: 'Extract values from an uploaded image file using a template'
+---
+
+The `/agents/extract-values-file` endpoint allows you to upload a file directly and extract structured data based on a provided template. This endpoint accepts multipart form data and automatically converts the uploaded file to base64 for processing.
+
+## Request
+
+<ParamField header="x-api-key" type="string" required>
+  Your API key for authentication.
+</ParamField>
+
+<ParamField body="file" type="file" required>
+  The image file to extract values from. **Only image files are accepted.**
+  
+  **Supported formats**: PNG, JPEG, GIF, WebP, TIFF, BMP, ICO, SVG, EPS, TGA  
+  **Maximum file size**: 10MB
+  
+  The file will be automatically validated to ensure it's an image format, converted to base64, and processed using the same extraction pipeline as the regular extract-values endpoint.
+  
+  <Warning>
+    Non-image files (like PDFs, Word documents, etc.) will be rejected with a 400 error. Only image files are supported.
+  </Warning>
+</ParamField>
+
+<ParamField body="template_id" type="string">
+  The ID of an existing template to use for extraction. Required for template-based extraction.
+</ParamField>
+
+<ParamField body="version_number" type="number">
+  Optional version number of the template to use. If not provided or set to 0, the latest version will be used.
+</ParamField>
+
+<ParamField body="target_language" type="string">
+  Optional target language for the extraction results. If provided, values will be extracted in this language.
+</ParamField>
+
+## Response
+
+The response format is identical to the regular [extract-values endpoint](/api-reference/endpoint/agents-extract-values).
+
+<ResponseField name="extracted_template_values" type="array">
+  An array of fields with extracted values.
+  
+  <Expandable title="Extracted field structure">
+    <ResponseField name="name" type="string">
+      The name of the field.
+    </ResponseField>
+    
+    <ResponseField name="description" type="string">
+      A description of the field.
+    </ResponseField>
+    
+    <ResponseField name="required" type="boolean">
+      Whether the field is required.
+    </ResponseField>
+    
+    <ResponseField name="type" type="string">
+      The data type of the field. Possible values include: "string", "number", "date", "object", "boolean", "enum".
+    </ResponseField>
+    
+    <ResponseField name="subfields" type="array">
+      Nested fields for complex data structures. Each subfield follows the same structure as a top-level field.
+    </ResponseField>
+    
+    <ResponseField name="return_as_list" type="boolean">
+      Whether the field is returned as a list. Set to true for fields that contain multiple items.
+    </ResponseField>
+    
+    <ResponseField name="enum_values" type="array">
+      Possible values for enum fields. Used when the field should only contain specific values.
+    </ResponseField>
+    
+    <ResponseField name="value" type="any">
+      The extracted value for the field. The type of this value will match the specified field type.
+    </ResponseField>
+    
+    <ResponseField name="error" type="string">
+      Error message if field processing failed. This field is only present when there was an error processing the specific field.
+    </ResponseField>
+  </Expandable>
+</ResponseField>
+
+## Examples
+
+### Example Request with File Upload
+
+<CodeGroup>
+
+```bash cURL
+curl -X POST https://api.vizapi.ai/v1/agents/extract-values-file \
+  -H "x-api-key: YOUR_API_KEY" \
+  -F "file=@/path/to/your/plant-image.jpg" \
+  -F "template_id=your-template-id"
+```
+
+```javascript Node.js
+const fs = require('fs');
+const FormData = require('form-data');
+const axios = require('axios');
+
+async function extractValuesFromFile() {
+  const formData = new FormData();
+  formData.append('file', fs.createReadStream('/path/to/your/plant-image.jpg'));
+  formData.append('template_id', 'your-template-id');
+  
+  try {
+    const response = await axios.post('https://api.vizapi.ai/v1/agents/extract-values-file', formData, {
+      headers: {
+        'x-api-key': 'YOUR_API_KEY',
+        ...formData.getHeaders()
+      }
+    });
+    
+    console.log(response.data);
+  } catch (error) {
+    console.error('Error:', error.response?.data || error.message);
+  }
+}
+
+extractValuesFromFile();
+```
+
+```python Python
+import requests
+
+def extract_values_from_file():
+    url = "https://api.vizapi.ai/v1/agents/extract-values-file"
+    headers = {
+        "x-api-key": "YOUR_API_KEY"
+    }
+    
+    # Open the file in binary mode
+    with open('/path/to/your/plant-image.jpg', 'rb') as file:
+        files = {
+            'file': file
+        }
+        data = {
+            'template_id': 'your-template-id'
+        }
+        
+        response = requests.post(url, headers=headers, files=files, data=data)
+        
+        if response.status_code == 200:
+            print(response.json())
+        else:
+            print(f"Error: {response.status_code} - {response.text}")
+
+extract_values_from_file()
+```
+
+</CodeGroup>
+
+### Example Request with Language Specification
+
+<CodeGroup>
+
+```bash cURL
+curl -X POST https://api.vizapi.ai/v1/agents/extract-values-file \
+  -H "x-api-key: YOUR_API_KEY" \
+  -F "file=@/path/to/your/plant-image.jpg" \
+  -F "template_id=your-template-id" \
+  -F "target_language=spanish"
+```
+
+```javascript Node.js
+const fs = require('fs');
+const FormData = require('form-data');
+const axios = require('axios');
+
+async function extractValuesFromFileWithLanguage() {
+  const formData = new FormData();
+  formData.append('file', fs.createReadStream('/path/to/your/plant-image.jpg'));
+  formData.append('template_id', 'your-template-id');
+  formData.append('target_language', 'spanish');
+  
+  try {
+    const response = await axios.post('https://api.vizapi.ai/v1/agents/extract-values-file', formData, {
+      headers: {
+        'x-api-key': 'YOUR_API_KEY',
+        ...formData.getHeaders()
+      }
+    });
+    
+    console.log(response.data);
+  } catch (error) {
+    console.error('Error:', error.response?.data || error.message);
+  }
+}
+
+extractValuesFromFileWithLanguage();
+```
+
+```python Python
+import requests
+
+def extract_values_from_file_with_language():
+    url = "https://api.vizapi.ai/v1/agents/extract-values-file"
+    headers = {
+        "x-api-key": "YOUR_API_KEY"
+    }
+    
+    with open('/path/to/your/plant-image.jpg', 'rb') as file:
+        files = {
+            'file': file
+        }
+        data = {
+            'template_id': 'your-template-id',
+            'target_language': 'spanish'
+        }
+        
+        response = requests.post(url, headers=headers, files=files, data=data)
+        
+        if response.status_code == 200:
+            print(response.json())
+        else:
+            print(f"Error: {response.status_code} - {response.text}")
+
+extract_values_from_file_with_language()
+```
+
+</CodeGroup>
+
+### Example Response
+
+```json
+{
+  "extracted_template_values": [
+    {
+      "name": "plant_species",
+      "description": "The species of plant being analyzed",
+      "required": true,
+      "type": "string",
+      "subfields": [],
+      "return_as_list": false,
+      "enum_values": [],
+      "value": "Tomato (Solanum lycopersicum)"
+    },
+    {
+      "name": "disease_detected",
+      "description": "Whether disease is present in the plant",
+      "required": true,
+      "type": "boolean",
+      "subfields": [],
+      "return_as_list": false,
+      "enum_values": [],
+      "value": true
+    },
+    {
+      "name": "severity_level",
+      "description": "The severity level of detected disease",
+      "required": false,
+      "type": "string",
+      "subfields": [],
+      "return_as_list": false,
+      "enum_values": ["mild", "moderate", "severe"],
+      "value": "moderate"
+    },
+    {
+      "name": "affected_areas",
+      "description": "List of affected areas on the plant",
+      "required": false,
+      "type": "object",
+      "subfields": [
+        {
+          "name": "area_name",
+          "description": "Name of the affected area",
+          "required": true,
+          "type": "string",
+          "subfields": [],
+          "return_as_list": false,
+          "enum_values": [],
+          "value": "Leaf margins"
+        },
+        {
+          "name": "damage_percentage",
+          "description": "Percentage of damage in this area",
+          "required": true,
+          "type": "number",
+          "subfields": [],
+          "return_as_list": false,
+          "enum_values": [],
+          "value": 30.0
+        },
+        {
+          "name": "symptoms",
+          "description": "Visible symptoms in this area",
+          "required": true,
+          "type": "string",
+          "subfields": [],
+          "return_as_list": false,
+          "enum_values": [],
+          "value": "Brown spots with yellow halos"
+        }
+      ],
+      "return_as_list": true,
+      "enum_values": [],
+      "value": [
+        {
+          "area_name": "Leaf margins",
+          "damage_percentage": 30.0,
+          "symptoms": "Brown spots with yellow halos"
+        }
+      ]
+    }
+  ]
+}
+```
+
+## Error Responses
+
+### Non-Image File Uploaded
+```json
+{
+  "detail": "Unsupported file format: application/pdf. Please upload an image file. Supported formats: image/bmp, image/gif, image/jpeg, image/png, image/svg+xml, image/tiff, image/webp, image/x-eps, image/x-icon, image/x-tga"
+}
+```
+
+### File Size Exceeded
+```json
+{
+  "detail": "File size exceeds 10MB limit"
+}
+```
+
+### Invalid Image Format
+```json
+{
+  "detail": "Unsupported file format: text/plain. Please upload an image file. Supported formats: image/bmp, image/gif, image/jpeg, image/png, image/svg+xml, image/tiff, image/webp, image/x-eps, image/x-icon, image/x-tga"
+}
+```
+
+### Template Not Found
+```json
+{
+  "detail": "Template not found or access denied"
+}
+```
+
+### Insufficient Credits
+```json
+{
+  "detail": "Insufficient credits for extraction"
+}
+```
+
+## Key Benefits
+
+1. **Direct File Upload**: No need to convert files to base64 or upload to external storage first
+2. **Automatic Image Validation**: Validates file format using content inspection, not just file extension
+3. **Automatic Format Conversion**: Supports various image formats and automatically converts them to supported formats
+4. **Same Processing Pipeline**: Uses the same robust extraction logic as the regular extract-values endpoint
+5. **Multipart Form Data**: Standard HTML form upload format for easy integration
+6. **Comprehensive Error Handling**: Clear error messages for validation failures
+
+## Migration from URL-based Extraction
+
+If you're currently using the regular `/agents/extract-values` endpoint with URLs, you can easily migrate to direct file upload:
+
+**Before (URL-based):**
+```javascript
+const response = await fetch('/agents/extract-values', {
+  method: 'POST',
+  headers: {
+    'x-api-key': 'YOUR_API_KEY',
+    'Content-Type': 'application/json'
+  },
+  body: JSON.stringify({
+    template_id: 'your-template-id',
+    image_url: 'https://example.com/plant-image.jpg'
+  })
+});
+```
+
+**After (File upload):**
+```javascript
+const formData = new FormData();
+formData.append('file', fileInput.files[0]);
+formData.append('template_id', 'your-template-id');
+
+const response = await fetch('/agents/extract-values-file', {
+  method: 'POST',
+  headers: {
+    'x-api-key': 'YOUR_API_KEY'
+  },
+  body: formData
+});
+```
+
+This new endpoint provides a more convenient way to process local files without the need for intermediate storage or base64 conversion. 

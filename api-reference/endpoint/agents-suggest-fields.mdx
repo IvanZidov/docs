@@ -1,10 +1,10 @@
 ---
 title: 'Suggest Fields'
 api: 'POST https://api.vizapi.ai/v1/agents/suggest-fields'
-description: 'Analyzes a document or text description and suggests fields for extraction'
+description: 'Analyzes an image or text description and suggests fields for extraction'
 ---
 
-The `/agents/suggest-fields` endpoint analyzes a document and/or text description and suggests appropriate fields for extraction based on the provided content.
+The `/agents/suggest-fields` endpoint analyzes an image and/or text description and suggests appropriate fields for extraction based on the provided content.
 
 ## Request
 
@@ -13,14 +13,14 @@ The `/agents/suggest-fields` endpoint analyzes a document and/or text descriptio
 </ParamField>
 
 <ParamField body="image_url" type="string">
-  The URL of the image or document to analyze. The URL must be publicly accessible.
+  The URL of the image to analyze. The URL must be publicly accessible.
   
   **Supported formats**: PNG, JPEG, GIF, WebP, TIFF, BMP, ICO, SVG, EPS, TGA  
   **Maximum file size**: 10MB
 </ParamField>
 
 <ParamField body="text_description" type="string">
-  A text description of the data you want to extract. For example, "Invoice with invoice number, date, vendor details, line items, and total amount."
+  A text description of the data you want to extract. For example, "Plant disease detection with severity levels and affected area percentage."
 </ParamField>
 
 <ParamField body="with_metadata" type="boolean">
@@ -36,7 +36,7 @@ The `/agents/suggest-fields` endpoint analyzes a document and/or text descriptio
 ## Response
 
 <ResponseField name="template_name" type="string">
-  A suggested name for the template based on the document content.
+  A suggested name for the template based on the image content.
 </ResponseField>
 
 <ResponseField name="template" type="array">
@@ -64,7 +64,7 @@ The `/agents/suggest-fields` endpoint analyzes a document and/or text descriptio
     </ResponseField>
     
     <ResponseField name="return_as_list" type="boolean">
-      Whether the field should be returned as a list. Set to true for fields that contain multiple items (like line items in an invoice).
+      Whether the field should be returned as a list. Set to true for fields that contain multiple items (like multiple objects detected in an image).
     </ResponseField>
     
     <ResponseField name="enum_values" type="array">
@@ -102,7 +102,7 @@ The `/agents/suggest-fields` endpoint analyzes a document and/or text descriptio
     </ResponseField>
     
     <ResponseField name="category" type="string">
-      The category this template belongs to (e.g., 'Document Processing', 'Invoice Analysis', 'Receipt Parsing', etc.).
+      The category this template belongs to (e.g., 'Agriculture', 'Medical Imaging', 'Quality Control', etc.).
     </ResponseField>
     
     <ResponseField name="tags" type="array">
@@ -122,7 +122,7 @@ curl -X POST https://api.vizapi.ai/v1/agents/suggest-fields \
   -H "x-api-key: YOUR_API_KEY" \
   -H "Content-Type: application/json" \
   -d '{
-    "image_url": "https://example.com/invoice.jpg"
+    "image_url": "https://example.com/plant-leaf.jpg"
   }'
 ```
 
@@ -137,7 +137,7 @@ async function suggestFields() {
       'Content-Type': 'application/json'
     },
     body: JSON.stringify({
-      image_url: 'https://example.com/invoice.jpg'
+      image_url: 'https://example.com/plant-leaf.jpg'
     })
   });
   
@@ -157,7 +157,7 @@ headers = {
     "Content-Type": "application/json"
 }
 payload = {
-    "image_url": "https://example.com/invoice.jpg"
+    "image_url": "https://example.com/plant-leaf.jpg"
 }
 
 response = requests.post(url, headers=headers, json=payload)
@@ -176,7 +176,7 @@ curl -X POST https://api.vizapi.ai/v1/agents/suggest-fields \
   -H "x-api-key: YOUR_API_KEY" \
   -H "Content-Type: application/json" \
   -d '{
-    "text_description": "Invoice with invoice number, date, vendor details, line items with quantity and price, and total amount"
+    "text_description": "Plant disease detection with severity levels, affected area percentage, and treatment recommendations"
   }'
 ```
 
@@ -191,7 +191,7 @@ async function suggestFields() {
       'Content-Type': 'application/json'
     },
     body: JSON.stringify({
-      text_description: 'Invoice with invoice number, date, vendor details, line items with quantity and price, and total amount'
+      text_description: 'Plant disease detection with severity levels, affected area percentage, and treatment recommendations'
     })
   });
   
@@ -211,7 +211,7 @@ headers = {
     "Content-Type": "application/json"
 }
 payload = {
-    "text_description": "Invoice with invoice number, date, vendor details, line items with quantity and price, and total amount"
+    "text_description": "Plant disease detection with severity levels, affected area percentage, and treatment recommendations"
 }
 
 response = requests.post(url, headers=headers, json=payload)
@@ -230,8 +230,8 @@ curl -X POST https://api.vizapi.ai/v1/agents/suggest-fields \
   -H "x-api-key: YOUR_API_KEY" \
   -H "Content-Type: application/json" \
   -d '{
-    "image_url": "https://example.com/invoice.jpg",
-    "text_description": "Invoice with invoice number, date, vendor details, line items with quantity and price, and total amount"
+    "image_url": "https://example.com/plant-leaf.jpg",
+    "text_description": "Plant disease detection with severity levels, affected area percentage, and treatment recommendations"
   }'
 ```
 
@@ -246,8 +246,8 @@ async function suggestFields() {
       'Content-Type': 'application/json'
     },
     body: JSON.stringify({
-      image_url: 'https://example.com/invoice.jpg',
-      text_description: 'Invoice with invoice number, date, vendor details, line items with quantity and price, and total amount'
+      image_url: 'https://example.com/plant-leaf.jpg',
+      text_description: 'Plant disease detection with severity levels, affected area percentage, and treatment recommendations'
     })
   });
   
@@ -267,8 +267,8 @@ headers = {
     "Content-Type": "application/json"
 }
 payload = {
-    "image_url": "https://example.com/invoice.jpg",
-    "text_description": "Invoice with invoice number, date, vendor details, line items with quantity and price, and total amount"
+    "image_url": "https://example.com/plant-leaf.jpg",
+    "text_description": "Plant disease detection with severity levels, affected area percentage, and treatment recommendations"
 }
 
 response = requests.post(url, headers=headers, json=payload)
@@ -287,8 +287,8 @@ curl -X POST https://api.vizapi.ai/v1/agents/suggest-fields \
   -H "x-api-key: YOUR_API_KEY" \
   -H "Content-Type: application/json" \
   -d '{
-    "image_url": "https://example.com/invoice.jpg",
-    "text_description": "Invoice with invoice number, date, vendor details, line items with quantity and price, and total amount",
+    "image_url": "https://example.com/plant-leaf.jpg",
+    "text_description": "Plant disease detection with severity levels, affected area percentage, and treatment recommendations",
     "with_metadata": true
   }'
 ```
@@ -304,8 +304,8 @@ async function suggestFieldsWithMetadata() {
       'Content-Type': 'application/json'
     },
     body: JSON.stringify({
-      image_url: 'https://example.com/invoice.jpg',
-      text_description: 'Invoice with invoice number, date, vendor details, line items with quantity and price, and total amount',
+      image_url: 'https://example.com/plant-leaf.jpg',
+      text_description: 'Plant disease detection with severity levels, affected area percentage, and treatment recommendations',
       with_metadata: true
     })
   });
@@ -326,8 +326,8 @@ headers = {
     "Content-Type": "application/json"
 }
 payload = {
-    "image_url": "https://example.com/invoice.jpg",
-    "text_description": "Invoice with invoice number, date, vendor details, line items with quantity and price, and total amount",
+    "image_url": "https://example.com/plant-leaf.jpg",
+    "text_description": "Plant disease detection with severity levels, affected area percentage, and treatment recommendations",
     "with_metadata": True
 }
 
@@ -342,11 +342,11 @@ print(data)
 
 ```json
 {
-  "template_name": "Invoice Template",
+  "template_name": "Plant Disease Detector",
   "template": [
     {
-      "name": "invoice_number",
-      "description": "The invoice identifier",
+      "name": "plant_species",
+      "description": "The species of plant being analyzed",
       "required": true,
       "type": "string",
       "subfields": [],
@@ -355,9 +355,19 @@ print(data)
       "value": null
     },
     {
-      "name": "date",
-      "description": "The invoice date",
+      "name": "disease_detected",
+      "description": "Whether disease is present in the plant",
       "required": true,
+      "type": "boolean",
+      "subfields": [],
+      "return_as_list": false,
+      "enum_values": [],
+      "value": null
+    },
+    {
+      "name": "disease_type",
+      "description": "The type of disease detected",
+      "required": false,
       "type": "string",
       "subfields": [],
       "return_as_list": false,
@@ -365,94 +375,32 @@ print(data)
       "value": null
     },
     {
-      "name": "vendor",
-      "description": "Vendor information",
-      "required": true,
-      "type": "object",
-      "subfields": [
-        {
-          "name": "name",
-          "description": "Vendor name",
-          "required": true,
-          "type": "string",
-          "subfields": [],
-          "return_as_list": false,
-          "enum_values": [],
-          "value": null
-        },
-        {
-          "name": "address",
-          "description": "Vendor address",
-          "required": false,
-          "type": "string",
-          "subfields": [],
-          "return_as_list": false,
-          "enum_values": [],
-          "value": null
-        }
-      ],
+      "name": "severity_level",
+      "description": "The severity level of the detected disease",
+      "required": false,
+      "type": "string",
+      "subfields": [],
       "return_as_list": false,
-      "enum_values": [],
+      "enum_values": ["mild", "moderate", "severe"],
       "value": null
     },
     {
-      "name": "items",
-      "description": "Line items in the invoice",
-      "required": true,
-      "type": "object",
-      "subfields": [
-        {
-          "name": "description",
-          "description": "Item description",
-          "required": true,
-          "type": "string",
-          "subfields": [],
-          "return_as_list": false,
-          "enum_values": [],
-          "value": null
-        },
-        {
-          "name": "quantity",
-          "description": "Item quantity",
-          "required": true,
-          "type": "number",
-          "subfields": [],
-          "return_as_list": false,
-          "enum_values": [],
-          "value": null
-        },
-        {
-          "name": "unit_price",
-          "description": "Price per unit",
-          "required": true,
-          "type": "number",
-          "subfields": [],
-          "return_as_list": false,
-          "enum_values": [],
-          "value": null
-        },
-        {
-          "name": "amount",
-          "description": "Total amount for the item",
-          "required": true,
-          "type": "number",
-          "subfields": [],
-          "return_as_list": false,
-          "enum_values": [],
-          "value": null
-        }
-      ],
-      "return_as_list": true,
-      "enum_values": [],
-      "value": null
-    },
-    {
-      "name": "total",
-      "description": "Total invoice amount",
-      "required": true,
+      "name": "affected_area_percentage",
+      "description": "Percentage of plant area affected by disease",
+      "required": false,
       "type": "number",
       "subfields": [],
       "return_as_list": false,
+      "enum_values": [],
+      "value": null
+    },
+    {
+      "name": "treatment_recommendations",
+      "description": "Recommended treatments for the detected disease",
+      "required": false,
+      "type": "string",
+      "subfields": [],
+      "return_as_list": true,
       "enum_values": [],
       "value": null
     }
@@ -464,11 +412,11 @@ print(data)
 
 ```json
 {
-  "template_name": "Invoice Data Extractor",
+  "template_name": "Plant Disease Analysis System",
   "template": [
     {
-      "name": "invoice_number",
-      "description": "The invoice identifier",
+      "name": "plant_species",
+      "description": "The species of plant being analyzed",
       "required": true,
       "type": "string",
       "subfields": [],
@@ -477,31 +425,31 @@ print(data)
       "value": null
     },
     {
-      "name": "date",
-      "description": "The invoice date",
+      "name": "disease_detected",
+      "description": "Whether disease is present in the plant",
       "required": true,
-      "type": "string",
+      "type": "boolean",
       "subfields": [],
       "return_as_list": false,
       "enum_values": [],
       "value": null
     },
     {
-      "name": "total",
-      "description": "Total invoice amount",
-      "required": true,
-      "type": "number",
+      "name": "severity_level",
+      "description": "The severity level of the detected disease",
+      "required": false,
+      "type": "string",
       "subfields": [],
       "return_as_list": false,
-      "enum_values": [],
+      "enum_values": ["mild", "moderate", "severe"],
       "value": null
     }
   ],
   "metadata": {
-    "title": "Professional Invoice Data Extractor",
-    "description": "Extract comprehensive financial information from invoices including identification numbers, dates, vendor information, line items, and totals for accounting and financial processing.",
-    "category": "Document Processing",
-    "tags": ["invoice", "finance", "accounting", "billing", "business"]
+    "title": "Advanced Plant Disease Analysis System",
+    "description": "Comprehensive plant health assessment including disease detection, severity classification, and treatment recommendations for agricultural and horticultural applications.",
+    "category": "Agriculture",
+    "tags": ["plant-health", "disease-detection", "agriculture", "crop-monitoring", "precision-farming"]
   }
 }
 ```

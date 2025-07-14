@@ -12,11 +12,11 @@ icon: 'wand-magic-sparkles'
 
 ## What Are Templates?
 
-Templates are the brain of VizAPI.ai. They tell our AI exactly what information to extract from your images, turning messy visual content into clean, structured data with precision and consistency.
+Templates are the brain of VizAPI.ai. They tell our AI exactly what information to extract from your images, turning visual content into clean, structured data with precision and consistency.
 
 <CardGroup cols={2}>
   <Card
-    title="Smart Forms"
+    title="Smart Analysis"
     icon="form"
   >
     Define what data you want to extract with AI-powered field suggestions
@@ -25,7 +25,7 @@ Templates are the brain of VizAPI.ai. They tell our AI exactly what information 
     title="Reusable & Versionable"
     icon="recycle"
   >
-    Use the same template for similar documents with full version control
+    Use the same template for similar images with full version control
   </Card>
   <Card
     title="Highly Customizable"
@@ -40,8 +40,6 @@ Templates are the brain of VizAPI.ai. They tell our AI exactly what information 
     Instantly becomes a REST API endpoint with code examples
   </Card>
 </CardGroup>
-
-
 
 ## Creating Custom Templates
 
@@ -85,20 +83,20 @@ Our visual template builder makes creating custom templates intuitive and powerf
   <Step title="Name & Describe">
     Give it a descriptive name and category. Add tags for better organization.
     
-    <Note>Good names: "Invoice Data Extractor", "ID Card Processor", "Receipt Analyzer"</Note>
+    <Note>Good names: "Plant Disease Detector", "Pose Analysis Tracker", "Quality Inspector"</Note>
   </Step>
   <Step title="Define Fields">
     Add extraction fields using our comprehensive field types:
     
           <AccordionGroup>
         <Accordion title="Basic Fields" icon="text">
-          - **String**: Names, descriptions, text content
-          - **Number**: Amounts, quantities, IDs, measurements
-          - **Date**: Timestamps, due dates, creation dates
-          - **Boolean**: Yes/no, true/false, checkboxes
+          - **String**: Labels, descriptions, classifications
+          - **Number**: Measurements, counts, coordinates, scores
+          - **Date**: Timestamps, monitoring dates
+          - **Boolean**: Yes/no, present/absent, pass/fail
         </Accordion>
         <Accordion title="Advanced Fields" icon="layers">
-          - **Enum**: Predefined lists (statuses, categories, types)
+          - **Enum**: Predefined lists (severity levels, categories, types)
           - **Object**: Nested structures with subfields
           - **Image**: AI-generated images based on extracted context (beta)
         </Accordion>
@@ -127,25 +125,25 @@ Each field type has specific capabilities and features:
   <Tabs>
     <Tab title="Basic Fields">
       **String Fields**
-      - Perfect for: Names, labels, descriptions, addresses
+      - Perfect for: Labels, classifications, descriptions, object names
       - Supports lists: Yes
       - Features: Text extraction and processing
       
       **Number Fields**  
-      - Perfect for: Amounts, quantities, IDs, measurements
-      - Features: Currency detection, decimal precision, negative numbers
+      - Perfect for: Measurements, counts, coordinates, scores, percentages
+      - Features: Decimal precision, negative numbers, unit detection
       
       **Date Fields**
-      - Perfect for: Timestamps, due dates, creation dates  
+      - Perfect for: Timestamps, monitoring dates, analysis dates  
       - Supports: Multiple formats, relative dates, international formats
       
       **Boolean Fields**
-      - Perfect for: Yes/no questions, checkboxes, toggles
+      - Perfect for: Present/absent, pass/fail, positive/negative
       - Features: True/false value extraction
     </Tab>
     <Tab title="Advanced Fields">
       **Enum Fields**
-      - Perfect for: Predefined lists (statuses, categories, types)
+      - Perfect for: Predefined lists (severity levels, categories, types)
       - Features: Validation against specific choices
       
       **Object Fields**
@@ -172,12 +170,12 @@ Each field type has specific capabilities and features:
       **Object Subfields**:
       ```json
       {
-        "name": "address",
+        "name": "detection_results",
         "type": "object",
         "subfields": [
-          {"name": "street", "type": "string"},
-          {"name": "city", "type": "string"},
-          {"name": "zip", "type": "string"}
+          {"name": "object_type", "type": "string"},
+          {"name": "confidence", "type": "number"},
+          {"name": "coordinates", "type": "string"}
         ]
       }
       ```
@@ -286,18 +284,15 @@ Templates follow a structured lifecycle to ensure reliable API operations:
 ### Key Metrics to Monitor
 
 <AccordionGroup>
-
-  
   <Accordion title="Success Rate" icon="percentage">
     **Target**: Above 90% for reliable templates
     
     **Optimization Strategies**:
     - Make optional fields truly optional
     - Use conditional logic for edge cases
-    - Test with diverse content samples
+    - Test with diverse image samples
     - Monitor field-specific failure patterns
   </Accordion>
-
   
   <Accordion title="Processing Time" icon="clock">
     **Typical Range**: 1-3 seconds per extraction
@@ -319,7 +314,6 @@ Templates follow a structured lifecycle to ensure reliable API operations:
   >
     **Detailed field descriptions** lead to 20-30% better extraction accuracy
   </Card>
-
   <Card
     title="Quality Images"
     icon="image"
@@ -342,9 +336,9 @@ Extract fields only when certain conditions are met:
 
 ```json
 {
-  "name": "sales_tax",
-  "description": "Sales tax amount, only extract if document appears to be from US",
-  "type": "number",
+  "name": "disease_severity",
+  "description": "Disease severity level, only extract if disease is detected",
+  "type": "string",
   "required": false,
   "conditional": true
 }
@@ -352,12 +346,12 @@ Extract fields only when certain conditions are met:
 
 ### Multi-language Support
 
-Templates can handle documents in different languages:
+Templates can handle images with different languages:
 
 ```json
 {
   "name": "description",
-  "description": "Product description",
+  "description": "Object description",
   "type": "string",
   "target_language": "en"
 }
@@ -374,15 +368,15 @@ Extract multiple instances of the same field:
 
 ```json
 {
-  "name": "line_items",
-  "description": "All line items from the invoice",
+  "name": "detected_objects",
+  "description": "All objects detected in the image",
   "type": "object",
   "return_as_list": true,
   "subfields": [
-    {"name": "description", "type": "string"},
-    {"name": "quantity", "type": "number"},
-    {"name": "unit_price", "type": "number"},
-    {"name": "total", "type": "number"}
+    {"name": "object_type", "type": "string"},
+    {"name": "confidence", "type": "number"},
+    {"name": "bounding_box", "type": "string"},
+    {"name": "size", "type": "number"}
   ]
 }
 ```
@@ -401,14 +395,12 @@ Extract multiple instances of the same field:
     **Example Fix**:
     ```json
     // Before (vague)
-    {"name": "date", "description": "The date"}
+    {"name": "count", "description": "The count"}
     
     // After (specific)
-    {"name": "invoice_date", "description": "The invoice date in MM/DD/YYYY format, typically found in the top-right corner of the document"}
+    {"name": "object_count", "description": "Total number of objects detected in the image, count all visible instances"}
     ```
   </Accordion>
-  
-
   
   <Accordion title="Inconsistent Results" icon="shuffle">
     **Problem**: Same image gives different results across API calls
@@ -422,7 +414,7 @@ Extract multiple instances of the same field:
     ```javascript
     // Always specify version in production
     {
-      "template_id": "invoice-processor",
+      "template_id": "pose-analyzer",
       "version_number": 2,  // Pin to specific version
       "image_url": "..."
     }
@@ -460,7 +452,6 @@ Extract multiple instances of the same field:
   >
     Use diverse, real-world images representing edge cases before publishing
   </Card>
-
   <Card
     title="Version Control"
     icon="git-branch"
@@ -471,7 +462,7 @@ Extract multiple instances of the same field:
 
 ### Template Design Guidelines
 
-1. **Descriptive Names**: Use clear, specific field names (`invoice_total` vs `total`)
+1. **Descriptive Names**: Use clear, specific field names (`object_count` vs `count`)
 2. **Detailed Descriptions**: Include location, format, and context information
 3. **Appropriate Types**: Match field types to expected data formats
 4. **Smart Defaults**: Make fields optional unless absolutely required
