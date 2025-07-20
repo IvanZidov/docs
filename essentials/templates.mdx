@@ -17,7 +17,7 @@ Templates are the brain of VizAPI.ai. They tell our AI exactly what information 
 <CardGroup cols={2}>
   <Card
     title="Smart Analysis"
-    icon="form"
+    icon="file"
   >
     Define what data you want to extract with AI-powered field suggestions
   </Card>
@@ -56,7 +56,7 @@ Our visual template builder makes creating custom templates intuitive and powerf
   </Card>
   <Card
     title="AI Suggestions"
-    icon="magic-wand"
+    icon="sparkles"
   >
     Smart field recommendations based on your content
   </Card>
@@ -68,7 +68,7 @@ Our visual template builder makes creating custom templates intuitive and powerf
   </Card>
   <Card
     title="Version Control"
-    icon="git-branch"
+    icon="code-branch"
   >
     Safe testing and deployment with rollback capabilities
   </Card>
@@ -95,7 +95,7 @@ Our visual template builder makes creating custom templates intuitive and powerf
           - **Date**: Timestamps, monitoring dates
           - **Boolean**: Yes/no, present/absent, pass/fail
         </Accordion>
-        <Accordion title="Advanced Fields" icon="layers">
+        <Accordion title="Advanced Fields" icon="list">
           - **Enum**: Predefined lists (severity levels, categories, types)
           - **Object**: Nested structures with subfields
           - **Image**: AI-generated images based on extracted context (beta)
@@ -193,7 +193,7 @@ Templates follow a structured lifecycle to ensure reliable API operations:
 <CardGroup cols={3}>
   <Card
     title="Draft"
-    icon="edit"
+    icon="pencil"
   >
     **Editable**: Freely modify fields, descriptions, and settings
     **Testing**: Upload images to test extraction quality
@@ -201,7 +201,7 @@ Templates follow a structured lifecycle to ensure reliable API operations:
   </Card>
   <Card
     title="Published"
-    icon="check-circle"
+    icon="check"
   >
     **Immutable**: Cannot be modified directly
     **Live**: Available for API extractions
@@ -209,7 +209,7 @@ Templates follow a structured lifecycle to ensure reliable API operations:
   </Card>
   <Card
     title="Archived"
-    icon="archive"
+    icon="folder"
   >
     **Preserved**: Maintains history but not actively used
     **Reference**: Available for rollback if needed
@@ -220,7 +220,7 @@ Templates follow a structured lifecycle to ensure reliable API operations:
 ### Versioning Behavior
 
 <AccordionGroup>
-  <Accordion title="Automatic Draft Creation" icon="magic-wand">
+  <Accordion title="Automatic Draft Creation" icon="sparkles">
     **Smart Versioning**: When you edit a published template, the system automatically creates a new draft version
     
     **Benefits**:
@@ -235,7 +235,7 @@ Templates follow a structured lifecycle to ensure reliable API operations:
     4. Test thoroughly before publishing
   </Accordion>
   
-  <Accordion title="Version Control" icon="git-branch">
+  <Accordion title="Version Control" icon="code-branch">
     **Version Numbers**: Semantic versioning (1.0, 1.1, 2.0)
     
     **Publishing Flow**:
@@ -284,7 +284,7 @@ Templates follow a structured lifecycle to ensure reliable API operations:
 ### Key Metrics to Monitor
 
 <AccordionGroup>
-  <Accordion title="Success Rate" icon="percentage">
+  <Accordion title="Success Rate" icon="chart-bar">
     **Target**: Above `90%` for reliable templates
     
     **Optimization Strategies**:
@@ -310,7 +310,7 @@ Templates follow a structured lifecycle to ensure reliable API operations:
 <CardGroup cols={2}>
   <Card
     title="Better Descriptions"
-    icon="edit"
+    icon="pencil"
   >
     **Detailed field descriptions** lead to `20-30%` better extraction accuracy
   </Card>
@@ -322,7 +322,7 @@ Templates follow a structured lifecycle to ensure reliable API operations:
   </Card>
   <Card
     title="Field Optimization"
-    icon="target"
+    icon="gear"
   >
     **Use appropriate field types** that match your data requirements
   </Card>
@@ -421,7 +421,7 @@ Extract multiple instances of the same field:
     ```
   </Accordion>
   
-  <Accordion title="Version Management Issues" icon="git-branch">
+  <Accordion title="Version Management Issues" icon="code-branch">
     **Problem**: Confusion about draft vs published versions
     
     **Understanding the System**:
@@ -454,7 +454,7 @@ Extract multiple instances of the same field:
   </Card>
   <Card
     title="Version Control"
-    icon="git-branch"
+    icon="code-branch"
   >
     Always test new versions thoroughly and pin versions in production
   </Card>
